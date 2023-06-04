@@ -1,0 +1,541 @@
+<html>
+
+    <head>
+
+        <!-- BIBLIOTECA PADRÕES DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-treeview.min.css">
+        <script src="/style-guide/js/fluig-style-guide-treeview.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+        <!-- BIBLIOTECAS SWEET ALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    </head>
+    
+    <body>
+
+        <!-- INÍCIO DA CUSTOMIZAÇÃO DO STYLE GUIDE -->
+        <div class="fluig-style-guide">
+
+            <!-- TAG PARA CRIAR O FORMULÁRIO -->
+            <form name="form" role="form">
+
+				<!-- TAG PARA DELIMITAR O PAINEL DO FORMULÁRIO -->
+                <div class="form-group col-md-12">
+
+					<!-- TAG PARA CENTRALIZAR O FORMULÁRIO -->
+                    <div class="container col-md-12">
+					
+						<!-- INÍCIO DO CONTEÚDO DO PAINEL -->
+						<div class="panel panel-default" id="PANEL1">
+
+							<!-- CORPO DO FORMULÁRIO -->
+							<div class="panel-body">
+
+								<div class="text-center">
+									<span class="titulo text-center TITULO"><h4><strong>P R E E N C H I M E N T O &nbsp;&nbsp; D E &nbsp;&nbsp; A V A N Ç O &nbsp;&nbsp; D E &nbsp;&nbsp; A T I V I D A D E S &nbsp;&nbsp;</strong></h4></span>
+								</div>
+
+								<div class="row expansor1 form-group col-md-12">
+									<label class="infoVermelho">
+										<span id="ICONEXPANDIR" name="ICONEXPANDIR" onclick="expandir();" style="margin-left: 4px;">
+											<i class="fluigicon fluigicon-plus-circle icon-sm"></i>
+										</span>
+
+										<span id="ICONREDUZIR" name="ICONREDUZIR" onclick="reduzir();" style="margin-left: 4px; display: auto;">	
+											<i class="fluigicon fluigicon-minus-circle icon-sm"></i>
+										</span>
+										<strong>&nbsp;Filtros</strong>
+									</label>
+								</div>
+
+								<div class="row filtros pb-30">
+										
+									<div class="form-group col-md-12">
+
+										<div class="form-group col-md-2">
+											<label class="info">Filial *</label>
+											<input type="zoom" class="form-control formatacaoCRM" id="FILIAL" name="FILIAL"
+												data-zoom="{
+													'displayKey':'CODFILIAL',
+													'datasetId':'dsFilial',
+													'fields':[
+														{
+															'field':'FILIAL',
+															'label':'Cód. - Nome',
+															'standard':'true',
+															'search':'true'
+														}   
+													]
+												}"
+											>
+											<input type="hidden" id="CODFILIAL_FILTRO" name="CODFILIAL_FILTRO">
+										</div>
+
+										<div class="form-group col-md-2">
+											<label class="info">Célula</label>
+											<input type="zoom" class="form-control formatacaoCRM" id="CELULA" name="CELULA"
+												data-zoom="{
+													'displayKey':'CELULA',
+													'datasetId':'dsCelula',
+													'fields':[
+														{
+															'field':'CELULA',
+															'label':'Cód. - Descrição',
+															'standard':'true',
+															'search':'true'
+														}   
+													]
+												}"
+											>
+											<input type="hidden" id="CODCELULA" name="CODCELULA">
+										</div>
+
+										<div class="form-group col-md-4">
+											<label class="info">OS</label>
+											<input type="zoom" class="form-control formatacaoCRM" id="PROJETO" name="PROJETO"
+												data-zoom="{
+													'displayKey':'CODPRJ',
+													'datasetId':'dsOSEstrutura',
+													'fields':[
+														{
+															'field':'OS',
+															'label':'Cód. - Descrição',
+															'standard':'true',
+															'search':'true'
+														}   
+													]
+												}"
+											>
+											<input type="hidden" id="CODPRJ" name="CODPRJ">
+											<input type="hidden" id="DESCRICAOPRJ" name="DESCRICAOPRJ">
+											<input type="hidden" id="IDPRJ" name="IDPRJ">
+										</div>
+
+										<div class="form-group col-md-4">
+											<label id="LABELOP" name="LABELOP" class="info">OP</label>
+											<input type="zoom" class="form-control formatacaoCRM" id="ORDEMPRODUCAO" name="ORDEMPRODUCAO"
+												data-zoom="{
+													'displayKey':'CODORDEM',
+													'datasetId':'dsOrdemProducaoOS',
+													'maximumSelectionLength':'10',
+													'fields':[
+														{
+															'field':'CODORDEM',
+															'label':'Cod. Ordem',
+															'standard':'true',
+															'search':'true'
+														}   
+													]
+												}"
+											>
+											<input type="hidden" id="CODORDEM" name="CODORDEM">
+											<input type="hidden" id="INDICE_PRD" name="INDICE_PRD">
+											<input type="hidden" id="NIVEL_PRD" name="NIVEL_PRD">
+										</div>
+									
+									</div>	
+									
+									<div class="form-group col-md-12">
+										
+										<div class="form-group col-md-6">
+
+											<legend>Janela da Programação</legend>
+											
+											<fieldset>
+		
+												<div class="form-group col-md-4">
+													<label class="info" for="only-date">De *</label>
+													<div class="input-group date" id="PERIODO1">
+														<input type="text" class="form-control" id="DATA_DE" name="DATA_DE" onblur="habilitaDataAte();" onclick="limpaDataAte()" mask="99/99/9999"/>
+														<span class="input-group-addon" id="SPANDE" name="SPANDE">
+															<span class="fluigicon fluigicon-calendar"></span>
+														</span>
+													</div>
+												</div>
+												<div class="form-group col-md-4">
+													<label class="info" for="only-date">Até *</label>
+													<div class="input-group date" id="PERIODO2">
+														<input type="text" class="form-control" id="ATE" name="ATE" onchange="limpaDataAte()" mask="99/99/9999"/>
+														<span class="input-group-addon" id="SPANATE" name="SPANATE">
+															<span class="fluigicon fluigicon-calendar"></span>
+														</span>
+													</div>
+												</div> 
+												<div class="form-group col-md-4" style="margin-top: 3% !important;">
+
+													<button type="button" class="btn btn-primary" onclick="buscatabela()" id="pesquisar" name="pesquisar">Buscar</button>				
+																	
+												</div>   
+		
+											</fieldset>
+
+										</div>
+
+									</div>
+																	
+								</div>
+
+								<div class="form-group col-md-12" style="margin-top: 4% !important;">
+
+									<div class="text-center tituloTabela titulo pb-15">
+										<h4><strong>Atividades</strong></h4>
+									</div>
+
+									<div class="table-responsive ScrollWrapper scrollPrincipal CABECALHO_PLAN">
+
+										<div style="width:100%">
+
+											<table tablename="CABECALHO_PLAN" class="table table-bordered table-layout-fixed MATERIAIS_INFO" border="0" nodeletebutton="true" noaddbutton="true">
+											
+												<thead>
+										
+													<tr>
+														<th style="width:6%;white-space: normal" class="form-group top"><label class="info"><strong>OS</strong></label></th>
+														<th style="width:5%;white-space: normal" class="form-group top"><label class="info"><strong>OP</strong></label></th>
+														<th style="width:4%;white-space: normal" class="form-group top"><label class="info"><strong>TAG</strong></label></th>
+														<th style="width:10%;white-space: normal" class="form-group top"><label class="info"><strong>Item</strong></label></th>
+														<th style="width:6%;white-space: normal" class="form-group top"><label class="info"><strong>Atividade</strong></label></th>
+														<th style="width:4%;white-space: normal" class="form-group top"><label class="info"><strong>Prioridade</strong></label></th>
+														<th style="width:3%;white-space: normal" class="form-group top"><label class="info"><strong>ID</strong></label></th>
+														<th style="width:3%;white-space: normal" class="form-group top"><label class="info"><strong>Previsto</strong></label></th>
+														<th style="width:6%;white-space: normal" class="form-group top"><label class="info"><a><span id="SPANAVANCOATVTITULO" class="processo" onclick="carregaAvanco(this)" title="Clique aqui para alterar o avanço" onmouseover="mouse(this);"><strong>Alterar Avanço</strong></span></a></label></th>
+														<th style="width:3%;white-space: normal" class="form-group top"><label class="info"><strong>Programações</strong></label></th>
+													</tr>
+												
+												</thead>
+
+												<tbody>
+
+													<tr>
+										
+														<td>
+															<select class="form-control" id="INFOOS" name="INFOOS" onchange="reconstroiFiltros()">
+																<option class="info" value=""></option>
+															</select>
+														</td>
+
+														<td>
+															<select class="form-control" id="INFOOP" name="INFOOP" onchange="reconstroiFiltros()">
+																<option class="info" value=""></option>
+															</select>
+														</td>
+
+														<td>
+															<select class="form-control" id="INFOTAG" name="INFOTAG" onchange="reconstroiFiltros()">
+																<option class="info" value=""></option>
+															</select>
+														</td>
+
+														<td>
+															<select class="form-control" id="INFOITEM" name="INFOITEM" onchange="reconstroiFiltros()">
+																<option class="info" value=""></option>
+															</select>
+														</td>
+
+														<td>
+															<select class="form-control" id="INFOATIVIDADE" name="INFOATIVIDADE" onchange="reconstroiFiltros()">
+																<option class="info" value=""></option>
+															</select>
+														</td>
+
+														<td>
+															<select class="form-control" id="INFOPRIORIDADE" name="INFOPRIORIDADE" onchange="reconstroiFiltros()">
+																<option class="info" value=""></option>
+															</select>
+														</td>
+
+														<td>
+															<select class="form-control" id="INFOIDATV" name="INFOIDATV" onchange="reconstroiFiltros()">
+																<option class="info" value=""></option>
+															</select>
+														</td>
+
+														<td>
+															<select class="form-control" id="INFOPREV" name="INFOPREV" onchange="reconstroiFiltros()">
+																<option class="info" value=""></option>
+															</select>
+														</td>
+
+														<td>
+															<select class="form-control" id="INFOAVANCO" name="INFOAVANCO" onchange="reconstroiFiltros()">
+																<option class="info" value=""></option>
+															</select>
+														</td>
+
+														<td>
+														</td>
+
+													</tr>
+
+												</tbody>
+
+											</table>
+										
+										</div>
+									</div>
+
+									<!-- MODAL PARA A ALTERAÇÃO DO AVANÇO -->
+									<div id="AVANCOBLANK" class="modal">
+
+										<div class="form-group col-md-3"></div>
+
+										<div class="form-group col-md-6 ALTERARAVANCO fundoModal" style="margin-bottom: 20px !important;">
+
+											<div>
+												<a href="#fechar" id="fechar" onclick="limpaAvanco()" title="Fechar" class="fechar"><strong>X</strong></a>
+											</div>
+
+											<div class="text-center tituloTabela titulo">
+												<h4><strong>Atualizar avanço da atividade da OP</strong></h4>
+											</div>
+
+											<div class="row form-group col-md-12">
+												
+												<!-- <div class="form-group col-md-6">
+													<label class="info">Avanço atual</label>
+													<input type="text" class="form-control" id="AVANCOATUAL" name="AVANCOATUAL" readonly>
+													<input type="hidden" class="form-control" id="SEQAVANCO" name="SEQAVANCO" readonly>
+												</div> -->
+												
+												<div class="form-group col-md-2"></div>
+
+												<div class="form-group col-md-6">
+													<label class="info">Novo Avanço (%)</label>
+													<!--input type="number" min="0" max="100" onchange="verificaAvanco(this)" class="form-control" id="NOVOAVANCO" name="NOVOAVANCO"-->
+													<select class="form-control" id="NOVOAVANCO" name="NOVOAVANCO">
+														<option value="100">100%</option>
+														<option value="90">90%</option>
+														<option value="80">80%</option>
+														<option value="70">70%</option>
+														<option value="60">60%</option>
+														<option value="50">50%</option>
+														<option value="40">40%</option>
+														<option value="30">30%</option>
+														<option value="20">20%</option>
+														<option value="10">10%</option>
+														<option value="0">0%</option>
+													</select>
+												</div>
+
+												<div class="form-group col-md-2">
+
+													<button type="button" class="btn btn-primary mt-25" onclick="atualizaAvanco();" id="ATUALIZAAVANCO" name="ATUALIZAAVANCO">Confirmar</button>
+
+												</div>
+
+											</div>
+
+											<!-- <div class="row form-group col-md-12">
+												
+												<div class="form-group col-md-2">
+
+													<button type="button" class="btn btn-primary mt-25" onclick="atualizaAvanco();" id="ATUALIZAAVANCO" name="ATUALIZAAVANCO">Confirmar</button>
+
+												</div>
+
+											</div> -->
+											
+										</div>
+
+										<div class="form-group col-md-3"></div>
+
+									</div>
+
+									<!-- MODAL PARA A TABELA DE RECURSOS ALOCADOS PARA A ATIVIDADE  -->
+									<div id="RECALOCADOATVBLANK" class="modal">
+
+										<div class="form-group col-md-1"></div>
+
+										<div class="form-group col-md-10 RECALOCADOATV fundoModal" style="margin-bottom: 20px !important;width: 50% !important;margin-left:15% !important ;">
+
+											<div>
+												<a href="#fechar" id="fechar" onclick="limpaRecAlocAtv()" title="Fechar" class="fechar"><strong>X</strong></a>
+											</div>
+
+											<div class="text-center tituloTabela titulo">
+												<h4><strong> Programações </strong></h4>
+											</div>
+											
+											<div class="table-responsive ScrollWrapper">
+
+												<div style="width:100%">
+
+													<table id="SOMA_RECALOCADOATV" tablename="SOMA_RECALOCADOATV" class="table table-sm table-bordered table-layout-fixed SOMA_RECALOCADOATV" border="0" nodeletebutton="true" noaddbutton="true">
+				
+														<thead>
+				
+															<tr>
+				
+																<th style="width:10%;white-space: normal" class="form-group"><label class="info"><strong>Data Programada</strong></label></th>
+																<th style="width:10%;white-space: normal" class="form-group"><label class="info"><strong>Matrícula</strong></label></th>
+																<th style="width:20%;white-space: normal" class="form-group"><label class="info"><strong>Nome</strong></label></th>
+																<th style="width:10%;white-space: normal" class="form-group"><label class="info"><strong>Total Programado</strong></label></th>
+																<th style="width:10%;white-space: normal" class="form-group"><label class="info"><strong>Total Apontado</strong></label></th>
+
+															</tr>
+				
+														</thead>
+				
+														<tbody>
+				
+															<tr class="LINHASOMARECALOCADOATV" id="LINHASOMARECALOCADOATV" name="LINHASOMARECALOCADOATV" onmouseover="sobreLinhaTabela(this)" onmouseout="foraLinhaTabela(this)">
+				
+																
+																<td>
+																	<input type="text" class="form-control size_20" id="DATAPROGRAMACAOALOC" name="DATAPROGRAMACAOALOC" readonly title="" onmouseover="mouse(this);">
+																</td>
+
+																<td>
+																	<input type="text" class="form-control size_20" id="CODMOALOC" name="CODMOALOC" readonly title="" onmouseover="mouse(this);">
+																</td>
+
+																<td>
+																	<input type="text" class="form-control size_20" id="NOMEALOC" name="NOMEALOC" readonly title="" onmouseover="mouse(this);">
+																</td>
+
+																<td>
+																	<input type="text" class="form-control size_20" id="PROGRAMADOALOC" name="PROGRAMADOALOC" readonly title="" onmouseover="mouse(this);">
+																</td>
+
+																<td>
+																	<input type="text" class="form-control size_20" id="APONTADOALOC" name="APONTADOALOC" readonly title="" onmouseover="mouse(this);">
+																</td>
+
+															</tr>
+				
+														</tbody>
+				
+													</table>
+
+												</div>
+
+											</div>
+										
+										</div>
+									
+									</div>
+
+
+									<div class="table-responsive ScrollWrapper scrollPrincipal TABELAATV">
+					
+										<div style="width:100%">
+																										
+											<table id="ATIVIDADES" tablename="ATIVIDADES" class="table table-sm table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+										
+												<thead>
+										
+													<tr class="cabecalho1">
+														<th style="width:6%;white-space: normal" class="form-group top"><label class="info"><strong>OS</strong></label></th>
+														<th style="width:5%;white-space: normal" class="form-group top"><label class="info"><strong>OP</strong></label></th>
+														<th style="width:4%;white-space: normal" class="form-group top"><label class="info"><strong>TAG</strong></label></th>
+														<th style="width:10%;white-space: normal" class="form-group top"><label class="info"><strong>Item</strong></label></th>
+														<th style="width:6%;white-space: normal" class="form-group top"><label class="info"><strong>Atividade</strong></label></th>
+														<th style="width:4%;white-space: normal" class="form-group top"><label class="info"><strong>Prioridade</strong></label></th>
+														<th style="width:3%;white-space: normal" class="form-group top"><label class="info"><strong>ID</strong></label></th>
+														<th style="width:3%;white-space: normal" class="form-group top"><label class="info"><strong>Previsto</strong></label></th>
+														<th style="width:6%;white-space: normal" class="form-group top"><label class="info"><strong>Avanço</strong></label></th>
+														<th style="width:3%;white-space: normal" class="form-group top"><label class="info"><strong>Programações</strong></label></th>
+													</tr>
+												
+												</thead>
+												<tbody>
+
+													<tr class="LINHAPLAN" onmouseover="sobreLinhaTabela(this)" onmouseout="foraLinhaTabela(this)" id="LINHAPLAN" name="LINHAPLAN">
+													
+														<td>
+															<input type="text" class="form-control size_20" id="OS" name="OS" readonly title="" onmouseover="mouse(this);">
+														</td>
+
+														<td>
+															<input type="text" class="form-control size_20" id="CODORDEMATV" name="CODORDEMATV" readonly title="" onmouseover="mouse(this);">
+															<input type="hidden" id="CODESTRUTURA" name="CODESTRUTURA">
+															<input type="hidden" id="OP_STATUS" name="OP_STATUS">
+														</td>
+
+														<td>
+															<input type="text" class="form-control size_20" id="TAG" name="TAG" readonly title="" onmouseover="mouse(this);">
+														</td>
+
+														<td>
+															<input type="text" class="form-control size_20" id="DESCITEM" name="DESCITEM" readonly title="" onmouseover="mouse(this);">
+														</td>
+														
+														<td>
+															<input type="text" class="form-control size_20" id="DESCATV" name="DESCATV" readonly title="" onmouseover="mouse(this);">
+															<input type="hidden" id="CODATIVIDADE" name="CODATIVIDADE">
+															<input type="hidden" id="CODCOLIGADA" name="CODCOLIGADA">
+															<input type="hidden" id="CELULAATV" name="CELULAATV">
+															<input type="hidden" id="PLANODECORTE" name="PLANODECORTE">
+
+														</td>
+
+														<td>
+															<input type="text" class="form-control size_20" id="PRIORIDADE" name="PRIORIDADE" readonly title="" onmouseover="mouse(this);">
+														</td>
+
+														<td>
+															<input type="text" class="form-control size_20" id="IDATVORDEM" name="IDATVORDEM" readonly title="" onmouseover="mouse(this);">
+															<input type="hidden" id="ATV_STATUS" name="ATV_STATUS">
+															<input type="hidden" id="ULTIMAATVOP" name="ULTIMAATVOP">
+														</td>
+
+														<td>
+															<input type="text" class="form-control size_20" id="PREVISTO" name="PREVISTO" readonly title="" onmouseover="mouse(this);">
+														</td>
+
+														<td style="cursor:pointer;" onclick="colocaSelecaoAvanco(this)">
+															<!--span id="SPANAVANCOATV" class="processo" title="" onmouseover="mouse(this);"></span-->
+															<div class="progress">
+																<div class="progress-bar progress-bar-striped active progress-bar-success" role="progressbar" id="SPANAVANCOATV" aria-valuemin="0" aria-valuemax="100">
+																</div>
+															</div>
+															<input type="hidden" id="AVANCO" name="AVANCO" >
+														</td>
+
+														<td>
+															<a href="#RECALOCADOATVBLANK"><span class="recAlocAtv" id="RECALOCADOATV" name="RECALOCADOATV" onclick="carregaRecAlocadoAtv(this)"><i class="fluigicon fluigicon-info-sign icon-sm"></i></span></a>
+														</td>
+
+													</tr>
+
+												</tbody>
+											
+											</table>
+										
+										</div>
+									
+									</div>
+
+								</div>
+							
+							</div>
+						
+						</div>
+					
+					</div>
+
+				</div>
+
+			</form>
+		
+		</div>
+
+	</body>
+
+	<script type="text/javascript" src="documentReady.js"></script>
+    <script type="text/javascript" src="beforeSendValidate.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="selectZoom.js"></script>
+
+</html>

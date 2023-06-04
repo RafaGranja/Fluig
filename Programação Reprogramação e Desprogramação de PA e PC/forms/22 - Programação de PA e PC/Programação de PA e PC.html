@@ -1,0 +1,1321 @@
+<html>
+
+    <head>
+
+        <!-- BIBLIOTECA PADRÕES DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-treeview.min.css">
+        <script src="/style-guide/js/fluig-style-guide-treeview.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+        <!-- <script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.min.js"></script> -->
+
+        <!-- BIBLIOTECAS SWEET ALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    </head>
+    
+    <body>
+
+        <!-- INÍCIO DA CUSTOMIZAÇÃO DO STYLE GUIDE -->
+        <div class="fluig-style-guide">
+
+            <!-- TAG PARA CRIAR O FORMULÁRIO -->
+            <form name="form" role="form">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES DAS SOLICITAÇÕES DO PROCESSO -->
+                <input id="ATIVIDADE" name="ATIVIDADE" type="hidden">
+                <input id="NUMPROCESSO" name="NUMPROCESSO" type="hidden">
+                <input id="SOLICITANTE" name="SOLICITANTE" type="hidden">
+                <input id="USUARIOATUAL" name="USUARIOATUAL" type="hidden">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES OCULTOS DOS EXCLUSIVOS DO WORKFLOW -->
+                <input id="EXCLUSIVO1" name="EXCLUSIVO1" type="hidden">
+                <input id="DATADE_PROG" name="DATADE_PROG" type="hidden">
+                <input id="DATAATE_PROG" name="DATAATE_PROG" type="hidden">
+                <input id="DATADE_DESP" name="DATADE_DESP" type="hidden">
+                <input id="DATAATE_DESP" name="DATAATE_DESP" type="hidden">
+                <input id="SEQATUAL" name="SEQATUAL" type="hidden">
+                <input id="SALDOCALC" name="SALDOCALC" type="hidden">
+
+                <!-- TAG PARA DELIMITAR O PAINEL DO FORMULÁRIO -->
+                <div class="form-group col-md-12">
+
+                    <!-- TAG PARA CENTRALIZAR O FORMULÁRIO -->
+                    <div class="container col-md-12">
+
+                        <!-- INÍCIO DO CONTEÚDO DO PAINEL -->
+                        <div class="panel panel-default" id="PANEL1">
+
+                            <!-- CORPO DO FORMULÁRIO -->
+                            <div class="panel-body">
+
+                                <div class="text-center">
+                                    <span class="titulo text-center TITULO"><h4><strong>P R O G R A M A Ç Ã O,&nbsp;&nbsp; R E P R O G R A M A Ç Ã O &nbsp;&nbsp;E &nbsp;&nbsp; D E S P R O G R A M A Ç Ã O &nbsp;&nbsp; D E &nbsp;&nbsp; PA &nbsp;&nbsp;E&nbsp;&nbsp; PC</strong></h4></span>
+                                </div>
+
+                                <div class="row expansor1 form-group col-md-12">
+                                    <label class="infoVermelho">
+                                        <span id="ICONEXPANDIR" name="ICONEXPANDIR" onclick="expandir(this);" style="margin-left: 4px;">
+                                            <i class="fluigicon fluigicon-plus-circle icon-sm"></i>
+                                        </span>
+    
+                                        <span id="ICONREDUZIR" name="ICONREDUZIR" onclick="reduzir(this);" style="margin-left: 4px; display: auto;">	
+                                            <i class="fluigicon fluigicon-minus-circle icon-sm"></i>
+                                        </span>
+                                        <strong>&nbsp;Filtros</strong>
+                                    </label>
+                                </div>
+
+                                <div class="row expansor2 form-group col-md-12">
+                                    <label class="infoVermelho">
+                                        <span id="ICONEXPANDIR2" name="ICONEXPANDIR2" onclick="expandir2(this);" style="margin-left: 4px;">
+                                            <i class="fluigicon fluigicon-plus-circle icon-sm"></i>
+                                        </span>
+    
+                                        <span id="ICONREDUZIR2" name="ICONREDUZIR2" onclick="reduzir2(this);" style="margin-left: 4px; display: auto;">	
+                                            <i class="fluigicon fluigicon-minus-circle icon-sm"></i>
+                                        </span>
+                                        <strong>&nbsp;Filtros</strong>
+                                    </label>
+                                </div>
+
+                                <div class="row expansor3 form-group col-md-12">
+                                    <label class="infoVermelho">
+                                        <span id="ICONEXPANDIR3" name="ICONEXPANDIR3" onclick="expandir3(this);" style="margin-left: 4px;">
+                                            <i class="fluigicon fluigicon-plus-circle icon-sm"></i>
+                                        </span>
+    
+                                        <span id="ICONREDUZIR3" name="ICONREDUZIR3" onclick="reduzir3(this);" style="margin-left: 4px; display: auto;">	
+                                            <i class="fluigicon fluigicon-minus-circle icon-sm"></i>
+                                        </span>
+                                        <strong>&nbsp;Filtros</strong>
+                                    </label>
+                                </div>
+                               
+                                <div class="row filtros pb-30">
+                                    
+                                    <div class="form-group col-md-12 pb-15">
+
+                                        <div class="form-group col-md-7">
+        
+                                            <legend>Dados Gerais</legend>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="info">OS</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="PROJETO" name="PROJETO"
+                                                    data-zoom="{
+                                                        'displayKey':'CODPRJ',
+                                                        'datasetId':'dsOSEstrutura',
+                                                        'fields':[
+                                                            {
+                                                                'field':'OS',
+                                                                'label':'Cód. - Descrição',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }   
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="CODPRJ" name="CODPRJ">
+                                                <input type="hidden" id="DESCRICAOPRJ" name="DESCRICAOPRJ">
+                                                <input type="hidden" id="IDPRJ" name="IDPRJ">
+                                                <input type="hidden" id="CODCOLIGADA" name="CODCOLIGADA">
+                                                <input type="hidden" id="CODFILIAL" name="CODFILIAL">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="info">Plano de Corte *</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="PLANOCORTE" name="PLANOCORTE"
+                                                    data-zoom="{
+                                                        'displayKey':'NUMPLANOCORTE',
+                                                        'datasetId':'dsPlanoCorteProjetoOS',
+                                                        'fields':[                                                            
+                                                            {
+                                                                'field':'NUMPLANOCORTE',
+                                                                'label':'N° Plano de Corte',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="NUMPLANOCORTEREAL" name="NUMPLANOCORTEREAL">
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="form-group col-md-4">
+        
+                                            <legend>Janela de Programação</legend>
+                                            
+                                            <fieldset>
+        
+                                                <div class="form-group col-md-6">
+                                                    <label class="info" for="only-date">De *</label>
+                                                    <div class="input-group date" id="PERIODO1">
+                                                        <input type="text" class="form-control" id="DATA_DE" name="DATA_DE" onblur="habilitaDataAte();" onclick="limpaDataAte()" mask="99/99/9999"/>
+                                                        <span class="input-group-addon" id="SPANDE" name="SPANDE">
+                                                            <span class="fluigicon fluigicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <!-- onchange="limpaDataAte(this)" -->
+                                                <div class="form-group col-md-6">
+                                                    <label class="info" for="only-date">Até *</label>
+                                                    <div class="input-group date" id="PERIODO2">
+                                                        <input type="text" class="form-control" id="ATE" name="ATE" onchange="limpaDataAte()" readonly>
+                                                        <span class="input-group-addon" id="SPANATE" name="SPANATE">
+                                                            <span class="fluigicon fluigicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>    
+        
+                                            </fieldset>
+                                            
+                                        </div>
+
+                                        <div class="form-group col-md-1 pt-22 BUSCARPLAN">
+                                            <button type="button" class="btn btn-primary mt-35" onclick="buscarProgramacao();" id="BUSCARPLAN" name="BUSCARPLAN">Buscar</button>
+                                        </div>    
+
+                                    </div>
+    
+                                    <div class="row form-group col-md-12">
+                                        
+                                        <div class="form-group col-md-12">
+
+                                            <span><strong>(*) Campos de preenchimento obrigatório</strong></span>
+
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="row filtrosDesp pb-30">
+                                    
+                                    <div class="form-group col-md-12 pb-15">
+
+                                        <div class="form-group col-md-7">
+        
+                                            <legend>Dados Gerais</legend>
+
+                                            <!-- <div class="form-group col-md-4">
+                                                <label class="info">Filial *</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="FILIAL" name="FILIAL"
+                                                    data-zoom="{
+                                                        'displayKey':'CODFILIAL',
+                                                        'datasetId':'dsFilial',
+                                                        'fields':[
+                                                            {
+                                                                'field':'FILIAL',
+                                                                'label':'Cód. - Nome',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }   
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="CODFILIAL_FILTRO" name="CODFILIAL_FILTRO">
+                                            </div> -->
+
+                                            <div class="form-group col-md-6">
+                                                <label class="info">OS</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="PROJETODESP" name="PROJETODESP"
+                                                    data-zoom="{
+                                                        'displayKey':'CODPRJ',
+                                                        'datasetId':'dsOSEstrutura',
+                                                        'fields':[
+                                                            {
+                                                                'field':'OS',
+                                                                'label':'Cód. - Descrição',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }   
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="CODPRJDESP" name="CODPRJDESP">
+                                                <input type="hidden" id="DESCRICAOPRJDESP" name="DESCRICAOPRJDESP">
+                                                <input type="hidden" id="IDPRJDESP" name="IDPRJDESP">
+                                                <input type="hidden" id="CODCOLIGADADESP" name="CODCOLIGADADESP">
+                                                <input type="hidden" id="CODFILIALDESP" name="CODFILIALDESP">
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                <label class="info">Plano de Corte *</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="PLANOCORTEDESP" name="PLANOCORTEDESP"
+                                                    data-zoom="{
+                                                        'displayKey':'NUMPLANOCORTE',
+                                                        'datasetId':'dsPlanoCorteProjetoOS',
+                                                        'fields':[                                                            
+                                                            {
+                                                                'field':'NUMPLANOCORTE',
+                                                                'label':'N° Plano de Corte',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="NUMPLANOCORTEREALDESP" name="NUMPLANOCORTEREALDESP">
+                                            </div>
+
+                                        </div>
+                                        
+                                        <div class="form-group col-md-4">
+        
+                                            <legend>Janela de Programação</legend>
+                                            
+                                            <fieldset>
+        
+                                                <div class="form-group col-md-6">
+                                                    <label class="info" for="only-date">De *</label>
+                                                    <div class="input-group date" id="PERIODO1DESP">
+                                                        <input type="text" class="form-control" id="DATA_DE_DESP" name="DATA_DE_DESP" onblur="habilitaDataAteDesp();" onclick="limpaDataAteDesp()" mask="99/99/9999"/>
+                                                        <span class="input-group-addon" id="SPANDEDESP" name="SPANDEDESP">
+                                                            <span class="fluigicon fluigicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label class="info" for="only-date">Até *</label>
+                                                    <div class="input-group date" id="PERIODO2DESP">
+                                                        <input type="text" class="form-control" id="ATE_DESP" name="ATE_DESP" onchange="limpaDataAteDesp()" readonly>
+                                                        <span class="input-group-addon" id="SPANATEDESP" name="SPANATEDESP">
+                                                            <span class="fluigicon fluigicon-calendar"></span>
+                                                        </span>
+                                                    </div>
+                                                </div>    
+        
+                                            </fieldset>
+                                            
+                                        </div>
+
+                                        <div class="form-group col-md-1 pt-22 BUSCARPLAN">
+                                            <button type="button" class="btn btn-primary mt-35" onclick="buscarDesprogramacao();" id="BUSCARDESP" name="BUSCARDESP">Buscar</button>
+                                        </div>    
+
+                                    </div>
+    
+                                    <div class="row form-group col-md-12">
+                                        
+                                        <div class="form-group col-md-12">
+
+                                            <span><strong>(*) Campos de preenchimento obrigatório</strong></span>
+
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+
+                                <!-- TRABALHAR AQUI-->
+
+                                
+                                    <div class="row filtrosHab pb-30">                                        
+                                            <div class="form-group col-md-2">
+                                                <label for="data_atual" class="data_atual" >Data Atual</label>
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control" id="DATA_ATUAL" name="DATA_ATUAL" mask="99/99/9999" maxlength="10" autocomplete="off" readonly="" >
+        
+                                                    <span class="input-group-addon" id="inicial" name="inicial"> 
+                                                        <span class="fluigicon fluigicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+        
+                                            <div class="form-group col-md-2">
+                                                <label class="info">Filial *</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="filialprog" name="filialprog"
+                                                    data-zoom="{
+                                                        'displayKey':'CODFILIAL',
+                                                        'datasetId':'dsFilial',
+                                                        'fields':[
+                                                            {
+                                                                'field':'FILIAL',
+                                                                'label':'Cód. - Nome',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }   
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="filial_cod" name="filial_cod">
+                                            </div>
+        
+                                            <div class="form-group col-md-4">
+                                                <label class="info">Operador *</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="registro" name="registro"
+                                                    data-zoom="{
+                                                        'displayKey':'PESSOA',
+                                                        'datasetId':'dsMatriculaOperador',
+                                                        'fields':[
+                                                            {
+                                                                'field':'PESSOA',
+                                                                'label':'Cód - Nome',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            },
+                                                            {
+                                                                'field':'TURNO',
+                                                                'label':'Turno',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }      
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="CODregistro" name="CODregistro">
+                                            </div>
+                                            
+                                            <div class="form-group col-md-2 PESQUISAR">
+                                                <button type="button" class="btn btn-primary" onclick="buscatabela()" id="pesquisar" name="pesquisar">Buscar</button>
+                                            </div>
+                                            
+                                            <div class="row form-group col-md-10 pb-15">
+                                
+                                                <div class="form-group col-md-10">
+        
+                                                    <span><strong>(*) Campos de preenchimento obrigatório</strong></span>
+        
+                                                </div>
+                                                
+                                            </div>
+    
+                                    </div> 
+
+
+                                <div class="row form-group">
+
+                                    <!-- INÍCIO DAS ABAS DE NAVEGAÇÃO -->
+                                    <div class="row form-group pb-50" id="ABAS">
+
+                                        <ul class="nav nav-tabs clearfix" role="tablist">
+                                            <li class="active ABAPROGRAMACAO"><a id="ABAPROGRAMACAO" href="#PROGRAMACAOBLANK" onclick="filtros(1)" class="aba" role="tab" data-toggle="tab"><h4><strong>Programação</strong></h4></a></li>
+                                            <li class="ABADESPROGRAMACAO"><a id="ABADESPROGRAMACAO" href="#DESPROGRAMACAOBLANK" onclick="filtros(2)" role="tab" class="aba" data-toggle="tab"><h4><strong>Reprogramação e Desprogramação</strong></h4></a></li>
+                                            <li class="ABAADDHAB"><a id="ABAADDHAB" href="#ADDHABBLANK" onclick="filtros(3)" role="tab" class="aba" data-toggle="tab"><h4><strong>Adicionar Habilidade</strong></h4></a></li>
+                                        </ul>
+
+                                        <!-- CONTEÚDO DAS ABAS -->
+                                        <div class="tab-content PLANEJAMENTO">
+
+                                            <div class="tab-pane form-group col-md-12 active PROGRAMACAOBLANK" name="PROGRAMACAOBLANK" id="PROGRAMACAOBLANK">
+
+                                                <div class="PROGRAMACAO">
+
+                                                    <div class="row form-group pb-15 TOTALIZADOR">
+
+                                                        <div class="form-group col-md-3">
+                                                            <label class="info">Total de horas do PA / PC</label>
+                                                            <input type="text" class="form-control" id="TOTALHORASPAPC" name="TOTALHORASPAPC" readonly>
+                                                        </div>
+    
+                                                        <div class="form-group col-md-3">
+                                                            <label class="info">A programar</label>
+                                                            <input type="text" class="form-control" id="APROGRAMAR" name="APROGRAMAR" readonly>
+                                                            <input type="hidden" class="form-control" id="APROGRAMARREAL" name="APROGRAMARREAL" readonly>
+                                                        </div>
+    
+                                                        <div class="form-group col-md-3 pt-28">
+                                                            <a href="#OPSBLANK"><span class="processo" id="OPS" name="OPS" onclick="carregaOP(this)"><i class="fluigicon fluigicon-info-sign icon-md"></i></span></a>
+                                                        </div>
+    
+                                                    </div>
+
+                                                    <div class="row form-group pb-15 RECURSOS">
+
+                                                        <div class="form-group col-md-12">
+                                                            <label class="info">Operador</label>
+                                                            <input type="zoom" class="form-control formatacaoCRM" id="RECURSO" name="RECURSO"
+                                                                data-zoom="{
+                                                                    'displayKey':'PESSOA',
+                                                                    'datasetId':'dsBuscaRecAlocPlanoCorteOS',
+                                                                    'maximumSelectionLength':'10',
+                                                                    'fields':[
+                                                                        {
+                                                                            'field':'PESSOA',
+                                                                            'label':'Cód - Nome',
+                                                                            'standard':'true',
+                                                                            'search':'true'
+                                                                        },
+                                                                        {
+                                                                            'field':'TURNO',
+                                                                            'label':'Turno',
+                                                                            'standard':'true',
+                                                                            'search':'true'
+                                                                        }      
+                                                                    ]
+                                                                }"
+                                                            >
+                                                            <input type="hidden" id="CODMORECURSO" name="CODMORECURSO">
+                                                        </div>
+                                                            
+                                                    </div>
+    
+                                                    <div class="row form-group RAD">
+    
+                                                        <div class="text-center tituloTabela titulo pb-15">
+                                                            <h4><strong>Disponibilidade dos Recursos com saldo na Janela de Planejamento</strong></h4>
+                                                        </div>
+    
+                                                        <div class="row form-group RAD">
+    
+                                                            <div class="table-responsive ScrollWrapper scrollPrincipal CABECALHORAD" style="overflow: hidden;">
+                            
+                                                                <div style="width:175%">
+    
+                                                                    <table id="RECAPTODISPCAB" tablename="RECAPTODISPCAB" class="table table-sm table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                                            
+                                                                        <thead>
+                                                                
+                                                                            <tr>
+                                                                
+                                                                                <th style="width:20%;white-space: normal" class="form-group fixo" id="THOPERADORCAB" name="THOPERADORCAB"><label class="info"><strong></strong></label></th>
+                                                                                <th style="width:15%;white-space: normal" class="form-group" id="THTURNOOPERADORCAB" name="THTURNOOPERADORCAB"><label class="info"><strong></strong></label></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA1RADCAB" name="THDIA1RADCAB"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA2RADCAB" name="THDIA2RADCAB"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA3RADCAB" name="THDIA3RADCAB"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA4RADCAB" name="THDIA4RADCAB"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA5RADCAB" name="THDIA5RADCAB"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA6RADCAB" name="THDIA6RADCAB"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA7RADCAB" name="THDIA7RADCAB"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA8RADCAB" name="THDIA8RADCAB"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA9RADCAB" name="THDIA9RADCAB"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA10RADCAB" name="THDIA10RADCAB"></th>
+    
+                                                                            </tr>
+    
+                                                                            <tr>
+                                                                
+                                                                                <th style="width:20%;white-space: normal" class="form-group fixo" id="THOPERADORCAB2" name="THOPERADORCAB2"><label class="info"><strong>Operador</strong></label></th>
+                                                                                <th style="width:15%;white-space: normal" class="form-group" id="THTURNOOPERADORCAB2" name="THTURNOOPERADORCAB2"><label class="info"><strong>Turno</strong></label></th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA1RADDISP" name="THDIA1RADDISP">Dispon.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA1RADPROG" name="THDIA1RADPROG">Program.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA2RADDISP" name="THDIA2RADDISP">Dispon.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA2RADPROG" name="THDIA2RADPROG">Program.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA3RADDISP" name="THDIA3RADDISP">Dispon.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA3RADPROG" name="THDIA3RADPROG">Program.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA4RADDISP" name="THDIA4RADDISP">Dispon.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA4RADPROG" name="THDIA4RADPROG">Program.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA5RADDISP" name="THDIA5RADDISP">Dispon.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA5RADPROG" name="THDIA5RADPROG">Program.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA6RADDISP" name="THDIA6RADDISP">Dispon.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA6RADPROG" name="THDIA6RADPROG">Program.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA7RADDISP" name="THDIA7RADDISP">Dispon.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA7RADPROG" name="THDIA7RADPROG">Program.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA8RADDISP" name="THDIA8RADDISP">Dispon.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA8RADPROG" name="THDIA8RADPROG">Program.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA9RADDISP" name="THDIA9RADDISP">Dispon.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA9RADPROG" name="THDIA9RADPROG">Program.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA10RADDISP" name="THDIA10RADDISP">Dispon.</th>
+                                                                                <th style="width:7%;white-space: normal" class="form-group" id="THDIA10RADPROG" name="THDIA10RADPROG">Program.</th>
+    
+                                                                            </tr>
+                                                                
+                                                                        </thead>
+                                                                
+                                                                        <tbody>
+                                                                
+                                                                            <tr id="LINHARADCAB" name="LINHARADCAB">
+                                                                                
+                                                                                
+                                                                            </tr>
+                                                                
+                                                                        </tbody>
+                                                                
+                                                                    </table>
+    
+                                                                </div>
+    
+                                                            </div>
+    
+                                                            <div class="table-responsive ScrollWrapper scrollPrincipal">
+                            
+                                                                <div style="width:175%">
+    
+                                                                    <table id="RECAPTODISP" tablename="RECAPTODISP" class="table table-sm table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                                            
+                                                                        <thead>
+                                                                
+                                                                            <tr>
+                                                                
+                                                                                <th style="width:20%;white-space: normal" class="form-group fixo" id="THOPERADORRAD" name="THOPERADORRAD"><label class="info"><strong></strong></label></th>
+                                                                                <th style="width:15%;white-space: normal" class="form-group" id="THTURNOOPERADORRAD" name="THTURNOOPERADORRAD"><label class="info"><strong></strong></label></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA1RAD" name="THDIA1RAD"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA2RAD" name="THDIA2RAD"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA3RAD" name="THDIA3RAD"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA4RAD" name="THDIA4RAD"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA5RAD" name="THDIA5RAD"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA6RAD" name="THDIA6RAD"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA7RAD" name="THDIA7RAD"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA8RAD" name="THDIA8RAD"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA9RAD" name="THDIA9RAD"></th>
+                                                                                <th colspan="2" style="width:14%;white-space: normal" class="form-group" id="THDIA10RAD" name="THDIA10RAD"></th>
+    
+                                                                            </tr>
+    
+                                                                        </thead>
+                                                                
+                                                                        <tbody>
+                                                                
+                                                                            <tr id="LINHARAD" name="LINHARAD">
+                                                                                
+                                                                                <td class="fixo">
+                                                                                    <input type="text" class="form-control" id="OPERADORRAD" name="OPERADORRAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control" id="CHAPARAD" name="CHAPARAD">
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    <input type="text" class="form-control" id="TURNOOPERADORRAD" name="TURNOOPERADORRAD" onmouseover="mouse(this)" readonly>
+                                                                                </td>
+                                                                
+                                                                                <td class="dia1" id="RAD1" name="RAD1">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA1RAD" name="DIA1RAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control inputHoras" id="DIA1RADREAL" name="DIA1RADREAL" readonly>
+                                                                                </td>
+    
+                                                                                <td class="dia1" id="RAD1PROG" name="RAD1PROG">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA1RADPROG" name="DIA1RADPROG" onchange="verificaSaldoProg(this)">
+                                                                                </td>
+    
+                                                                                <td class="dia2" id="RAD2" name="RAD2">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA2RAD" name="DIA2RAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control inputHoras" id="DIA2RADREAL" name="DIA2RADREAL" readonly>
+                                                                                </td>
+    
+                                                                                <td class="dia2" id="RAD2PROG" name="RAD2PROG">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA2RADPROG" name="DIA2RADPROG" onchange="verificaSaldoProg(this)">
+                                                                                </td>
+    
+                                                                                <td class="dia3" id="RAD3" name="RAD3">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA3RAD" name="DIA3RAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control inputHoras" id="DIA3RADREAL" name="DIA3RADREAL" readonly>
+                                                                                </td>
+                                                                                
+                                                                                <td class="dia3" id="RAD3PROG" name="RAD3PROG">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA3RADPROG" name="DIA3RADPROG" onchange="verificaSaldoProg(this)">
+                                                                                </td>
+    
+                                                                                <td class="dia4" id="RAD4" name="RAD4">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA4RAD" name="DIA4RAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control inputHoras" id="DIA4RADREAL" name="DIA4RADREAL" readonly>
+                                                                                </td>
+                                                                                
+                                                                                <td class="dia4" id="RAD4PROG" name="RAD4PROG">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA4RADPROG" name="DIA4RADPROG" onchange="verificaSaldoProg(this)">
+                                                                                </td>
+    
+                                                                                <td class="dia5" id="RAD5" name="RAD5">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA5RAD" name="DIA5RAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control inputHoras" id="DIA5RADREAL" name="DIA5RADREAL" readonly>
+                                                                                </td>
+                                                                                
+                                                                                <td class="dia5" id="RAD5PROG" name="RAD5PROG">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA5RADPROG" name="DIA5RADPROG" onchange="verificaSaldoProg(this)">
+                                                                                </td>
+    
+                                                                                <td class="dia6" id="RAD6" name="RAD6">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA6RAD" name="DIA6RAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control inputHoras" id="DIA6RADREAL" name="DIA6RADREAL" readonly>
+                                                                                </td>
+    
+                                                                                <td class="dia6" id="RAD6PROG" name="RAD6PROG">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA6RADPROG" name="DIA6RADPROG" onchange="verificaSaldoProg(this)">
+                                                                                </td>
+    
+                                                                                <td class="dia7" id="RAD7" name="RAD7">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA7RAD" name="DIA7RAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control inputHoras" id="DIA7RADREAL" name="DIA7RADREAL" readonly>
+                                                                                </td>
+    
+                                                                                <td class="dia7" id="RAD7PROG" name="RAD7PROG">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA7RADPROG" name="DIA7RADPROG" onchange="verificaSaldoProg(this)">
+                                                                                </td>
+    
+                                                                                <td class="dia8" id="RAD8" name="RAD8">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA8RAD" name="DIA8RAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control inputHoras" id="DIA8RADREAL" name="DIA8RADREAL" readonly>
+                                                                                </td>
+                                                                                
+                                                                                <td class="dia8" id="RAD8PROG" name="RAD8PROG">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA8RADPROG" name="DIA8RADPROG" onchange="verificaSaldoProg(this)">
+                                                                                </td>
+    
+                                                                                <td class="dia9" id="RAD9" name="RAD9">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA9RAD" name="DIA9RAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control inputHoras" id="DIA9RADREAL" name="DIA9RADREAL" readonly>
+                                                                                </td>
+                                                                                
+                                                                                <td class="dia9" id="RAD9PROG" name="RAD9PROG">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA9RADPROG" name="DIA9RADPROG" onchange="verificaSaldoProg(this)">
+                                                                                </td>
+    
+                                                                                <td class="dia10" id="RAD10" name="RAD10">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA10RAD" name="DIA10RAD" onmouseover="mouse(this)" readonly>
+                                                                                    <input type="hidden" class="form-control inputHoras" id="DIA10RADREAL" name="DIA10RADREAL" readonly>
+                                                                                </td>
+    
+                                                                                <td class="dia10" id="RAD10PROG" name="RAD10PROG">
+                                                                                    <input type="text" class="form-control inputHoras" id="DIA10RADPROG" name="DIA10RADPROG" onchange="verificaSaldoProg(this)">
+                                                                                </td>
+    
+                                                                            </tr>
+                                                                
+                                                                        </tbody>
+                                                                
+                                                                    </table>
+    
+                                                                </div>
+    
+                                                            </div>
+    
+                                                            <div class="row form-group col-md-1 pt-15 INTEGRAR">
+                                                    
+                                                                <button type="button" class="btn btn-primary" onclick="integrar();" id="INTEGRAR" name="INTEGRAR">Programar</button>
+                                                                
+                                                            </div>
+
+                                                            <div class="row form-group col-md-12">
+                                                                <span>Caso não tenha o recurso cadastrado, preencha o formulário Inclusão de habilidade: <a href="http://delp5014/glpi/plugins/formcreator/front/formdisplay.php?id=21" target="_blank">Service Desk | DELP - Form Creator - 21</a></span>
+                                                            </div>
+    
+                                                        </div>
+    
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="tab-pane form-group col-md-12 DESPROGRAMACAOBLANK" name="DESPROGRAMACAOBLANK" id="DESPROGRAMACAOBLANK">
+
+                                                <div class="DESPROGRAMACAO">
+
+                                                    <div class="form-group">
+
+                                                        <div class="row form-group pb-15 TOTALIZADORDESP">
+    
+                                                            <div class="form-group col-md-3">
+                                                                <label class="info">Total de horas do PA / PC</label>
+                                                                <input type="text" class="form-control" id="TOTALHORASPAPCDESP" name="TOTALHORASPAPCDESP" readonly>
+                                                            </div>
+        
+                                                            <div class="form-group col-md-3">
+                                                                <label class="info">A programar</label>
+                                                                <input type="text" class="form-control" id="APROGRAMARDESP" name="APROGRAMARDESP" readonly>
+                                                                <input type="hidden" class="form-control" id="APROGRAMARDESPREAL" name="APROGRAMARDESPREAL" readonly>
+                                                            </div>
+        
+                                                            <div class="form-group col-md-3 pt-28">
+                                                                <a href="#OPSBLANK"><span class="processo" id="OPSDESP" name="OPSDESP" onclick="carregaOPDesp(this)"><i class="fluigicon fluigicon-info-sign icon-md"></i></span></a>
+                                                            </div>
+        
+                                                        </div>
+        
+                                                        <div class="row form-group RADDESP">
+        
+                                                            <div class="text-center tituloTabela titulo pb-15">
+                                                                <h4><strong>Recursos Alocados para o Plano de Corte</strong></h4>
+                                                            </div>
+        
+                                                            <div class="row form-group">
+        
+                                                                <div class="table-responsive ScrollWrapper scrollPrincipal CABECALHORAD" style="overflow: hidden;">
+                                
+                                                                    <div style="width:175%">
+        
+                                                                        <table id="RECAPTODISPCABDESP" tablename="RECAPTODISPCABDESP" class="table table-sm table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                                                
+                                                                            <thead>
+                                                                    
+                                                                                <tr>
+                                                                    
+                                                                                    <th style="width:20%;white-space: normal" class="form-group fixo" id="THOPERADORCABDESP" name="THOPERADORCABDESP"><label class="info"><strong></strong></label></th>
+                                                                                    <th style="width:15%;white-space: normal" class="form-group" id="THTURNOOPERADORCABDESP" name="THTURNOOPERADORCABDESP"><label class="info"><strong></strong></label></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA1RADCABDESP" name="THDIA1RADCABDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA2RADCABDESP" name="THDIA2RADCABDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA3RADCABDESP" name="THDIA3RADCABDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA4RADCABDESP" name="THDIA4RADCABDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA5RADCABDESP" name="THDIA5RADCABDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA6RADCABDESP" name="THDIA6RADCABDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA7RADCABDESP" name="THDIA7RADCABDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA8RADCABDESP" name="THDIA8RADCABDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA9RADCABDESP" name="THDIA9RADCABDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA10RADCABDESP" name="THDIA10RADCABDESP"></th>
+        
+                                                                                </tr>
+        
+                                                                            </thead>
+                                                                    
+                                                                            <tbody>
+                                                                    
+                                                                                <tr id="LINHARADCABDESP" name="LINHARADCABDESP">
+                                                                                    
+                                                                                </tr>
+                                                                    
+                                                                            </tbody>
+                                                                    
+                                                                        </table>
+        
+                                                                    </div>
+        
+                                                                </div>
+        
+                                                                <div class="table-responsive ScrollWrapper scrollPrincipal">
+                                
+                                                                    <div style="width:175%">
+        
+                                                                        <table id="RECAPTODISPDESP" tablename="RECAPTODISPDESP" class="table table-sm table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                                                
+                                                                            <thead>
+                                                                    
+                                                                                <tr>
+                                                                    
+                                                                                    <th style="width:20%;white-space: normal" class="form-group fixo" id="THOPERADORRADDESP" name="THOPERADORRADDESP"><label class="info"><strong></strong></label></th>
+                                                                                    <th style="width:15%;white-space: normal" class="form-group" id="THTURNOOPERADORADDESP" name="THTURNOOPERADORADDESP"><label class="info"><strong></strong></label></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA1RADDESP" name="THDIA1RADDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA2RADDESP" name="THDIA2RADDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA3RADDESP" name="THDIA3RADDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA4RADDESP" name="THDIA4RADDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA5RADDESP" name="THDIA5RADDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA6RADDESP" name="THDIA6RADDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA7RADDESP" name="THDIA7RADDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA8RADDESP" name="THDIA8RADDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA9RADDESP" name="THDIA9RADDESP"></th>
+                                                                                    <th style="width:14%;white-space: normal" class="form-group" id="THDIA10RADDESP" name="THDIA10RADDESP"></th>
+        
+                                                                                </tr>
+        
+                                                                            </thead>
+                                                                    
+                                                                            <tbody>
+                                                                    
+                                                                                <tr id="LINHARADDESP" name="LINHARADDESP">
+                                                                                    
+                                                                                    <td class="fixo">
+                                                                                        <input type="text" class="form-control" id="OPERADORRADDESP" name="OPERADORRADDESP" onmouseover="mouse(this)" readonly>
+                                                                                        <input type="hidden" class="form-control" id="CHAPARADDESP" name="CHAPARADDESP">
+                                                                                        <input type="hidden" class="form-control" id="CODESTRUTURADESP" name="CODESTRUTURADESP">
+                                                                                        <input type="hidden" class="form-control" id="CODATIVIDADEDESP" name="CODATIVIDADEDESP">
+                                                                                        <input type="hidden" class="form-control" id="IDATVORDEMDESP" name="IDATVORDEMDESP">
+                                                                                        <input type="hidden" class="form-control" id="CODORDEMDESP" name="CODORDEMDESP">
+                                                                                    </td>
+
+                                                                                    <td>
+                                                                                        <input type="text" class="form-control" id="TURNOOPERADORRADDESP" name="TURNOOPERADORRADDESP" onmouseover="mouse(this)" readonly>
+                                                                                    </td>
+                                                                    
+                                                                                    <td class="dia1DESP" id="RAD1DESP" name="RAD1DESP" onclick="selecionaDia(this)">
+                                                                                        <input type="text" class="form-control inputHoras" id="DIA1RADDESP" name="DIA1RADDESP" onmouseover="mouse(this)" readonly>
+                                                                                        <input type="hidden" class="form-control inputHoras" id="DIA1RADREALDESP" name="DIA1RADREALDESP" readonly>
+                                                                                    </td>
+        
+                                                                                    <td class="dia2DESP" id="RAD2DESP" name="RAD2DESP" onclick="selecionaDia(this)">
+                                                                                        <input type="text" class="form-control inputHoras" id="DIA2RADDESP" name="DIA2RADDESP" onmouseover="mouse(this)" readonly>
+                                                                                        <input type="hidden" class="form-control inputHoras" id="DIA2RADREALDESP" name="DIA2RADREALDESP" readonly>
+                                                                                    </td>
+        
+                                                                                    <td class="dia3DESP" id="RAD3DESP" name="RAD3DESP" onclick="selecionaDia(this)">
+                                                                                        <input type="text" class="form-control inputHoras" id="DIA3RADDESP" name="DIA3RADDESP" onmouseover="mouse(this)" readonly >
+                                                                                        <input type="hidden" class="form-control inputHoras" id="DIA3RADREALDESP" name="DIA3RADREALDESP" readonly>
+                                                                                    </td>
+                                                                                    
+                                                                                    <td class="dia4DESP" id="RAD4DESP" name="RAD4DESP" onclick="selecionaDia(this)">
+                                                                                        <input type="text" class="form-control inputHoras" id="DIA4RADDESP" name="DIA4RADDESP" onmouseover="mouse(this)" readonly>
+                                                                                        <input type="hidden" class="form-control inputHoras" id="DIA4RADREALDESP" name="DIA4RADREALDESP" readonly>
+                                                                                    </td>
+                                                                                    
+                                                                                    <td class="dia5DESP" id="RAD5DESP" name="RAD5DESP" onclick="selecionaDia(this)">
+                                                                                        <input type="text" class="form-control inputHoras" id="DIA5RADDESP" name="DIA5RADDESP" onmouseover="mouse(this)" readonly>
+                                                                                        <input type="hidden" class="form-control inputHoras" id="DIA5RADREALDESP" name="DIA5RADREALDESP" readonly>
+                                                                                    </td>
+                                                                                    
+                                                                                    <td class="dia6DESP" id="RAD6DESP" name="RAD6DESP" onclick="selecionaDia(this)">
+                                                                                        <input type="text" class="form-control inputHoras" id="DIA6RADDESP" name="DIA6RADDESP" onmouseover="mouse(this)" readonly>
+                                                                                        <input type="hidden" class="form-control inputHoras" id="DIA6RADREALDESP" name="DIA6RADREALDESP" readonly>
+                                                                                    </td>
+        
+                                                                                    <td class="dia7DESP" id="RAD7DESP" name="RAD7DESP" onclick="selecionaDia(this)">
+                                                                                        <input type="text" class="form-control inputHoras" id="DIA7RADDESP" name="DIA7RADDESP" onmouseover="mouse(this)" readonly>
+                                                                                        <input type="hidden" class="form-control inputHoras" id="DIA7RADREALDESP" name="DIA7RADREALDESP" readonly>
+                                                                                    </td>
+        
+                                                                                    <td class="dia8DESP" id="RAD8DESP" name="RAD8DESP" onclick="selecionaDia(this)">
+                                                                                        <input type="text" class="form-control inputHoras" id="DIA8RADDESP" name="DIA8RADDESP" onmouseover="mouse(this)" readonly>
+                                                                                        <input type="hidden" class="form-control inputHoras" id="DIA8RADREALDESP" name="DIA8RADREALDESP" readonly>
+                                                                                    </td>
+                                                                               
+                                                                                    <td class="dia9DESP" id="RAD9DESP" name="RAD9DESP" onclick="selecionaDia(this)">
+                                                                                        <input type="text" class="form-control inputHoras" id="DIA9RADDESP" name="DIA9RADDESP" onmouseover="mouse(this)" readonly>
+                                                                                        <input type="hidden" class="form-control inputHoras" id="DIA9RADREALDESP" name="DIA9RADREALDESP" readonly>
+                                                                                    </td>
+                                                                             
+                                                                                    <td class="dia10DESP" id="RAD10DESP" name="RAD10DESP" onclick="selecionaDia(this)">
+                                                                                        <input type="text" class="form-control inputHoras" id="DIA10RADDESP" name="DIA10RADDESP" onmouseover="mouse(this)" readonly>
+                                                                                        <input type="hidden" class="form-control inputHoras" id="DIA10RADREALDESP" name="DIA10RADREALDESP" readonly>
+                                                                                    </td>
+        
+                                                                                </tr>
+                                                                    
+                                                                            </tbody>
+                                                                    
+                                                                        </table>
+        
+                                                                    </div>
+        
+                                                                </div>
+        
+                                                            </div>
+                                                            
+                                                            <!-- <div class="row form-group col-md-12 pt-15 INTEGRAR">
+                                                                
+                                                                <div class="form-group col-md-4">
+
+                                                                    <label class="info">Motivo</label>
+                                                                    <input type="zoom" class="form-control formatacaoCRM" id="MOTDESPROG" name="MOTDESPROG"
+                                                                        data-zoom="{
+                                                                            'displayKey':'MOTIVO',
+                                                                            'datasetId':'dsMotDesprog',
+                                                                            'fields':[
+                                                                                {
+                                                                                    'field':'MOTIVO',
+                                                                                    'label':'Cód. - Descrição',
+                                                                                    'standard':'true',
+                                                                                    'search':'true'
+                                                                                }   
+                                                                            ]
+                                                                        }"
+                                                                    >
+                                                                    <input type="hidden" id="CODINTERNO" name="CODINTERNO">
+                
+                                                                </div>
+                
+                                                                <div class="form-group col-md-6"></div>
+
+                                                                <div class="form-group col-md-2">
+
+                                                                    <button type="button" class="btn btn-primary" onclick="desprogramar();" id="DESPROGRAMAR" name="DESPROGRAMAR">Desprogramar</button>
+
+                                                                </div>
+    
+                                                            </div> -->
+
+                                                            <div class="row form-group col-md-12 pt-25 ABAS">
+
+                                                                <ul class="nav nav-tabs clearfix" role="tablist">
+                                                                    <li class="active TROCARFUNC"><a id="TROCARFUNC" href="#TROCARFUNCIONARIO" role="tab" data-toggle="tab"><strong>Trocar Funcionário</strong></a></li>
+                                                                    <li class="TROCDATA"><a id="TROCDATA" href="#TROCARDATA" role="tab" data-toggle="tab"><strong>Trocar Data</strong></a></li>
+                                                                    <li class="TROCFUNCDATA"><a id="TROCFUNCDATA" href="#TROCARFUNCDATA" role="tab" data-toggle="tab"><strong>Trocar Funcionário e Data</strong></a></li>
+                                                                    <li class="DESPROG"><a id="DESPROG" href="#DESPROGRAMARBLANK" role="tab" data-toggle="tab"><strong>Desprogramar</strong></a></li>
+                                                                </ul>
+                                
+                                                                <div class="tab-content">
+                            
+                                                                    <div class="tab-pane form-group col-md-12 active pb-50" name="TROCARFUNCIONARIO" id="TROCARFUNCIONARIO">
+                            
+                                                                        <div class="row">
+                            
+                                                                            <div class="form-group col-md-4">
+                                                                                
+                                                                                <label class="info">Matrícula</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="NOVA_MATRICULA" name="NOVA_MATRICULA"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'PESSOA',
+                                                                                        'datasetId':'dsBuscaRecAlocPlanoCorteOS',
+                                                                                        'maximumSelectionLength':'1',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'PESSOA',
+                                                                                                'label':'Cód - Nome',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            },
+                                                                                            {
+                                                                                                'field':'TURNO',
+                                                                                                'label':'Turno',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }      
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODMO_NOVO" name="CODMO_NOVO">
+                            
+                                                                            </div>
+                            
+                                                                            <div class="form-group col-md-2">
+                                                                                <label class="info">Horas Disponíveis</label>
+                                                                                <input type="text" class="form-control formatacaoCRM" id="HORAS_DISPONIVEIS" name="HORAS_DISPONIVEIS" title="" onmouseover="mouse(this);" readonly>
+                                                                                <input type="hidden" class="form-control formatacaoCRM" id="SALDO" name="SALDO" readonly>
+                                                                            </div>
+                            
+                                                                            <div class="form-group col-md-4">
+                            
+                                                                                <label class="info">Motivo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="MOTDESPROG1" name="MOTDESPROG1"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'MOTIVO',
+                                                                                        'datasetId':'dsMotDesprog',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'MOTIVO',
+                                                                                                'label':'Cód. - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODINTERNO1" name="CODINTERNO1">
+                            
+                                                                            </div>
+                            
+                                                                            <div class="form-group col-md-2 pt-25 CONFIRMAR_TROCFUNC">
+                                                                                <button type="button" class="btn btn-primary" onclick="confirmaTrocaFunc()" id="CONFIRMAR_TROCFUNC" name="CONFIRMAR_TROCFUNC">Confirmar</button>
+                                                                            </div>
+                            
+                                                                        </div>
+                            
+                                                                        <div class="row form-group col-md-12 pb-150">
+                                                                            <span>Caso não tenha o recurso cadastrado, preencha o formulário Inclusão de habilidade: <a href="http://delp5014/glpi/plugins/formcreator/front/formdisplay.php?id=21" target="_blank">Service Desk | DELP - Form Creator - 21</a></span>
+                                                                        </div>
+                            
+                                                                    </div>
+                            
+                                                                    <div class="tab-pane form-group col-md-12 pb-50" name="TROCARDATA" id="TROCARDATA">
+                            
+                                                                        <div class="row">
+                            
+                                                                            <div class="form-group col-md-4">
+                                                                                <label class="info" for="only-date">Nova Data</label>
+                                                                                <div class="input-group date" id="PERIODO2">
+                                                                                    <input type="text" class="form-control" id="NOVA_DATA" name="NOVA_DATA" mask="99/99/9999" onblur="verificaNovaData()" title="" onmouseover="mouse(this);"/>
+                                                                                    <input type="hidden" class="form-control" id="NOVA_DATA_REAL" name="NOVA_DATA_REAL">
+                                                                                    <span class="input-group-addon" id="SPAN_NOVADATA" name="SPAN_NOVADATA">
+                                                                                        <span class="fluigicon fluigicon-calendar"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                            
+                                                                            <div class="form-group col-md-4">
+                            
+                                                                                <label class="info">Motivo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="MOTDESPROG2" name="MOTDESPROG2"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'MOTIVO',
+                                                                                        'datasetId':'dsMotDesprog',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'MOTIVO',
+                                                                                                'label':'Cód. - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODINTERNO2" name="CODINTERNO2">
+                            
+                                                                            </div>
+                                        
+                                                                            <div class="form-group col-md-3 pt-25 CONFIRMAR_TROCADATA">
+                                                                                <button type="button" class="btn btn-primary" onclick="confirmaTrocaData()" id="CONFIRMAR_TROCADATA" name="CONFIRMAR_TROCADATA">Confirmar</button>
+                                                                            </div>
+                            
+                                                                        </div>
+                            
+                                                                        <div class="row form-group col-md-12 pb-150">
+                                                                            <span>Caso não tenha o recurso cadastrado, preencha o formulário Inclusão de habilidade: <a href="http://delp5014/glpi/plugins/formcreator/front/formdisplay.php?id=21" target="_blank">Service Desk | DELP - Form Creator - 21</a></span>
+                                                                        </div>
+                            
+                                                                    </div>
+                            
+                                                                    <div class="tab-pane form-group col-md-12 pb-50" name="TROCARFUNCDATA" id="TROCARFUNCDATA">
+                            
+                                                                        <div class="row">
+                            
+                                                                            <div class="form-group col-md-2">
+                                                                                <label class="info" for="only-date">Nova Data</label>
+                                                                                <div class="input-group date" id="PERIODO3">
+                                                                                    <input type="text" class="form-control" id="NOVA_DATA2" name="NOVA_DATA2" mask="99/99/9999" onblur="verificaNovaData2()" title="" onmouseover="mouse(this);"/>
+                                                                                    <input type="hidden" class="form-control" id="NOVA_DATA_REAL2" name="NOVA_DATA_REAL2">
+                                                                                    <span class="input-group-addon" id="SPAN_NOVADATA2" name="SPAN_NOVADATA2">
+                                                                                        <span class="fluigicon fluigicon-calendar"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                            
+                                                                            <div class="form-group col-md-3">
+                                                                                
+                                                                                <label class="info">Matrícula</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="NOVA_MATRICULA2" name="NOVA_MATRICULA2"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'PESSOA',
+                                                                                        'datasetId':'dsBuscaRecAlocPlanoCorteOS',
+                                                                                        'maximumSelectionLength':'1',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'PESSOA',
+                                                                                                'label':'Cód - Nome',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            },
+                                                                                            {
+                                                                                                'field':'TURNO',
+                                                                                                'label':'Turno',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }      
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODMO_NOVO2" name="CODMO_NOVO2">
+                            
+                                                                            </div>
+                                
+                                                                            <div class="form-group col-md-2">
+                                                                                <label class="info">Horas Disponíveis</label>
+                                                                                <input type="text" class="form-control formatacaoCRM" id="HORAS_DISPONIVEIS2" name="HORAS_DISPONIVEIS2" title="" onmouseover="mouse(this);" readonly>
+                                                                                <input type="hidden" class="form-control formatacaoCRM" id="SALDO2" name="SALDO2" readonly>
+                                                                            </div>
+                            
+                                                                            <div class="form-group col-md-3">
+                            
+                                                                                <label class="info">Motivo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="MOTDESPROG3" name="MOTDESPROG3"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'MOTIVO',
+                                                                                        'datasetId':'dsMotDesprog',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'MOTIVO',
+                                                                                                'label':'Cód. - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODINTERNO3" name="CODINTERNO3">
+                            
+                                                                            </div>
+                                                                            
+                                                                            <div class="form-group col-md-2 pt-25 CONFIRMAR_TROCFUNC2">
+                                                                                <button type="button" class="btn btn-primary" onclick="confirmaTrocaFuncData()" id="CONFIRMAR_TROCFUNC2" name="CONFIRMAR_TROCFUNC2">Confirmar</button>
+                                                                            </div>
+                            
+                                                                        </div>
+                            
+                                                                        <div class="row form-group col-md-12 pb-150">
+                                                                            <span>Caso não tenha o recurso cadastrado, preencha o formulário Inclusão de habilidade: <a href="http://delp5014/glpi/plugins/formcreator/front/formdisplay.php?id=21" target="_blank">Service Desk | DELP - Form Creator - 21</a></span>
+                                                                        </div>
+                            
+                                                                    </div>
+                            
+                                                                    <div class="tab-pane form-group col-md-12 pb-50" name="DESPROGRAMARBLANK" id="DESPROGRAMARBLANK">
+                            
+                                                                        <div class="row pb-150">
+                            
+                                                                            <div class="form-group col-md-6">
+                            
+                                                                                <label class="info">Motivo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="MOTDESPROG4" name="MOTDESPROG4"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'MOTIVO',
+                                                                                        'datasetId':'dsMotDesprog',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'MOTIVO',
+                                                                                                'label':'Cód. - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODINTERNO4" name="CODINTERNO4">
+                            
+                                                                            </div>
+                            
+                                                                            <div class="form-group col-md-2 pt-25">
+                                                                                <button type="button" class="btn btn-primary" onclick="desprogramar()" id="BTNDESPROGRAMAR" name="BTNDESPROGRAMAR">Desprogramar</button>
+                                                                            </div>
+                            
+                                                                        </div>
+                            
+                                                                    </div>
+                            
+                                                                    
+                                                                </div>
+                            
+                                                            </div>
+    
+                                                        </div>
+    
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                            <!-- TRABALHAR AQUI -->
+                                            <div class="tab-pane form-group col-md-12" name="ADDHABBLANK" id="ADDHABBLANK">
+
+                                                <div class="form-group col-md-12">   
+
+                                                    <div class="form-group col-md-5" id="TABELAADDHAB" name="TABELAADDHAB">
+                                                        <table class="table table-bordered" tablename="Habilidades_Adicionadas" id="Habilidades_Adicionadas" name="Habilidades_Adicionadas" nodeletebutton="true" noaddbutton="true">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        <span class="input-group-addon" id="ADICIONAHAB" name="ADICIONAHAB" onclick="wdkAddChild('Habilidades_Adicionadas')"><i id="ICONADICIONAHAB" class="flaticon flaticon-add-box icon-md" aria-hidden="true"></i></span> 
+                                                                    </th>
+    
+                                                                    <th>
+                                                                        Habilidades Adicionadas
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span class="input-group-addon" id="REMOVEHAB" name="REMOVEHAB" onclick="fnWdkRemoveChild(this)"><i id="ICONREMOVEHAB" class="flaticon flaticon-trash icon-md ICONREMOVEHAB" aria-hidden="true"></i></span>
+                                                                    </td>
+                                                                    <td>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="novaTABELA" name="novaTABELA"
+                                                                            data-zoom="{
+                                                                                'displayKey':'DESCRICAOHABIL',
+                                                                                'datasetId':'dsHabilidades ',
+                                                                                'fields':[
+                                                                                    {
+                                                                                        'field':'DESCRICAOHABIL',
+                                                                                        'label':'Habilidade',
+                                                                                        'standard':'true',
+                                                                                        'search':'true'
+                                                                                    },
+                                                                                    {                                                                        
+                                                                                        'field':'CODHABILIDADE',
+                                                                                        'label':'Codigo',
+                                                                                        'standard':'true',
+                                                                                        'search':'true'
+                                                                                    }
+                                                                                    
+                                                                                ]
+                                                                            }"
+                                                                            >
+                                                                            <input type="hidden" id="CODHAB" name="CODHAB"/>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+    
+                                                        <div class="form-group col-md-2 pt-25 SALVAR">
+                                                            <button type="button" class="btn btn-primary" onclick="salvarTabela()" id="salvar" name="salvar">Salvar</button>
+                                                        </div>
+    
+                                                    </div>
+    
+    
+                                                </div>
+                                            
+                                            </div>    
+
+                                        </div>
+                                        
+                                    </div>
+                                  
+                                </div>
+
+                                <!-- MODAL PARA INFORMAÇÃO DAS OP'S -->
+                                <div id="OPSBLANK" class="modal">
+
+                                    <div class="form-group col-md-1"></div>
+
+                                    <div class="form-group col-md-10 TABELAOP fundoModal" style="margin-bottom: 20px !important;">
+
+                                        <div>
+                                            <a href="#fechar" id="fechar" onclick="limpaTabelaOP()" title="Fechar" class="fechar"><strong>X</strong></a>
+                                        </div>
+
+                                        <div>
+
+                                            <div class="text-center tituloTabela titulo">
+                                                <h4><strong>OP's do PA / PC</strong></h4>
+                                            </div>
+
+                                            <table id="TABELAOP" tablename="TABELAOP" class="table table-sm table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                            
+                                                <thead>
+                                        
+                                                    <tr>
+                                        
+                                                        <th class="form-group"><label class="info"><strong>OP</strong></label></th>
+                                                        <th class="form-group"><label class="info"><strong>Atividade</strong></label></th>
+                                                        <th class="form-group"><label class="info"><strong>Horas</strong></label></th>
+                                                        
+                                                    </tr>
+        
+                                                </thead>
+                                        
+                                                <tbody>
+                                        
+                                                    <tr id="LINHAOP" name="LINHAOP">
+                                                        
+                                                        <td>
+                                                            <input type="text" class="form-control" id="OPPAPC" name="OPPAPC" readonly>
+                                                        </td>
+                                        
+                                                        <td>
+                                                            <input type="text" class="form-control inputHoras" id="ATIVIDADEOP" name="ATIVIDADEOP" readonly>
+                                                        </td>
+        
+                                                        <td>
+                                                            <input type="text" class="form-control inputHoras" id="HORASATV" name="HORASATV" readonly>
+                                                        </td>
+        
+                                                    </tr>
+                                        
+                                                </tbody>
+                                        
+                                            </table>
+
+                                        </div>
+                                        
+                                    </div>
+
+                                    <div class="form-group col-md-1"></div>
+
+                                </div>
+   
+                            </div>
+
+                        </div>
+                    
+                    </div>
+
+                </div>
+            
+
+            </form>
+
+        </div>
+
+    </body>
+
+    <script type="text/javascript" src="documentReady.js"></script>
+    <script type="text/javascript" src="beforeSendValidate.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="selectZoom.js"></script>
+
+</html>

@@ -1,0 +1,1047 @@
+body {
+  font-family: Open Sans;
+  color: black;
+  align-items: center;
+  background-image: url('imagens/bg.png');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+@media (min-width:1000px) {
+  .select2-selection__choice {
+    max-width: 20ch !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+  } 
+
+  .select2-search, .select2-search--inline {
+    width: 0% !important;
+  }
+}
+
+@media (min-width:1300px) {
+  .select2-selection__choice {
+    max-width: 50ch !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+  } 
+
+  .select2-search, .select2-search--inline {
+    width: 0% !important;
+  } 
+
+  #ADICIONAR {
+  margin-left:18px;
+  } 
+
+}
+
+.MATERIAIS_INFO th {
+  line-height: 100% !important;
+  word-break: break-word;
+}
+
+.avancoSelecionado{
+  background-color: #A9A9A9 !important;
+}
+
+.fluigicon-calendar, .fluigicon-remove, .fluigicon-zoom-in{
+  color:white !important;
+}
+
+.chk{
+  cursor: pointer;
+}
+
+.chk input {
+  display: none !important;
+}
+
+.chk span {
+  width: 20px;
+  height: 20px;
+  display: block;
+  background-color: #fff;
+  border: 1px solid #DDD;
+}
+
+.chk input:checked + span {
+  border: 6px solid #b92113;
+  background-color: #fff;
+  box-shadow: inset -10px -10px 10px #fff ;
+}
+
+.FAROLVERDE{
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 100% !important;
+  /*background-color: #25ac37 !important;*/
+  background-color: rgb(95, 172, 130) !important;
+  margin: -10px !important;
+  box-shadow: inset -10px -10px 10px rgb(95, 172, 130) , inset 3px 3px 5px #fff;
+}
+
+.FAROLAMARELO{
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 100% !important;
+  background-color: #cacc41 !important;
+  margin: -10px !important;
+  box-shadow: inset -10px -10px 10px #cacc41, inset 3px 3px 5px #fff;
+}
+
+.FAROLVERMELHO {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 100% !important;
+  background-color: #b92113 !important;
+  margin: -10px !important;
+  box-shadow: inset -10px -10px 10px #b92113, inset 3px 3px 5px #fff;
+  
+  /*background-image: url(farol-vermelho4.png); 
+  width: 5px;
+  height: 5px;
+  background-repeat: no-repeat;*/
+}
+
+.CABECALHO_PLAN, .CABECALHO_ALOC {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 3 !important;
+  overflow: hidden !important;
+  margin-bottom: -5px !important;
+}
+
+.TABELAATV {
+  position: relative !important;
+}
+
+h4 {
+  margin-top: -5px !important;
+  margin-bottom: -5px !important;
+}
+
+label {
+  font-family: Open Sans;
+  font-size: 12px;	
+}
+
+legend {
+  font-size: 14px !important;
+  margin-bottom: 10px !important;
+}
+
+.ESTRUTURA, .TABELACOMPONENTES, .TABELAPROCESSO {
+  display: none;
+} 
+
+.VIEWTABELACOMPONENTES, .VIEWTABELAPROCESSO {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1), 0 5px 5px 0 rgba(0, 0, 0, 0.15);
+  border-radius: 10px !important;
+}
+
+.input-group-addon, button {
+  background-color: #b92113 !important;
+  cursor: pointer !important;
+}
+
+#ICONtxtHistoricoITMMOV, #ICONRtxtHistoricoITMMOV, .input-group-addon {
+  cursor: pointer !important;
+}
+
+.tab-pane{
+  background-color:rgb(240, 240, 240);
+}
+
+.CABECALHO {
+  position: sticky !important;
+  top: 10 !important;
+  z-index: 2;
+}
+
+.ml-350{
+  margin-left: 350px !important;
+}
+
+.dia, .processo {
+  cursor: pointer;
+}
+
+td input {
+  height: 20px !important;
+}
+
+.DETALHESPROCESSO, .COMPONENTESATV, .RECALOCADOATV, .RECAPTOSDISPATV, .PROGRAMADOATV, .PLANOCORTEATV {
+  height: 500px;
+  background: #f00 !important;
+  /* background: #fff !important; */
+  position: absolute !important;
+  z-index: 101 !important;
+  top: 25%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+.APONTAMENTOSATV{
+  width: 50% !important;
+  height: 50%;
+  /* background: #f00; */
+  /* background: #fff; */
+  position: absolute !important;
+  z-index: 101 !important;
+  top: 30%;
+  left: 23%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ALTERARAVANCO {
+  width:100px;
+  height:200px;
+  /* background:#f00; */
+  /* background: #fff; */
+  position:absolute;
+  z-index: 101 !important;
+  top:30%;
+  /* left:40; */
+  overflow-y:auto;
+  overflow-x: hidden; 
+}
+
+
+.ALTERARPOSTO {
+  width:800px;
+  height:400px;
+  /* background:#f00; */
+  /* background: #fff; */
+  position:absolute;
+  z-index:1 !important;
+  top:30%;
+  /* left:40; */
+  overflow-y:auto;
+  overflow-x: hidden; 
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: rgba(218, 218, 218, 0.8);
+  padding: 20rem 20rem 20rem 20rem;
+  display: flex !important;
+  align-content: center !important;
+  flex-wrap: wrap !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 4;
+  opacity: 0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+}
+
+.select2-dropdown--below{
+  z-index: 1051 !important;
+}
+
+/*.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: rgba(218, 218, 218, 0.8);
+  z-index: 4;
+  opacity:0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+}*/
+
+[readonly] {
+  color: black !important;
+}
+
+.modal:target {
+  opacity: 1.5;
+  pointer-events: auto;
+}
+
+
+.fundoModal {
+  background-color: rgb(240, 240, 240) !important;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 5px; 
+}
+
+.fechar {
+  background: #ff4545;
+  border-radius: 50%;
+  font-size: 1.5em;
+  color: #8d0000 !important;
+  display: flex;
+  justify-content: flex-end;
+  position: fixed !important;
+}
+
+.fecharApontamento {
+  position: fixed !important;
+  line-height: 30px;
+  background: #ff4545;
+  margin-left: 50% !important;
+  margin-top: -0.4% !important;
+  z-index: 99999;
+  border-radius: 50%;
+  font-size: 170%;
+  page-break-inside: avoid !important;
+  color: #8d0000 !important;
+}
+
+.mt-3 {
+  margin-top: -8px !important;
+}
+
+.botao {
+  color: #b92113;
+}
+
+.CABECALHO {
+  background-color: rgb(240, 240, 240) !important;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24) !important;
+  border-radius: 5px !important; 
+}
+
+.panel-heading {
+  background-color: #f5f5f5 !important;
+  padding-bottom: 20px !important;
+}
+
+.info {
+  font-size: 14px;
+}
+
+/*input:checked {
+  all:unset;
+  background-color: white !important;
+  width: 15px !important;
+  height: 15px !important;
+  border: 5px solid #b92113 !important;
+}*/
+
+.titulo,.aba,.infoVermelho,#ABAPLANEJAMENTO,#ABARESUMOA,#ABAADDHAB {
+  color: #b92113;
+}
+
+.titulo {
+  padding-top: 15px !important;
+  padding-bottom: 20px !important;
+}
+
+.select2-fluigicon-zoom, #CADASTRAR, #ADICIONARCOMPONENTE, .EXCLUIR {
+  background-color: #b92113 !important;
+}
+
+.fluigicon {
+  cursor: pointer;
+}
+
+th {
+  cursor: pointer;
+}
+
+.fixo1 {
+  position: sticky !important;
+  left: 0% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+.fixo2 {
+  position: sticky !important;
+  left: 2.9% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+.fixo3 {
+  position: sticky !important;
+  left: 4.7% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+.fixo4 {
+  position: sticky !important;
+  left: 10.5% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+.fixo5 {
+  position: sticky !important;
+  left: 16.3% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+.fixo6 {
+  position: sticky !important;
+  left: 24.1% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+.fixo7 {
+  position: sticky !important;
+  left: 31.9% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+.fixo8 {
+  position: sticky !important;
+  left: 41.7% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+.fixo9 {
+  position: sticky !important;
+  left: 47.5% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+.fixo10 {
+  position: sticky !important;
+  left: 53.3% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+.fixo11 {
+  position: sticky !important;
+  left: 63% !important;
+  z-index: 2 !important;
+  background-color: white !important;
+}
+
+
+/* @media (min-width:1000px) {
+  .fixo {
+    position: sticky !important;
+    left: 0 !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo2 {
+    position: sticky !important;
+    left: 160px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo3 {
+    position: sticky !important;
+    left: 295px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo4 {
+    position: sticky !important;
+    left: 465px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo5 {
+    position: sticky !important;
+    left: 600px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo6 {
+    position: sticky !important;
+    left: 750px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo7 {
+    position: sticky !important;
+    left: 900px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo1 {
+    position: sticky !important;
+    left: 0 !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo2 {
+    position: sticky !important;
+    left: 160px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo3 {
+    position: sticky !important;
+    left: 295px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo4 {
+    position: sticky !important;
+    left: 465px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo5 {
+    position: sticky !important;
+    left: 600px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo6 {
+    position: sticky !important;
+    left: 750px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo7 {
+    position: sticky !important;
+    left: 900px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo8 {
+    position: sticky !important;
+    left: 1050px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo9 {
+    position: sticky !important;
+    left: 1250px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  
+}
+
+
+@media (min-width:1000px) {
+  .fixo1 {
+    position: sticky !important;
+    left: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo2 {
+    position: sticky !important;
+    left: 3% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo3 {
+    position: sticky !important;
+    left: 5% !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo4 {
+    position: sticky !important;
+    left: 17% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo5 {
+    position: sticky !important;
+    left: 27% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo6 {
+    position: sticky !important;
+    left: 37% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo7 {
+    position: sticky !important;
+    left: 50% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo8 {
+    position: sticky !important;
+    left: 63% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo9 {
+    position: sticky !important;
+    left: 76% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+}
+
+@media (min-width:1300px) {
+  .fixo1 {
+    position: sticky !important;
+    left: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo2 {
+    position: sticky !important;
+    left: 3% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo3 {
+    position: sticky !important;
+    left: 5% !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo4 {
+    position: sticky !important;
+    left: 17% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo5 {
+    position: sticky !important;
+    left: 27% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo6 {
+    position: sticky !important;
+    left: 37% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo7 {
+    position: sticky !important;
+    left: 50% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo8 {
+    position: sticky !important;
+    left: 63% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo9 {
+    position: sticky !important;
+    left: 76% !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+}
+
+  .fixo1 {
+    position: sticky !important;
+    left: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo2 {
+    position: sticky !important;
+    left: 60 !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo3 {
+    position: sticky !important;
+    left: 90px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo4 {
+    position: sticky !important;
+    left: 212px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo5 {
+    position: sticky !important;
+    left: 375px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo6 {
+    position: sticky !important;
+    left: 540px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo7 {
+    position: sticky !important;
+    left: 745px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo8 {
+    position: sticky !important;
+    left: 865px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo9 {
+    position: sticky !important;
+    left: 1070px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo {
+    position: sticky !important;
+    left: 45px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo1 {
+    position: sticky !important;
+    left: 0 !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo2 {
+    position: sticky !important;
+    left: 200px !important;
+    bottom: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo3 {
+    position: sticky !important;
+    left: 350px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo4 {
+    position: sticky !important;
+    left: 510px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo5 {
+    position: sticky !important;
+    left: 675px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo6 {
+    position: sticky !important;
+    left: 770px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo7 {
+    position: sticky !important;
+    left: 900px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+
+  .fixo1 {
+    position: sticky !important;
+    left: 0px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo2 {
+    position: sticky !important;
+    left: 47 !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo3 {
+    position: sticky !important;
+    left: 78px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo4 {
+    position: sticky !important;
+    left: 173px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo5 {
+    position: sticky !important;
+    left: 265px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo6 {
+    position: sticky !important;
+    left: 390px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo7 {
+    position: sticky !important;
+    left: 515px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo8 {
+    position: sticky !important;
+    left: 670px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo9 {
+    position: sticky !important;
+    left: 762px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+  .fixo10 {
+    position: sticky !important;
+    left: 918px !important;
+    z-index: 2 !important;
+    background-color: white !important;
+  }
+} */
+
+/* .PROGRAMACAO{
+  position: sticky !important;
+  z-index: 4 !important;
+  top: 0px !important;
+} */
+
+.GRUPORECURSON3, .RAD{
+  background-image: linear-gradient(to bottom right, white, rgb(240, 240, 240), rgb(233, 237, 240), rgb(255, 255, 255)) !important;
+}
+
+.top {
+  position: sticky !important;
+  top: 0 !important;
+  bottom: 0px !important;
+  overflow: hidden !important;
+}
+
+.cabecalho1, .cabecalho2   {
+  position: sticky !important;
+  top: 0 !important;
+  bottom: 0px !important;
+  overflow: hidden !important;
+}
+
+.cabecalho1, .cabecalho2, .cabecalho3 {
+  visibility: collapse !important;  
+}
+
+.container {
+  background: #F9F9F9; 
+  padding: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+}
+
+td {
+  vertical-align: middle !important; 
+  text-align: center !important; 
+  padding-top:5px !important; 
+  padding-bottom: 5px !important; 
+  background-color: white;
+}
+
+th {
+  background-color: white !important; 
+  text-align: center !important; 
+  line-height: 0px !important; 
+  vertical-align: middle !important;  
+}
+
+.alocado {
+  background-image: linear-gradient(0deg, rgb(94, 120, 177), white, rgb(94, 120, 177))
+}
+
+.parcialApontada {
+  background-image: linear-gradient(0deg, rgb(239, 241, 120), white, rgb(239, 241, 120))
+}
+
+.apontada {
+  background-image: linear-gradient(0deg, rgb(95, 172, 130), white, rgb(95, 172, 130))
+}
+
+.desprogramar {
+  background-image: linear-gradient(0deg, rgb(116, 133, 158), white, rgb(116, 133, 158))
+}
+
+.selecaoAlocacao {
+  background-image: linear-gradient(0deg, rgb(122, 124, 126), white, rgb(183, 185, 189))
+}
+
+.panel-heading {
+  background-image: linear-gradient( #e9e9e9, white); 
+}
+
+textarea {
+  resize: none;
+}
+
+.panel-body {
+  background-image: linear-gradient(to bottom right, white, rgb(240, 240, 240), rgb(233, 237, 240), rgb(255, 255, 255));
+  align-items: center;
+  color: #696969;
+}
+
+.form-group {
+  margin: 5px -5px 0px 0px !important;
+}
+
+.BOTAOEXIBIR {
+  margin-top: 23px !important;
+}
+
+.REMOVER {
+  padding-left: 50px !important;
+} 
+
+.ULTIMAPOSICAO {
+  margin-top: -25px;
+}
+
+.espaco {
+  padding-top: 20px;
+}
+
+.SOMA_RECALOCADOATV {
+  margin-top: -20px !important;
+}
+
+.SOMA_ALOCACAO, .SOMA_APONTAMENTOSATV, .SOMA_RECAPTOSDISPATV {
+  margin-top: -52px !important;
+}
+
+.SOMA_ALOCACAO td, .SOMA_APONTAMENTOSATV td, .SOMA_RECALOCADOATV td, .SOMA_RECAPTOSDISPATV td {
+  vertical-align: middle !important; 
+  text-align: center !important; 
+  padding-top:5px !important; 
+  padding-bottom: 5px !important;
+  background-color: white !important;
+}
+
+.SOMA_ALOCACAO th, .SOMA_APONTAMENTOSATV th, .SOMA_RECALOCADOATV th, .SOMA_RECAPTOSDISPATV th {
+  visibility: collapse;
+}
+
+#SELECIONADOSN3, #PROGRAMACAOSALVA {
+  display: none;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.ml-16 {
+  margin-left: 16px;
+}
+
+.mt-20 {
+  margin-top: 20px !important;
+}
+
+.pt-35 {
+  padding-top: 35px !important;
+}
+
+.pt-10 {
+  padding-top: 10px !important;
+}
+
+.pt-15 {
+  padding-top: 15px !important;
+}
+
+.pt-22 {
+  padding-top: 22px !important;
+}
+
+.mt-32 {
+  margin-top: 32px !important;
+}
+
+.mt-25 {
+  margin-top: 25px !important;
+}
+
+.mt-35 {
+  margin-top: 35px !important;
+}
+
+.pt-30 {
+  padding-top: 30px !important;
+}
+
+.pt-35 {
+  padding-top: 35px !important;
+}
+
+.mb-10 {
+  margin-bottom: 10px !important;
+}
+
+.pb-15 {
+  padding-bottom: 15px !important;
+}
+
+.pb-25 {
+  padding-bottom: 25px !important;
+}
+
+.pb-30 {
+  padding-bottom: 30px !important;
+}
+
+.pb-50 {
+  padding-bottom: 50px !important;
+}
+
+hr {
+  border-color: #e9e9e9 !important;
+  margin-bottom: 0px !important;
+}
+
+#DAT {
+  font-family: Open Sans;
+  font-size: 15px;
+}
+
+#pesquisar {
+  margin-top: 10% !important;
+}
+
+#ICONADICIONAHAB, .ICONREMOVEHAB{
+  color: white !important;
+}
+
+.SALVAR{
+  left: 120%;
+}
