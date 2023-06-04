@@ -1,0 +1,892 @@
+<html>
+
+    <head>
+
+        <!-- BIBLIOTECA PADRÕES DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-orgchart.min.css">
+        <script src="/style-guide/js/fluig-style-guide-orgchart.min.js"></script>
+
+       
+        <!-- BIBLIOTECAS SWEET ALERT -->    
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    </head>
+    
+    <body>
+
+        <!-- INÍCIO DA CUSTOMIZAÇÃO DO STYLE GUIDE -->
+        <div class="fluig-style-guide">
+
+            <!-- TAG PARA CRIAR O FORMULÁRIO -->
+            <form name="form" role="form">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES DAS SOLICITAÇÕES DO PROCESSO -->
+                <input id="ATIVIDADE" name="ATIVIDADE" type="hidden">
+                <input id="NUMPROCESSO" name="NUMPROCESSO" type="hidden">
+                <input id="SOLICITANTE" name="SOLICITANTE" type="hidden">
+                <input id="USUARIOATUAL" name="USUARIOATUAL" type="hidden">
+                <input id="CODUSUARIO" name="CODUSUARIO" type="hidden">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES OCULTOS DOS EXCLUSIVOS DO WORKFLOW -->
+                <input id="EXCLUSIVO1" name="EXCLUSIVO1" type="hidden">
+                <input id="DATADE_PROG" name="DATADE_PROG" type="hidden">
+                <input id="DATAATE_PROG" name="DATAATE_PROG" type="hidden">
+                <input id="DATADE_ALOC" name="DATADE_ALOC" type="hidden">
+                <input id="DATAATE_ALOC" name="DATAATE_ALOC" type="hidden">
+                <input id="SEQATUAL" name="SEQATUAL" type="hidden">
+                <input id="HABILIDADEATUAL" name="HABILIDADEATUAL" type="hidden">
+
+                <!-- TAG PARA DELIMITAR O PAINEL DO FORMULÁRIO -->
+                <div class="form-group col-md-12">
+
+                    <!-- TAG PARA CENTRALIZAR O FORMULÁRIO -->
+                    <div class="container col-md-12">
+
+                        <!-- INÍCIO DO CONTEÚDO DO PAINEL -->
+                        <div class="panel panel-default" id="PANEL1">
+
+                            <!-- CORPO DO FORMULÁRIO -->
+                            <div class="panel-body">
+
+                                <!-- <div class="text-center">
+                                    <span class="titulo text-center TITULO1"><h4><strong>G E R A Ç Ã O &nbsp;&nbsp; D E &nbsp;&nbsp; R A</strong></h4></span>
+                                </div> -->
+
+                                <div class="text-center">
+                                    <span class="titulo text-center TITULO2"><h4><strong>C O N S U L T A &nbsp;&nbsp; D E &nbsp;&nbsp; R A</strong></h4></span>
+                                </div>
+
+                                <div class="row form-group" id="ABAS"></div>
+                                    <ul class="nav nav-tabs clearfix" role="tablist">
+                                            <!-- <li id="ABAGER" name="ABAGER" class="active ABAGER"><a id="ABAGERACAO" href="#GERACAOBLANK" onclick="titulo(1)" class="aba" role="tab" data-toggle="tab"><h4><strong>Geração</strong></h4></a></li> -->
+                                            <li id="ABACON" name="ABACON" class="ABACON"><a id="ABACONSULTA" href="#CONSULTABLANK" onclick="titulo(2)" role="tab" class="aba" data-toggle="tab"><h4><strong>Consulta</strong></h4></a></li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- CONTEÚDO DAS ABAS -->
+                                <div class="tab-content tab-pane">
+
+                                    <!-- <div class="row filtros pb-30 GERACAOBLANK" id="GERACAOBLANK" name="GERACAOBLANK">
+
+                                        <div class="form-group col-md-12">
+
+                                            <div class="form-group col-md-3">
+                                                <label class="info" for="only-date">Data</label>
+                                                <div class="input-group date" id="PERIODO1">
+                                                    <input type="text" class="form-control" id="DATA_ATUAL" name="DATA_ATUAL" readonly mask="99/99/9999"/>
+                                                    <span class="input-group-addon" id="SPANDE" name="SPANDE">
+                                                        <span class="fluigicon fluigicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label class="info">Filial *</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="FILIAL" name="FILIAL"
+                                                    data-zoom="{
+                                                        'displayKey':'CODFILIAL',
+                                                        'datasetId':'dsFilial',
+                                                        'fields':[
+                                                            {
+                                                                'field':'FILIAL',
+                                                                'label':'Cód. - Nome',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }   
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="CODFILIAL_FILTRO" name="CODFILIAL_FILTRO">
+                                                <input type="hidden" id="CODCOLIGADA_FILTRO" name="CODCOLIGADA_FILTRO">
+                                            </div>
+
+                                            <div class="form-group col-md-5">
+                                                <label class="info">OS *</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="PROJETO" name="PROJETO"
+                                                    data-zoom="{
+                                                        'displayKey':'CODPRJ',
+                                                        'datasetId':'dsOSEstrutura',
+                                                        'fields':[
+                                                            {
+                                                                'field':'OS',
+                                                                'label':'Cód. - Descrição',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }   
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="CODPRJ" name="CODPRJ">
+                                                <input type="hidden" id="DESCRICAOPRJ" name="DESCRICAOPRJ">
+                                                <input type="hidden" id="IDPRJ" name="IDPRJ">
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="row form-group col-md-12 pb-15">
+        
+                                            <div class="form-group col-md-6">
+                                                <label id="LABELOP" name="LABELOP" class="info">OP *</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="ORDEMPRODUCAO" name="ORDEMPRODUCAO"
+                                                    data-zoom="{
+                                                        'displayKey':'CODORDEM',
+                                                        'datasetId':'dsOrdemProducaoOS',
+                                                        'maximumSelectionLength':'5',
+                                                        'fields':[
+                                                            {
+                                                                'field':'CODORDEM',
+                                                                'label':'Cod. Ordem',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }   
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="CODORDEM" name="CODORDEM">
+                                                <input type="hidden" id="INDICE_PRD" name="INDICE_PRD">
+                                                <input type="hidden" id="NIVEL_PRD" name="NIVEL_PRD">
+                                            </div>
+
+                                            <div class="form-group col-md-4">
+                                                <label class="info">Componente</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="COMPONENTE" name="COMPONENTE"
+                                                    data-zoom="{
+                                                        'displayKey':'COMPONENTE',
+                                                        'datasetId':'dsBuscaComponentesRA',
+                                                        'maximumSelectionLength':'10',
+                                                        'fields':[
+                                                            {
+                                                                'field':'COMPONENTE',
+                                                                'label':'Cód. - Descrição',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }   
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="IDPRD" name="IDPRD">
+                                                <input type="hidden" id="CODIGOPRD" name="CODIGOPRD">
+                                            </div>
+        
+                                            <div class="form-group col-md-1 BUSCAR pt-25">
+                                                <button type="button" class="btn btn-primary" onclick="buscar();" id="BUSCAR" name="BUSCAR">Buscar</button>
+                                            </div> 
+
+                                        </div>
+        
+                                        <div class="row form-group col-md-12 pb-15">
+                                            
+                                            <div class="form-group col-md-12">
+
+                                                <span><strong>(*) Campos de preenchimento obrigatório</strong></span>
+
+                                            </div>
+                                            
+                                        </div>
+
+                                        <div class="row form-group col-md-12 pb-30 TABELAS">
+
+                                            <div class="text-center tituloTabela titulo pb-15">
+                                                <h4><strong>Componentes</strong></h4>
+                                            </div>
+
+                                            <div class="table-responsive ScrollWrapper scrollPrincipal CABECALHO_INFO CABECALHO_PLAN">
+
+                                                <div style="width:100%">
+
+                                                    <table tablename="CABECALHO" class="table table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                                    
+                                                        <thead>
+
+                                                            <tr>
+                                                                
+                                                                <th style="width:3%;white-space: normal" class="form-group top cabecalhofixo" id="THCHECKBOX" name="THCHECKBOX"><label class="info"><strong></strong></label></th>
+                                                                <th style="width:8%;white-space: normal" class="form-group top cabecalhofixo" ><label class="info"><strong>Componente</strong></label></th>
+                                                                <th style="width:19%;white-space: normal" class="form-group top cabecalhofixo"><label class="info"><strong>Descrição</strong></label></th>
+                                                                <th style="width:5%;white-space: normal" class="form-group top cabecalhofixo"><label class="info"><strong>Und</strong></label></th>
+                                                                <th style="width:6%;white-space: normal" class="form-group top cabecalhofixo"><label class="info"><strong>OP</strong></label></th>
+                                                                <th style="width:5%;white-space: normal" class="form-group top cabecalhofixo"><label class="info"><strong>ID</strong></label></th>
+                                                                <th style="width:9%;white-space: normal" class="form-group cabecalhofixo"><label class="info"><strong>Atividade</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group top cabecalhofixo"><label class="info"><strong>Estoque 22</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group top cabecalhofixo"><label class="info"><strong>Qtde Prev.</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group top cabecalhofixo"><label class="info"><strong>Qtde a requisitar</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group top cabecalhofixo"><label class="info"><strong>Saldo a requisitar</strong></label></th>
+                                                                
+                                                            </tr>
+
+                                                        </thead>
+
+                                                        <tbody>
+
+                                                            <tr>
+
+                                                                <td class="selecaoComponentes" onclick="selecionaComponentes()">
+                                                                    <input type="hidden" id="SELECAOATVS" name="SELECAOATVS">
+                                                                    <span>✔</span>
+                                                                </td>
+                                                
+                                                                <td>
+                                                                    <select class="form-control" id="INFOCOMPONENTE" name="INFOCOMPONENTE" onchange="reconstroiFiltros()">
+                                                                        <option class="info" value=""></option>
+                                                                    </select>
+                                                                </td>
+
+                                                                <td>
+                                                                    <select class="form-control" id="INFODESCRICAO" name="INFODESCRICAO" onchange="reconstroiFiltros()">
+                                                                        <option class="info" value=""></option>
+                                                                    </select>
+                                                                </td>
+
+                                                                <td> 
+                                                                    <select class="form-control" id="INFOUND" name="INFOUND" onchange="reconstroiFiltros()">
+                                                                        <option class="info" value=""></option>
+                                                                    </select>
+                                                                </td>
+
+                                                                <td>
+                                                                    <select class="form-control" id="INFOOP" name="INFOOP" onchange="reconstroiFiltros()">
+                                                                        <option class="info" value=""></option>
+                                                                    </select>
+                                                                </td>
+
+                                                                <td>
+                                                                    <select class="form-control" id="INFOID" name="INFOID" onchange="reconstroiFiltros()">
+                                                                        <option class="info" value=""></option>
+                                                                    </select>
+                                                                </td>
+
+                                                                <td>
+                                                                    <select class="form-control" id="INFOATIVIDADE" name="INFOATIVIDADE" onchange="reconstroiFiltros()">
+                                                                        <option class="info" value=""></option>
+                                                                    </select>
+                                                                </td>
+
+                                                                <td>
+                                                                    <select class="form-control" id="INFOESTOQUE" name="INFOESTOQUE" onchange="reconstroiFiltros()">
+                                                                        <option class="info" value=""></option>
+                                                                    </select>
+                                                                </td>
+
+                                                                <td>
+                                                                    <select class="form-control" id="INFOQTDEPREV" name="INFOQTDEPREV" onchange="reconstroiFiltros()">
+                                                                        <option class="info" value=""></option>
+                                                                    </select>
+                                                                </td>
+
+                                                                <td>
+                                                                    <select class="form-control" id="INFOQTDEREQ" name="INFOQTDEREQ" onchange="reconstroiFiltros()">
+                                                                        <option class="info" value=""></option>
+                                                                        <option class="info" value=">0"> < > 0</option>
+                                                                    </select>  
+                                                                </td>
+
+                                                                <td>
+                                                                    <select class="form-control" id="INFOSALDOREQ" name="INFOSALDOREQ" onchange="reconstroiFiltros()">
+                                                                        <option class="info" value=""></option>
+                                                                        <option class="info" value=">0"> < > 0</option>
+                                                                    </select>
+                                                                </td>
+
+                                                            </tr>
+
+                                                        </tbody>
+
+                                                    </table>
+                                                
+                                                </div>
+
+                                            </div>
+
+                                            <div class="table-responsive ScrollWrapper scrollPrincipal COMPONENTES">
+            
+                                                <div style="width:100%">
+                                                                                                                
+                                                    <table id="COMPONENTES" tablename="COMPONENTES" class="table table-sm table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                                
+                                                        <thead>
+
+                                                            <tr class="cabecalho1">
+                                                                
+                                                                <th style="width:3%;white-space: normal" class="form-group top" id="THCHECKBOX" name="THCHECKBOX"><label class="info"><strong></strong></label></th>
+                                                                <th style="width:8%;white-space: normal" class="form-group top"><label class="info"><strong>Componente</strong></label></th>
+                                                                <th style="width:19%;white-space: normal" class="form-group top"><label class="info"><strong>Descrição</strong></label></th>
+                                                                <th style="width:5%;white-space: normal" class="form-group top"><label class="info"><strong>Und</strong></label></th>
+                                                                <th style="width:6%;white-space: normal" class="form-group top"><label class="info"><strong>OP</strong></label></th>
+                                                                <th style="width:5%;white-space: normal" class="form-group top"><label class="info"><strong>ID</strong></label></th>
+                                                                <th style="width:9%;white-space: normal" class="form-group top"><label class="info"><strong>Atividade</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group top"><label class="info"><strong>Estoque 22</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group top"><label class="info"><strong>Qtde Prev.</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group top"><label class="info"><strong>Qtde a requisitar</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group top"><label class="info"><strong>Saldo a requisitar</strong></label></th>
+
+                                                            </tr>
+                                            
+                                                        </thead>
+                                                
+                                                        <tbody>
+                                                
+                                                            <tr class="LINHA" id="LINHA" name="LINHA">
+
+                                                                <td>
+                                                                    <label class="chk">
+                                                                        <input type="checkbox" class="form-control" id="REQUISITANDO" name="REQUISITANDO" onclick="colocaSelecao(this)">
+                                                                        <span></span>
+                                                                    </label>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="COMPONENTEREQ" name="COMPONENTEREQ" readonly title="" onmouseover="mouse(this);">
+                                                                    <input type="hidden" class="form-control" id="CODCOLIGADAREQ" name="CODCOLIGADAREQ">
+                                                                    <input type="hidden" class="form-control" id="CODFILIALREQ" name="CODFILIALREQ">
+                                                                    <input type="hidden" class="form-control" id="OSREQ" name="OSREQ">
+                                                                    <input type="hidden" class="form-control" id="IDPRDREQ" name="IDPRDREQ">
+                                                                    <input type="hidden" class="form-control" id="IDPRDORIGEMREQ" name="IDPRDORIGEMREQ">
+                                                                    <input type="hidden" class="form-control" id="CUSTOMEDIOREQ" name="CUSTOMEDIOREQ">
+                                                                    <input type="hidden" class="form-control" id="CODLOCREQ" name="CODLOCREQ">
+                                                                    <input type="hidden" class="form-control" id="IDMOVREQ" name="IDMOVREQ">
+                                                                </td>
+                                                
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="DESCRICAOREQ" name="DESCRICAOREQ" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="UNDREQ" name="UNDREQ" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="OPREQ" name="OPREQ" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+                                                                
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="IDATVREQ" name="IDATVREQ" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+                                                
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="ATIVIDADEREQ" name="ATIVIDADEREQ" readonly title="" onmouseover="mouse(this);">
+                                                                    <input type="hidden" class="form-control" id="CODATIVIDADEREQ" name="CODATIVIDADEREQ">
+                                                                </td>
+                                                
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="ESTOQUEREQ" name="ESTOQUEREQ" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="QTDEPREVREQ" name="QTDEPREVREQ" readonly title="" onmouseover="mouse(this);">
+                                                                    <input type="hidden" class="form-control" id="SALDOBAIXADOREQ" name="SALDOBAIXADOREQ" readonly title="" onmouseover="mouse(this);">
+                                                                    <input type="hidden" class="form-control" id="SALDOREQUISITADOREQ" name="SALDOREQUISITADOREQ" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="QTDEREQ" name="QTDEREQ" title="" onchange="verificaQtde(this)" readonly onmouseover="mouse(this);">
+                                                                </td>
+                                                        
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="SALDOREQ" name="SALDOREQ" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                            </tr>
+                                                
+                                                        </tbody>
+                                                
+                                                    </table>
+                                                
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group col-md-1 pt-15">
+                                        
+                                                <button type="button" class="btn btn-primary" onclick="preVisualizarRA();" id="PREVISUALIZARA" name="PREVISUALIZARA">Pré-visualizar RA</button>
+                                                
+                                            </div>
+                                        
+                                        </div>
+                                    
+                                    
+
+                                        <div class="row form-group col-md-12 pb-30 TABELA_RA">
+
+                                            <div class="text-center tituloTabela titulo pb-15">
+                                                <h4><strong>RA's Geradas</strong></h4>
+                                            </div>
+                                            
+                                            <table tablename="TABELA_RA" class="table table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                                    
+                                                <thead>
+
+                                                    <tr>
+                                                        
+                                                        <th class="form-group col-md-1"><label class="info"><strong>N° RA</strong></label></th>
+                                                        <th class="form-group col-md-1"><label class="info"><strong>N° Ordem</strong></label></th>
+                                                        <th class="form-group col-md-2"><label class="info"><strong>Status</strong></label></th>
+                                                        <th class="form-group col-md-2"><label class="info"><strong>Cód.</strong></label></th>
+                                                        <th class="form-group col-md-2"><label class="info"><strong>Descrição</strong></label></th>
+                                                        <th class="form-group col-md-1"><label class="info"><strong>Qtde</strong></label></th>
+                                                        <th class="form-group col-md-1"><label class="info"><strong>Und</strong></label></th>
+                                                        <th class="form-group col-md-2"><label class="info"><strong>C. Custo</strong></label></th>
+                                                        
+                                                    </tr>
+
+                                                </thead>
+
+                                                <tbody>
+
+                                                    <tr>
+
+                                                        <td>
+                                                            <input type="text" id="NUMERORA" name="NUMERORA" class="form-control allign" readonly title="" onmouseover="mouse(this);">
+                                                            <input type="hidden" id="IDMOVRA" name="IDMOVRA" class="form-control" readonly title="" onmouseover="mouse(this);">
+                                                            <input type="hidden" id="IDATVORDEMRA" name="IDATVORDEMRA" class="form-control" readonly title="" onmouseover="mouse(this);">
+                                                            <input type="hidden" id="CODCOLIGADARA" name="CODCOLIGADARA" class="form-control" readonly title="" onmouseover="mouse(this);">
+                                                            <input type="hidden" id="CODFILIALRA" name="CODFILIALRA" class="form-control" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" id="CODORDEMRA" name="CODORDEMRA" class="form-control allign" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" id="STATUSRA" name="STATUSRA" class="form-control allign" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+                                        
+                                                        <td>
+                                                            <input type="text" id="CODIGOPRDRA" name="CODIGOPRDRA" class="form-control allign" readonly title="" onmouseover="mouse(this);">
+                                                            <input type="hidden" id="IDPRDRA" name="IDPRDRA" class="form-control" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" id="DESCRICAORA" name="DESCRICAORA" class="form-control allign" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" id="QTDERA" name="QTDERA" class="form-control allign" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" id="UNDRA" name="UNDRA" class="form-control allign" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" id="CENTROCUSTORA" name="CENTROCUSTORA" class="form-control allign" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+                                    
+                                    </div> -->
+
+                                    <div class="row filtros pb-30 CONSULTABLANK tab-pane" id="CONSULTABLANK" name="CONSULTABLANK">
+
+                                        <div class="form-group col-md-12">
+
+                                            <div class="form-group col-md-3">
+                                                <label class="info">Busca</label>
+                                                <input type="text" class="form-control" id="PESQUISACONSULTA" name="PESQUISACONSULTA" title="" onmouseover="mouse(this);">
+
+                                            </div>
+
+                                            <div class="form-group col-md-6">
+                                                
+                                                <fieldset>
+            
+                                                    <div class="form-group col-md-6">
+                                                        <label class="info" for="only-date">De</label>
+                                                        <div class="input-group date" id="PERIODO1">
+                                                            <input type="text" class="form-control" id="DATA_DE" name="DATA_DE" mask="99/99/9999"/>
+                                                            <span class="input-group-addon" id="SPANDE" name="SPANDE">
+                                                                <span class="fluigicon fluigicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div> 
+                                                    <div class="form-group col-md-6">
+                                                        <label class="info" for="only-date">Até</label>
+                                                        <div class="input-group date" id="PERIODO2">
+                                                            <input type="text" class="form-control" id="DATA_ATE" name="DATA_ATE" mask="99/99/9999"/>
+                                                            <span class="input-group-addon" id="SPANATE" name="SPANATE">
+                                                                <span class="fluigicon fluigicon-calendar"></span>
+                                                            </span>
+                                                        </div>
+                                                    </div>    
+            
+                                                </fieldset>
+                                                
+                                            </div>
+
+                                            <div class="form-group col-md-3">
+                                                <button type="button" class="btn btn-primary" style="margin-top: 5.6% !important;" onclick="buscarConsulta();" id="BUSCARCON" name="BUSCARCON">Buscar</button>
+                                            </div> 
+                                        
+                                        </div>
+
+                                        <div class="row form-group col-md-12 CONSULTARA" style="margin-top: 5% !important;">
+
+                                            <div class="table-responsive ScrollWrapper scrollPrincipal COMPONENTES">
+                
+                                                <div style="width:100%" id="CONSULTACABECALHO" class="tableFixHead0 tableFixHead">
+                                                                                                                
+                                                    <table id="CONSULTARA" tablename="CONSULTARA" class="table table-sm table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                                
+                                                        <thead>
+
+                                                            <tr>
+                                                                
+                                                                <th style="width:8%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>Num. RA</strong></label></th>
+                                                                <th style="width:10%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>Emissor</strong></label></th>
+                                                                <th style="width:6%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>Solicitação</strong></label></th>
+                                                                <th style="width:6%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>Status</strong></label></th>
+                                                                <th style="width:8%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>OP</strong></label></th>
+                                                                <th style="width:4%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>ID Atv.</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>PAPC</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>OS</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>Produto</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>Und</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>Qtd</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>Emissão</strong></label></th>
+                                                                <th style="width:7%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>Edição</strong></label></th>
+                                                                <th style="width:4%;white-space: normal" class="form-group linhaconsulta"><label class="info"><strong>Rastreabilidade</strong></label></th>
+
+                                                            </tr>
+                                            
+                                                        </thead>
+                                                
+                                                        <tbody>
+                                                
+                                                            <tr class="LINHA" id="LINHACON" name="LINHACON">
+
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="NUMRACON" name="NUMRACON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+                                                
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="EMISSORCON" name="EMISSORCON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <a id="LINKRA" href="" target="_blank" rel="noreferrer noopener">
+                                                                        <input type="text" class="form-control linhaconsulta" id="SOLICITACAOCON" name="SOLICITACAOCON" readonly title="" onmouseover="mouse(this);">
+                                                                    </a>
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="STATUSCON" name="STATUSCON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+                                                                
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="OPCON" name="OPCON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+                                                
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="IDATVCON" name="IDATVCON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+                                                
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="PAPCCON" name="PAPCCON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="OSCON" name="OSCON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="PRODCON" name="PRODCON" title="" readonly onmouseover="mouse(this);">
+                                                                </td>
+                                                        
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="UNDCON" name="UNDCON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="QTDCON" name="QTDCON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="EMISSAOCON" name="EMISSAOCON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <input type="text" class="form-control linhaconsulta" id="EDICAOCON" name="EDICAOCON" readonly title="" onmouseover="mouse(this);">
+                                                                </td>
+
+                                                                <td>
+                                                                    <a href="#COMPRABLANK"><span onclick="carregaModalCompra(this)" value=""><i class="fluigicon fluigicon-test-settings icon-md"></i></span></a>
+                                                                </td>
+
+
+                                                            </tr>
+                                                
+                                                        </tbody>
+                                                
+                                                    </table>
+                                                
+                                                </div>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                    </div>
+
+                                    <div id="COMPRABLANK" class="modal">
+
+                                        <div class="form-group col-md-10 fundoModal" style="margin-bottom: 20px !important;">
+
+                                            <div class="text-center tituloTabela titulo">
+                                                <h4><strong>Pedido De Compra</strong></h4>
+                                                <div>
+                                                    <a href="#fechar" id="fechar" title="Fechar" class="fechar"><strong>X</strong></a>
+                                                </div>
+                                            </div>
+
+                                            <div class="relatorioMovimento">
+
+                                                <div class="coluna">
+
+                                                    <div class="RASTREABILIDADE">
+        
+                                                    </div>
+
+                                                    <div class="ZOOM">
+
+                                                        <label class="info">Zoom</label>
+                                                        <input id="ZOOM_SLIDER" name="ZOOM_SLIDER">
+
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="MOVIMENTOS">
+
+                                                    <section class="col-md-12">
+
+                                                        <legend class="info">Informações do movimento</legend>
+
+                                                        <div class="row cold-md-12">
+
+                                                            <section class="col-md-6">
+
+                                                                <legend class="info">Status do Movimento</legend>
+
+                                                                <div class="Sectionrow">
+                                                                    <div class="col-md-3">
+                                                                        <label class="info">Identificador</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="IDENTIFICADOR" name="IDENTIFICADOR" readonly>
+                                                                    </div>
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Status</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="STATUS" name="STATUS" readonly>
+                                                                    </div>
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Tipo do Movimento</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="TIPODOMOVIMENTO" name="TIPODOMOVIMENTO" readonly>
+                                                                    </div>
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Descrição do movimento</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="DESCRICAODOMOVIMENTO" name="DESCRICAODOMOVIMENTO" readonly>
+                                                                    </div>
+                                                                </div>
+
+
+                                                            </section>
+
+                                                            <section class="col-md-6">
+
+                                                                <legend class="info">Dados da Inclusão</legend>
+                                                                <div class="Sectionrow">
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Data/hora Criação</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="DATACRIACAO" name="DATACRIACAO" readonly>
+                                                                    </div>
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Usuario</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="USUARIO" name="USUARIO" readonly>
+                                                                    </div>
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Data Entrega</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="DATAENTREGA" name="DATAENTREGA" readonly>
+                                                                    </div>
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Classificação</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="CLASSIFICACAO" name="CLASSIFICACAO" readonly>
+                                                                    </div>
+                                                                </div>
+
+                                                            </section>
+                                                        
+                                                        </div>
+
+                                                        <div class="row cold-md-12">
+
+                                                            <section class="col-md-6">
+
+                                                                <legend class="info">Numeração</legend>
+
+                                                                <div class="Sectionrow">
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Série</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="SERIE" name="SERIE" readonly>
+                                                                    </div>
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Coligada</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="COLIGADA" name="COLIGADA" readonly>
+                                                                    </div>
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Filial</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="FILIALMOV" name="FILIALMOV" readonly>
+                                                                    </div>
+                                                                    <div class=" col-md-3">
+                                                                        <label class="info">Numero</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="NUMERO" name="NUMERO" readonly>
+                                                                    </div>
+                                                                </div>
+                                                            </section>
+
+                                                            <section class="col-md-6">
+
+                                                                <legend class="info">Valores</legend>
+                                                                <div class="Sectionrow">
+                                                                    <div class=" col-md-4">
+                                                                        <label class="info">Moeda</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="MOEDA" name="MOEDA" readonly>
+                                                                    </div>
+
+                                                                    <div class=" col-md-4">
+                                                                        <label class="info">Valor Bruto</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="VALORBRUTO" name="VALORBRUTO" readonly>
+                                                                    </div>
+
+                                                                    <div class=" col-md-4">
+                                                                        <label class="info">Valor Líquido</label>
+                                                                        <input type="text" title="" onmouseover="mouse(this);" class="form-control" id="VALORLIQUIDO" name="VALORLIQUIDO" readonly>
+                                                                    </div>
+                                                                </div>
+
+                                                            </section>
+
+                                                        </div>
+
+                                                    </section>
+
+                                                    <section class="col-md-12 overflow row">
+
+                                                        <legend class="info">Itens</legend>
+
+                                                        <div class="table-responsive ScrollWrapper">
+
+                                                            <div style="width: 200%;">
+                
+                                                                <table class="table table-bordered table-layout-fixed MATERIAIS_INFO_SALVOS TABELA_MOVIMENTO" border="0" nodeletebutton="true" noaddbutton="true">
+                                                                
+                                                                    <thead>
+                
+                                                                        <tr>
+            
+                                                                            <th class="text-center">Id Produto</th>
+                                                                            <th class="text-center">Código</th>
+                                                                            <th class="text-center">Qtd. Total</th>
+                                                                            <th class="text-center">Qtd. a Receber</th>
+                                                                            <th class="text-center">Descrição</th>
+                                                                            <th class="text-center">Unidade</th>
+                                                                            <th class="text-center">Valor Bruto</th>
+                                                                            <th class="text-center">Centro de Custo</th>
+                                                                            <th class="text-center">Desc C. Custo</th>
+                                                                            <th class="text-center">Rateio</th>
+                                                                            <th class="text-center">Nome item tarefa</th>
+                                                                            <th class="text-center">Obs Pedido</th>
+                                                                            <th class="text-center">Obs Item</th>
+                                                                            <th class="text-center">Num. Lote</th>
+                                                                            <th class="text-center">Qtd. Lote</th>
+                                                                            
+                                                                        </tr>
+                
+                                                                    </thead>
+                                                                    
+                                                                    <tbody>
+                                                                        
+                                                                     
+                                                                    </tbody>
+                                                                
+                                                                </table>
+                
+                                                            </div>
+                
+                                                        </div>
+
+                                                    </section>
+
+                                                </div>
+                                            
+                                            </div>
+                                            
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </body>
+
+    <script type="text/javascript" src="documentReady.js"></script>
+    <script type="text/javascript" src="beforeSendValidate.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="selectZoom.js"></script>
+
+    <script type="text/template" class="my_template_orgchart">
+        <!-- <div class="media"> -->
+            <div class="square">
+
+                <div class="col-md-12 cabe">
+                    <div class="col-md-1">
+                        <span> <i class="fluigicon fluigicon-zoom-in icon-lg"></i></span>
+                    </div>
+                    {{#nomemov}}<div class="col-md-11 CODTMV" title="{{nomemov}}">{{/nomemov}}
+                        <p> {{#codtmov}}<strong>{{codtmov}}</strong>{{/codtmov}}</p>
+                    </div>
+                </div>
+
+                <div class="col-md-12 NUMEROMOV">
+                    <p> {{#numeromov}}<strong>Número :{{numeromov}}</strong>{{/numeromov}}</p>
+                </div>
+
+                <div class="col-md-12 STATUSMOV">
+                    <p>{{#statusmov}}<strong>Status :{{statusmov}}</strong>{{/statusmov}}</p>
+                </div>
+
+                <div class="col-md-12 IDMOV">
+                    <p> {{#idmov}}<strong>Id :{{idmov}}</strong>{{/idmov}}</p>
+                </div>
+            </div>
+       <!-- </div> -->
+    </script>
+
+</html>
+
+    
