@@ -1,0 +1,215 @@
+<html>
+
+    <head>
+
+        <!-- BIBLIOTECA PADRÕES DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script> 
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-treeview.min.css">
+        <script src="/style-guide/js/fluig-style-guide-treeview.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+        <!-- BIBLIOTECAS SWEET ALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+        <!-- MATERIAL UI -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+
+        <script src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.min.css"/>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/handsontable.full.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/handsontable/dist/languages/pt-BR.js"></script>
+
+
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+            
+    </head>
+    
+    <body style="padding-top: 0px;">
+
+        <!-- INÍCIO DA CUSTOMIZAÇÃO DO STYLE GUIDE
+        <div class="fluig-style-guide"> -->
+
+            <!-- TAG PARA CRIAR O FORMULÁRIO -->
+            <form name="form" role="form">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES DAS SOLICITAÇÕES DO PROCESSO -->
+                <input id="ATIVIDADE" name="ATIVIDADE" type="hidden">
+                <input id="NUMPROCESSO" name="NUMPROCESSO" type="hidden">
+                <input id="SOLICITANTE" name="SOLICITANTE" type="hidden">
+                <input id="USUARIOATUAL" name="USUARIOATUAL" type="hidden">
+                <input id="DATAATUAL" name="DATAATUAL" type="hidden">
+                <input id="DATAABERTURA" name="DATAABERTURA" type="hidden">
+                <input id="DATAFECHAMENTO" name="DATAFECHAMENTO" type="hidden">
+                <input id="HORAFECHAMENTO" name="HORAFECHAMENTO" type="hidden">
+                <input id="FORMVIEW" name="FORMVIEW" type="hidden">
+                <input id="DESTINATARIOS" name="DESTINATARIOS" type="hidden">
+                <input id="PROGRAMAR" name="PROGRAMAR" type="hidden">
+                <input id="USUARIOAPROVADOR" name="USUARIOAPROVADOR" type="hidden">
+                <input id="SERVER" name="SERVER" type="hidden">
+                <input id="DOCUMENTS" name="DOCUMENTS" type="hidden">
+                <input id="DESCPROCESSOFLUIG" name="DESCPROCESSOFLUIG" type="hidden" value="Solicitação de Chapas Almoxarifado">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES OCULTOS DOS EXCLUSIVOS DO WORKFLOW -->
+                <input id="EXCLUSIVO1" name="EXCLUSIVO1" type="hidden">
+                <input id="EXCLUSIVO2" name="EXCLUSIVO2" type="hidden">
+                <input id="EXCLUSIVO3" name="EXCLUSIVO3" type="hidden">
+
+                <div class="main_panel " id="mainpanel" name="mainpanel">
+
+                    <div class="col-md-12 fluig-style-guide" id="TITULOPRINCIPAL" name="TITULOPRINCIPAL">
+                        <div class="text-center">
+                            <span class="titulo text-center TITULO"><h3><strong>S O L I C I T A Ç Ã O &nbsp;&nbsp; D E &nbsp;&nbsp; C H A P A S &nbsp;&nbsp;</strong></h3></span>
+                        </div>
+                    </div>
+
+                    <div class="fluig-style-guide">
+                        <div class="nav-content">
+                          <ul class="tab breadcrumb">
+                            <li class="active"><a href="#!">Seleção</a></li>
+                            <li><a href="#!">Ordenação</a></li>
+                            <li><a href="#!">Revisão</a></li>
+                            <li><a href="#!">Envio Automático</a></li>
+                            <li><a href="#!">Finalização</a></li>
+                          </ul>
+                        </div>
+                    </div>
+
+
+                    <div class="row" id="CONSULTA" name="CONSULTA">
+
+
+                        <div class="col s12 alinha-centro">
+
+                            <div class="input-field date col s3" id="PERIODO1">
+                                <i class="material-icons prefix">date_range</i>
+                                <input type="text" id="DATA_DE" name="DATA_DE" mask="99/99/9999"/>
+                                <label for="DATA_DE">Data Início</label>
+                            </div>
+
+                            <div class="input-field date col s3" id="PERIODO2">
+                                <i class="material-icons prefix">date_range</i>
+                                <input type="text" id="DATA_ATE" name="DATA_ATE" mask="99/99/9999"/>
+                                <label for="DATA_ATE">Data Fim</label>
+                            </div>
+
+                            <div class="col s3 button-align">
+                                <button type="button" class="btn btn-primary" style="margin-top: 5.6% !important;background-color: #b92113;" onclick="buscarConsulta();" id="BUSCARCON" name="BUSCARCON">Buscar</button>
+                            </div> 
+
+                            
+                            <div class="col s3 button-align">
+                                <button type="button" class="btn btn-primary" style="margin-top: 5.6% !important;background-color: #b92113;" id="EXPORTARCON" name="EXPORTARCON">Exportar</button>
+                            </div> 
+
+                        </div>
+
+                    </div>
+
+
+                    <div id="TABELARA" name="TABELARA"></div>
+
+                    <div id="ESCONDETABELA" name="ESCONDETABELA">   
+
+
+                        <table id="LISTASALVA" class="LISTASALVA" name="LISTASALVA" tablename="LISTASALVA" style="display: none;" nodeletebutton="true" noaddbutton="true">
+                            <thead>
+                                <tr>
+
+                                    <th>CODIGOPRD</th>
+                                    <th>NOMEFANTASIA</th>
+                                    <th>NUMLOTE</th>
+                                    <th>NUMEROMOV</th>
+                                    <th>PLANO</th>
+                                    <th>RETALHO</th>
+                                    <th>MAQUINA</th>
+                                    <th>ENDEREÇO</th>
+                                    <th>OC</th>
+                                    <th>OS</th>
+                                    <th>TIPOMOV</th>
+                                    <th>OBS</th>
+                                    <th>GEDLINK</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        <input type="hidden" id="CODIGOPRD" name="CODIGOPRD">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="NOMEFANTASIA" name="NOMEFANTASIA">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="NUMLOTE" name="NUMLOTE">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="NUMEROMOV" name="NUMEROMOV">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="PLANO" name="PLANO">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="RETALHO" name="RETALHO">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="MAQUINA" name="MAQUINA">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="ENDERECO" name="ENDERECO">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="OC" name="OC">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="OS" name="OS">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="TIPOMOV" name="TIPOMOV">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="OBS" name="OBS">
+                                    </td>
+                                    <td>
+                                        <input type="hidden" id="GEDLINK" name="GEDLINK">
+                                    </td>
+                                </tr>
+                            </tbody>
+                                
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                
+                </div>
+    
+            </form>
+
+        <!-- </div> -->
+
+    </body>
+
+    <script type="text/javascript" src="documentReady.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="selectZoom.js"></script>
+    <script type="text/javascript" src="buttons.js"></script>
+    <script type="text/javascript" src="beforeSendValidate.js"></script>
+
+</html>

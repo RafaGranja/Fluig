@@ -1,0 +1,424 @@
+<html>
+
+    <head>
+
+        <!-- BIBLIOTECA PADRÕES DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-treeview.min.css">
+        <script src="/style-guide/js/fluig-style-guide-treeview.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+        <!-- BIBLIOTECAS SWEET ALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    </head>
+    
+    <body>
+
+        <!-- INÍCIO DA CUSTOMIZAÇÃO DO STYLE GUIDE -->
+        <div class="fluig-style-guide">
+
+            <!-- TAG PARA CRIAR O FORMULÁRIO -->
+            <form name="form" role="form">
+                
+                <div class="row form-group" id="divpesquisa" name="divpesquisa">
+                    <input type="hidden" id="TEMPESQUISA" name="TEMPESQUISA"> 
+                    <div class="row">
+                        <p class="labelpesquisar">Pesquisar</p> 
+                    </div>
+                    <input type="hidden" id="ARRAYPESQUISA" name="ARRAYPESQUISA"> 
+                    <input type="hidden" id="ARRAYPESQUISAINDICE" name="ARRAYPESQUISAINDICE"> 
+                    <input type="hidden" id="ARRAYPESQUISAINDICEMAX" name="ARRAYPESQUISAINDICEMAX"> 
+                    <div class="row">
+                        <span class="input-group-addon botaopesquisa" id="botaopesquisa" name="botaopesquisa" onclick="Pesquisa()"><i id="buttonpesquisa" class='flaticon flaticon-search-form icon-lg' ></i></span>
+                    </div>
+                    <div class="pesquisa" id="pesquisa" name="pesquisa"> 
+                        <div class="row col-md-12">
+                            <span class="col-md-2"><i id="ICONLIMPAPESQ" class="fluigicon fluigicon-remove icon-xs"  onclick="Pesquisa()"></i></span>
+                            <h2 class="col-md-10">Pesquisar</i></h2> 
+                        </div>
+                        <div class="row col-md-12">
+                            <select class="form-control formatacaoCRM" name="campospesquisa" id="campospesquisa">
+                                <option value="NADA" disabled selected hidden>Escolha uma opção</option>
+                                <option value="CODPRD">Código do Produto</option>
+                                <option value="CODORDEM">Ordem de Produção</option>
+                                <option value="INDICE">Índice FLuig</option>
+                                <option value="DESENHO">Desenho</option>  
+                                <option value="POSICAO">Posição</option>
+                                <option value="DESCRICAO">Descrição</option>
+                                <option value="COMPONENTE">Matéria-Prima</option>
+                            </select>
+                        </div>
+                        <div class="input-group input-group-md pt-30" style="text-align: center;">
+                            <input type="text" class="form-control formatacaoCRM" placeholder="Insira a pesquisa" id="VALORPESQUISA" name="VALORPESQUISA">
+                            <span class="input-group-addon" id="PESQUISAR" name="PESQUISAR" onclick="BuscaPesquisa()"><i class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                        </div>
+                        <div class="row col-md-14 pt-30">
+                            <span class="col-md-3" id="ANTERIOR" name="ANTERIOR" onclick="Anterior()"><i class="flaticon flaticon-chevron-up icon-xl buttonnaveg"></i></span>
+                            <p class="col-md-5 indicador" id="INDICADOR"></p>
+                            <span class="col-md-3" id="PROXIMO" name="PROXIMO" onclick="Proximo()"><i class="flaticon flaticon-chevron-down icon-xl buttonnaveg"></i></span>
+                        </div>
+    
+                    </div>
+                </div>
+                <div class="row form-group" id="divcalculadora" name="divcalculadora">
+                    <input type="hidden" id="TEMCALCULADORA" name="TEMCALCULADORA"> 
+                    <span class="input-group-addon botaocalculadora" id="botaocalculadora" name="botaocalculadora" onclick="Calculadora()"><i id="buttoncalculadora" class='flaticon flaticon-exposure icon-lg' ></i></span>
+                    <div class="calculadora" id="calculadora" name="calculadora"> 
+                        <div class="row col-md-12">
+                            <span class="col-md-2"><i id="ICONLIMPACALC" class="fluigicon fluigicon-remove icon-xs"  onclick="Calculadora()"></i></span>
+                            <h2 class="col-md-10">Calculadora</i></h2> 
+                        </div>
+                        <div class="row col-md-12">
+                            <p id="resultado"></p> 
+                        </div>
+                        <div>
+                            <table class="tablecalc col-md-12"> 
+                                <tr> 
+                                    <td><button class="botao" onclick="clean()">C</td> 
+                                    <td><button class="botao" onclick="back()"><</td> 
+                                    <td><button class="botao" onclick="insert('/')">/</button></td> 
+                                    <td><button class="botao" onclick="insert('*')">*</button></td> 
+                                </tr> 
+                                <tr> 
+                                    <td><button class="botao"onclick="insert('7')">7</button></td> 
+                                    <td><button class="botao" onclick="insert('8')">8</button></td> 
+                                    <td><button class="botao" onclick="insert('9')">9</button></td> 
+                                    <td><button class="botao" onclick="insert('-')">-</button></td> 
+                                </tr> 
+                                <tr> 
+                                    <td><button class="botao"onclick="insert('4')">4</button></td> 
+                                    <td><button class="botao" onclick="insert('5')">5</button></td> 
+                                    <td><button class="botao" onclick="insert('6')">6</button></td> 
+                                    <td><button class="botao" onclick="insert('+')">+</button></td> 
+                                </tr> 
+                                <tr> 
+                                    <td><button class="botao" onclick="insert('1')">1</button></td> 
+                                    <td><button class="botao" onclick="insert('2')">2</button></td> 
+                                    <td><button class="botao" onclick="insert('3')">3</button></td> 
+                                    <td rowspan="2"><button class="botao" onclick="calcular()">=</button></td> 
+                                </tr> 
+                                <tr> 
+                                    <td colspan="2"><button class="botao" style="width: 100% !important;" onclick="insert('0')">0</button></td> 
+                                    <td><button class="botao" onclick="insert('.')">.</button></td> 
+                                </tr> 
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES DAS SOLICITAÇÕES DO PROCESSO -->
+                <input id="ATIVIDADE" name="ATIVIDADE" type="hidden">
+                <input id="NUMPROCESSO" name="NUMPROCESSO" type="hidden">
+                <input id="SOLICITANTE" name="SOLICITANTE" type="hidden">
+                <input id="USUARIOATUAL" name="USUARIOATUAL" type="hidden">
+                <input id="USUARIOCALDERARIA" name="USUARIOCALDERARIA" type="hidden">
+                <input id="USUARIOUSINAGEM" name="USUARIOUSINAGEM" type="hidden">
+                <input id="USUARIOAPROVADOR" name="USUARIOAPROVADOR" type="hidden">
+                <input id="DESCPROCESSOFLUIG" name="DESCPROCESSOFLUIG" type="hidden" value="Cadastro de Estrutura">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES OCULTOS DOS EXCLUSIVOS DO WORKFLOW -->
+                <input id="EXCLUSIVO1" name="EXCLUSIVO1" type="hidden">
+                <input id="EXCLUSIVO2" name="EXCLUSIVO2" type="hidden">
+                <input id="TABELA" name="TABELA" type="hidden">
+                <input id="IDMAX_CRIACAO" name="IDMAX_CRIACAO" type="hidden">
+                <input type="hidden" id="F_INDICE" name="F_INDICE">
+
+                <!-- TAG PARA DELIMITAR O PAINEL DO FORMULÁRIO -->
+                <div class="form-group col-md-1"></div>
+                <div class="form-group col-md-10">
+
+                    <!-- TAG PARA CENTRALIZAR O FORMULÁRIO -->
+                    <div class="container col-md-12">
+
+                        <!-- INÍCIO DO CONTEÚDO DO PAINEL -->
+                        <div class="panel panel-default" id="PANEL1">
+
+                            <!-- CABEÇALHO DO FORMULÁRIO -->
+                            <div class="panel-heading text-center">
+                                <span class="titulo text-center TITULO"><h3><strong>S T A T U S &nbsp;&nbsp; D E &nbsp;&nbsp; F A B R I C A Ç Ã O  &nbsp;&nbsp;</strong></h3></span>
+                            </div>
+
+                            <!-- CORPO DO FORMULÁRIO -->
+                            <div class="panel-body">
+
+                                <!-- CABEÇALHO DO FORMULÁRIO -->
+                                <div class="CABECALHO" id="CABECALHO">
+
+                                    <!-- DIV PARA INICIAR SOLICITAÇÃO DO PROCESSO DE CADASTRO DE SUBCONJUNTO DA ESTRUTURA -->
+                                    <div id="DIVLINK" name="DIVLINK">
+                                        <a id="LINKSOLICITACAO" name="LINKSOLICITACAO" href="" target="_blank"></a>
+                                    </div>
+
+                                    <!-- INFORMAÇÕES DA OS DA ESTRUTURA  -->
+                                    <div class="INFO_OS">
+
+                                        <div class="row form-group col-md-12">
+                                        
+                                            <div class="form-group col-md-6">
+                                                <label class="info">OS do Projeto</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="OS_INFO" name="OS_INFO" placeholder="Selecione a OS" style="background-color: #b92113;"
+                                                    data-zoom="{
+                                                        'displayKey':'OS',
+                                                        'datasetId':'dsOSEstrutura',
+                                                        'fields':[
+                                                            {
+                                                                'field':'OS',
+                                                                'label':'Código - Descrição',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }
+                                                        ]
+                                                    }"
+                                                >
+                                                <input id="NUM_OS" name="NUM_OS" type="hidden">
+                                                <input type="hidden" id="DESCRICAO_OS_INFO" name="DESCRICAO_OS_INFO">
+                                                <input type="hidden" id="IDPRJ_OS" name="IDPRJ_OS">
+                                                <input type="hidden" id="NUM_OS_ANTIGA" name="NUM_OS_ANTIGA">
+                                                <input type="hidden" id="CODCOLIGADA" name="CODCOLIGADA">
+                                                <input type="hidden" id="CODFILIAL" name="CODFILIAL">
+                                            </div> 
+
+                                            <div class="form-group col-md-6">
+                                                <label class="info">Cód. Tarefa</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="CODTRFPAI" name="CODTRFPAI" placeholder="Selecione o Código da Tarefa" style="background-color: #b92113;"
+                                                    data-zoom="{
+                                                        'displayKey':'CODTRFPAI',
+                                                        'datasetId':'dsEXCodTrfPaiOS',
+                                                        'fields':[
+                                                            {
+                                                                'field':'DESCRICAO',
+                                                                'label':'Cód. Tarefa - Nome',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" class="form-control formatacaoCRM" id="CODTRFEX" name="CODTRFEX">
+                                                <input type="hidden" class="form-control formatacaoCRM" id="INDICEPAI" name="INDICEPAI">
+                                            </div> 
+
+                                        </div>
+
+                                        <div class="row form-group col-md-12">
+
+                                            <div class="form-group col-md-6">
+                                                <label class="info">Execução de Referência</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="EXECUCOES_OS" name="EXECUCOES_OS" placeholder="Selecione a Execução" style="background-color: #b92113;"
+                                                    data-zoom="{
+                                                        'displayKey':'EXECUCAO',
+                                                        'datasetId':'dsEXExecTagOS',
+                                                        'fields':[
+                                                            {
+                                                                'field':'EXECUCAO',
+                                                                'label':'Execuções',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" class="form-control formatacaoCRM" id="EXECUCAO_INFO" name="EXECUCAO_INFO">
+                                            </div> 
+
+                                            <div class="row form-group col-md-2 CONFIRMAR_OS">
+                                                <button type="button" class="btn btn-primary mt-25" onclick="confirmaOS()" id="CONFIRMAR_OS" name="CONFIRMAR_OS">Confirmar</button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- VIEW DA ESTRUTURA -->
+                                <div class="form-group col-md-12 FORMULARIO" id="FORMULARIO" name="FORMULARIO">
+
+                                    <!-- ABAS DO CONTEÚDO GERAL PARA NAVEGAÇÃO NO FORMULÁRIO  -->
+                                    <div class="row form-group col-md-12 pt-15 ABAS_GERAL">
+    
+                                        <!-- ABAS DE NAVEGAÇÃO -->
+                                        <div class="form-group col-md-12">
+    
+                                            <ul class="nav nav-tabs clearfix" role="tablist">
+                                                <li class="ABA_DESENHO active" id="ABA_DESENHO"><a class="aba" href="#HORAS_BLANK" role="tab" data-toggle="tab"><strong class="aba">Pendencias Apontamentos</strong></a></li>
+                                                <li class="ABA_POSICOES" id="ABA_POSICOES"><a class="aba" href="#COMPONENTES_BLANK" role="tab" data-toggle="tab"><strong class="aba">Pendencias Componentes</strong></a></li>
+                                                
+                                            </ul>
+    
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                    <!-- CONTEÚDO DAS ABAS -->  
+                                    <div class="row CONTEUDO_ABAS tab-content">
+    
+                                        <!-- ABA DOS DADOS DO DESENHO -->
+                                        <div class="tab-pane active form-group col-md-12 pt-15" id="HORAS_BLANK">
+
+                                            <span class="titulo text-center TITULO"><h4><strong>P E N D E N C I A S  &nbsp;&nbsp;A P O N T A M E N T O  &nbsp;&nbsp;E  &nbsp;&nbsp;P R O G R A M A Ç Ã O</strong></h4></span>
+
+                                            <div class="panel-group APONTAMENTOS" id="accordionApont" style="margin-bottom: 4% !important;">
+
+                                            </div>
+
+                                            <span class="titulo text-center TITULO"><h4><strong>P E N D E N C I A S  &nbsp;&nbsp;P A R A  &nbsp;&nbsp;S U B I R &nbsp;&nbsp; S A L D O </strong></h4></span>
+                                            <div class="panel-group SALDO" id="accordionSaldo" style="margin-bottom: 5% !important;">
+
+                                            </div>
+    
+                                        </div>
+    
+                                        <!-- ABA DOS DADOS DAS POSIÇÕES -->
+                                        <div class="tab-pane form-group col-md-12 pt-15" id="COMPONENTES_BLANK">
+
+                                            <div class="panel-group COMPONENTES" id="accordionComp" >
+
+                                            </div>
+    
+                                        </div>
+                                
+
+                                    </div>
+
+                                    <div class="form-group col-md-12 BOTOES">
+                                        
+                                        <div class="form-group col-md-2 CANCELAR espaco"  id="ID_CANCELAR">
+                                            <button type="button" class="btn btn-primary" onclick="voltaView();" id="CANCELAR" name="CANCELAR">Cancelar</button>
+                                        </div>
+
+                                        <!-- <div class="form-group col-md-2 EDITAR espaco" id="ID_EDITAR">
+                                            <button type="button" class="btn btn-primary" onclick="editar();" id="EDITAR" name="EDITAR">Editar</button>
+                                        </div>
+                                        
+                                        <div class="form-group col-md-2 SALVAR2 espaco" id="ID_SALVAR2">
+                                            <button type="button" class="btn btn-primary" onclick="salvar2('f');" id="SALVAR2" name="SALVAR2">Confirmar</button>
+                                        </div> -->
+
+                                        <div class="form-group col-md-10"></div>
+
+                                        <!-- <div class="form-group col-md-2 SALVAR espaco" id="ID_SALVAR">
+                                            <button type="button" class="btn btn-primary" onclick="salvar('f');" id="SALVAR" name="SALVAR">Confirmar e Sair</button>
+                                        </div> -->
+
+                                        <!-- <div class="form-group col-md-2 REMOVER espaco"  id="ID_REMOVER">
+                                            <button type="button" class="btn btn-primary" onclick="alertaRemover();" id="REMOVER" name="REMOVER">Remover</button>
+                                        </div> -->
+                                        
+                                    </div>
+                                    
+                                </div>
+
+                                <!-- VIEW DA ESTRUTURA -->
+                                <div class="form-group col-md-12 VIEW">
+
+                                    <label class="info row form-group text-center col-md-12" id="TEXTOVIEW" name="TEXTOVIEW"><strong></strong></label>
+                                    
+                                    <div class="row form-group col-md-12 beforeCroqui">
+                                        
+                    
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="form-group col-md-6"></div>
+
+                                        <div class="form-group col-md-1 VOLTAR_OS">
+                                
+                                            <button type="button" class="btn btn-primary mt-25" onclick="voltarTela();" title="Voltar para a tela inicial" id="VOLTAR_OS" name="VOLTAR_OS"><i class="fluigicon fluigicon-arrow-left icon-sm"></i></button>
+                                        
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+
+                            </div>
+                 
+                        </div>
+
+                        <!-- MODAL PARA A PRODUTO RM -->
+                        <div id="LOTESBLANK" class="modal">
+
+                            <div class="form-group col-md-1"></div>
+
+                            <div class="form-group col-md-10 fundoModal" style="margin-bottom: 20px !important;">
+
+                                <div>
+                                    <a href="#fechar" id="fechar" title="Fechar" class="fechar"><strong>X</strong></a>
+                                </div>
+
+                                <div class="text-center tituloTabela titulo">
+                                    <h4><strong>Lotes do Produto</strong></h4>
+                                </div>
+
+                                <div class="table-responsive ScrollWrapper">
+
+                                    <div>
+
+                                        <table class="table table-layout-fixed MATERIAIS_INFO_SALVOS TABELA_PROD_RM" border="0" nodeletebutton="true" noaddbutton="true">
+                                        
+                                            <thead>
+
+                                                <tr>
+
+                                                    <th class="text-center">Id do Lote</th>
+                                                    <th class="text-center">Numero do lote/op</th>
+                                                    <th class="text-center">Saldo total do lote</th>
+                                                    <th class="text-center">Status do lote/op</th>
+                                                    <th class="text-center">Local de Estoque</th>
+
+                                                </tr>
+
+                                            </thead>
+                                            
+                                            <tbody>
+
+                                             
+                                            </tbody>
+                                        
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+
+
+                                
+                            </div>
+
+                            <div class="form-group col-md-1"></div>
+
+                        </div>
+                    
+                        <div id="loader"></div>
+                        
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </body>
+
+    <script type="text/javascript" src="documentReady.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="selectZoom.js"></script>
+    <script type="text/javascript" src="montarArvore.js"></script>
+    <script type="text/javascript" src="buttons.js"></script>
+    <script type="text/javascript" src="tableFunctions.js"></script>
+
+</html>
