@@ -1,0 +1,655 @@
+<html>
+
+    <head>
+
+        <!-- BIBLIOTECA PADRÕES DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+		<script src="/style-guide/js/fluig-style-guide-codeeditor.min.js"></script>
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-treeview.min.css">
+        <script src="/style-guide/js/fluig-style-guide-treeview.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+        <!-- BIBLIOTECAS SWEET ALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    </head>
+    
+    <body>
+
+        <!-- INÍCIO DA CUSTOMIZAÇÃO DO STYLE GUIDE -->
+        <div class="fluig-style-guide">
+
+            <!-- TAG PARA CRIAR O FORMULÁRIO -->
+            <form name="form" role="form">
+
+				<div class="row form-group" id="divindices" name="divindices">
+                    <div class="row">
+                        <span class="input-group-addon botaoindices" id="botaoindices" name="botaoindices" onclick="modalAlvos()"><i  id="buttonindices" class='flaticon flaticon-question icon-lg' ></i></span>
+                    </div>
+				</div>
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES DAS SOLICITAÇÕES DO PROCESSO -->
+                <input id="ATIVIDADE" name="ATIVIDADE" type="hidden">
+                <input id="NUMPROCESSO" name="NUMPROCESSO" type="hidden">
+                <input id="SOLICITANTE" name="SOLICITANTE" type="hidden">
+                <input id="USUARIOATUAL" name="USUARIOATUAL" type="hidden">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES OCULTOS DOS EXCLUSIVOS DO WORKFLOW -->
+                <input id="EXCLUSIVO1" name="EXCLUSIVO1" type="hidden">
+                <input id="EXCLUSIVO2" name="EXCLUSIVO2" type="hidden">
+
+                <!-- TAG PARA DELIMITAR O PAINEL DO FORMULÁRIO -->
+                <div class="form-group col-md-12">
+
+                    <!-- TAG PARA CENTRALIZAR O FORMULÁRIO -->
+                    <div class="container col-md-12">
+
+                        <!-- INÍCIO DO CONTEÚDO DO PAINEL -->
+                        <div class="panel panel-default" id="PANEL1"> 
+
+                            <!-- CORPO DO FORMULÁRIO -->
+                            <div class="panel-body">
+
+                                <div class="text-center pb-30 CADASTRO">
+                                    <span class="titulo text-center TITULO"><h3><strong>A T U A L I Z A Ç Ã O &nbsp;&nbsp; E M &nbsp;&nbsp; M A S S A &nbsp;&nbsp; D E &nbsp;&nbsp; C A M P O S &nbsp;&nbsp; D A &nbsp;&nbsp; E S T R U T U R A</strong></h3></span>
+                                </div>
+
+								<section>
+
+									<div class="div-titulos">
+
+										<legend class="info titulos">Selecione a OS e o campo que deseja alterar <div class="vertical"></div> <img src="./project.png" ></legend>
+										<legend class="info titulos">Selecione as estruturas que devem ser alteradas <div class="vertical"></div> <img src="./structure.png"></legend>
+										<legend class="info titulos">Selecione os filtros que deseja aplicar <div class="vertical"></div> <img src="./filter.png" ></legend>
+										<legend class="info titulos">Certifique-se das informações preenchidas <div class="vertical"></div> <img src="./resume.png"></legend>
+
+									</div>	
+
+									<div class="row form-group" id="ABAS">
+
+										<input id="ATUAL" name="ATUAL" type="hidden"/>
+										
+										<ul class="nav nav-tabs clearfix" role="tablist">
+											<li id="ABACAMP" name="ABACAMP" class="active ABACAMP"><a id="ABACAMPO" href="#CAMPOBLANK" onclick="titulo(1)" class="aba" role="tab" data-toggle="tab"><h4><strong>Campo</strong></h4></a></li>
+											<li id="ABAALV" name="ABAALV" class="ABAALV"><a id="ABAALVO" href="#ALVOBLANK" onclick="titulo(2)" role="tab" class="aba" data-toggle="tab"><h4><strong>Alvos</strong>
+												<button id="BOTAOVIEWALVO"type="button" class="escondeaviso2" title="Mostrar mensagem" data-toggle="tooltip" data-placement="right"><i class="flaticon flaticon-view icon-md" aria-hidden="true"></i><span class="sr-only">Esconder</span></button></h4></a></li>
+											<li id="ABAFILTRO" name="ABAFILTRO" class="ABAFILTRO"><a id="ABAFILTROS" href="#FILTROSBLANK" onclick="titulo(3)" role="tab" class="aba" data-toggle="tab"><h4><strong>Filtros</strong>
+												<button id="BOTAOVIEWFILTRO"type="button" class="escondeaviso" title="Mostrar mensagem" data-toggle="tooltip" data-placement="right"><i class="flaticon flaticon-view icon-md" aria-hidden="true"></i><span class="sr-only">Esconder</span></button></h4></a></li>
+											<li id="ABAREV" name="ABAREV" class="ABAREV"><a id="ABAREVISAO" href="#REVISAOBLANK" onclick="titulo(4)" role="tab" class="aba" data-toggle="tab"><h4><strong>Resumo</strong></h4></a></li>
+										</ul>
+
+										<!-- CONTEÚDO DAS ABAS -->
+										<div class="tab-content">
+
+											<div class="tab-pane form-group col-md-12 active CAMPOBLANK" name="CAMPOBLANK" id="CAMPOBLANK">
+
+												<div class="row form-group col-md-12">
+
+													<div class="form-group col-md-4">
+														<label class="info labelalvo">OS do Projeto</label>
+														<div class="input-group">
+															<span class="input-group-addon">OS</span>
+															<input type="zoom" class="form-control formatacaoCRM" id="OS_INFO" placeholder="Selecione a OS" name="OS_INFO"
+																data-zoom="{
+																	'displayKey':'OS',
+																	'datasetId':'dsOSEstrutura',
+																	'fields':[
+																		{
+																			'field':'OS',
+																			'label':'Cód. - Descrição',
+																			'standard':'true',
+																			'search':'true'
+																		}   
+																	]
+																}"
+															>
+															<input id="NUM_OS" name="NUM_OS" type="hidden" obrigatorio>
+															<input type="hidden" id="DESCRICAO_OS_INFO" name="DESCRICAO_OS_INFO">
+															<input type="hidden" id="IDPRJ_OS" name="IDPRJ_OS">
+															<input type="hidden" id="CODCOLIGADA" name="CODCOLIGADA">
+															<input type="hidden" id="CODFILIAL" name="CODFILIAL">
+														</div>
+													</div>
+
+												</div>
+
+												<div class="row form-group col-md-12">
+
+													<div class="form-group col-md-4">
+														<label class="info labelalvo">Campo</label>
+														<div class="input-group" style="margin-top: 5% !important;">
+															<span class="input-group-addon">Campo</span>
+															<input type="zoom" class="form-control formatacaoCRM" placeholder="Selecione o campo" id="CAMPO" name="CAMPO"
+																data-zoom="{
+																	'displayKey':'DESCRICAO',
+																	'datasetId':'dsCamposEstrutura',
+																	'fields':[
+																		{
+																			'field':'CAMPO',
+																			'label':'Campo',
+																			'standard':'true',
+																			'search':'true'
+																		}  ,
+																		{
+																			'field':'DESCRICAO',
+																			'label':'Descrição',
+																			'standard':'true',
+																			'search':'true'
+																		}  
+																	]
+																}"
+															>
+														</div>
+														<input type="hidden" id="CODCAMPO" name="CODCAMPO" obrigatorio>
+														<input type="hidden" id="CODGRUPO" name="CODGRUPO">
+														<input type="hidden" id="CODTABELA" name="CODTABELA">
+														<input type="hidden" id="CONVERTERCAMPO" name="CONVERTERCAMPO">
+													</div>
+
+													<div class="form-group col-md-4">
+
+														<label class="info labelalvo" id="LABELCOMPLETE">Novo Valor</label>
+														<div class="INSEREHTML" id="INSEREHTML" name="INSEREHTML"> 
+															
+														</div>
+													</div>
+
+												</div>
+											
+											</div>
+
+											<div class="tab-pane form-group col-md-12 ALVOBLANK" name="ALVOBLANK" id="ALVOBLANK">
+
+												<div class="alert alert-warning alert-dismissible" role="alert" id="ALERTAALVOS" name="ALERTAALVOS">
+													<input type="hidden" class="form-control formatacaoCRM" id="ALVOSOBRIGATORIOS" name="ALVOSOBRIGATORIOS">
+													<button type="button" class="escondeaviso2" title="Esconder mensagem" data-toggle="tooltip" data-placement="bottom"><i class="flaticon flaticon-view icon-xl" aria-hidden="true"></i><span class="sr-only">Esconder</span></button>
+													<strong>Aviso!</strong> <p> - Obrigatório atualizar ou estrutura principal ou ao menos uma execução</p><p> - Obrigatório indicar qual código de tarefa </p>
+												</div>	
+
+												<div class="row form-group col-md-12">
+
+													<div class="form-group col-md-4 tit">
+
+														<label class="info labelalvo">Atualizar Estrutura principal</label>
+														<div class="switch switch-danger switch-labels switch-xl">
+															<input class="switch-input" type="checkbox" id="ESTRUTURAPRINCIPAL" name="ESTRUTURAPRINCIPAL" onchange="CheckChange(this)"/>
+															<label class="switch-button" for="ESTRUTURAPRINCIPAL">Toggle</label>
+														</div>
+
+													</div>
+
+													<div class="form-group col-md-8 tit">
+														<label class="info labelalvo">Cód. Tarefa</label>
+														<div class="input-group" style="width: 40%;">
+															<span class="input-group-addon">Cód. Trf</span>
+															<input type="zoom" class="form-control formatacaoCRM" id="CODTRFPAI" name="CODTRFPAI" placeholder="Selecione o Código da Tarefa" style="background-color: #b92113;"
+																data-zoom="{
+																	'displayKey':'CODTRFPAI',
+																	'datasetId':'dsEXCodTrfPaiOS',
+																	'fields':[
+																		{
+																			'field':'DESCRICAO',
+																			'label':'Cód. Tarefa - Nome',
+																			'standard':'true',
+																			'search':'true'
+																		}
+																	]
+																}"
+															>
+														</div>
+														<input type="hidden" class="form-control formatacaoCRM" id="CODTRFEX" name="CODTRFEX">
+														<input type="hidden" class="form-control formatacaoCRM" id="INDICEPAI" name="INDICEPAI">
+													</div> 
+
+
+												</div>
+
+												<div class="row form-group col-md-12">
+
+													<div class="form-group col-md-12">
+
+														<div class="col-md-2">
+															<label class="info labelalvo">Atualizar Execuções</label>
+														</div>
+														<div class="input-group col-md-8">
+															<span class="input-group-addon">Execuções</span>
+															<input type="zoom" class="form-control formatacaoCRM" id="EXECUCOES_OS" name="EXECUCOES_OS" placeholder="Selecione a Execução" style="background-color: #b92113;"
+																data-zoom="{
+																	'displayKey':'EXECUCAO',
+																	'datasetId':'dsEXExecTagOS',
+																	'maximumSelectionLength':'10',
+																	'fields':[
+																		{
+																			'field':'EXECUCAO',
+																			'label':'Execuções',
+																			'standard':'true',
+																			'search':'true'
+																		}
+																	]
+																}"
+															>
+															<input type="hidden" class="form-control formatacaoCRM" id="EXECUCAO_INFO" name="EXECUCAO_INFO">
+														</div> 
+
+
+													</div>
+												
+												</div>
+											
+											</div>
+
+											<div class="tab-pane form-group col-md-12 FILTROSBLANK" name="FILTROSBLANK" id="FILTROSBLANK">
+
+												<div class="alert alert-warning alert-dismissible" role="alert" id="ALERTAFILTROS" name="ALERTAFILTROS">
+													<input type="hidden" class="form-control formatacaoCRM" id="FILTROSOBRIGATORIOS" name="FILTROSOBRIGATORIOS">
+													<button type="button" class="preenchefiltros" title="Preencher Filtros" data-toggle="tooltip" data-placement="bottom"><i class="flaticon flaticon-light-bulb icon-xl" aria-hidden="true"></i><span class="sr-only">Preencher</span></button>
+													<button type="button" class="escondeaviso" title="Esconder mensagem" data-toggle="tooltip" data-placement="bottom"><i class="flaticon flaticon-view icon-xl" aria-hidden="true"></i><span class="sr-only">Esconder</span></button>
+													<strong>Aviso!</strong><p id="ALERTAFILTROSTEXTO" name="ALERTAFILTROSTEXTO"></p>
+												</div>			
+												<table class="table table-layout-fixed" tablename="FILTROSADICIONADOS" id="FILTROSADICIONADOS" name="FILTROSADICIONADOS" nodeletebutton="true" noaddbutton="true">
+													<thead>
+														<tr>
+															<th style="width: 6rem !important;">
+																<span class="input-group-addon" id="ADICIONAFILTRO" name="ADICIONAFILTRO" onclick="wdkAddChild('FILTROSADICIONADOS');wdkAddChild('FILTROSADICIONADOSREV');desabilitaFiltrosRev();"><i id="ICONADICIONAFILTRO" class="flaticon flaticon-add-box icon-xl" aria-hidden="true"></i></span> 
+															</th>
+
+															<th>
+																Filtros
+															</th>
+															<th>
+																Valor
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>
+																<span class="input-group-addon" id="REMOVEFILTRO" name="REMOVEFILTRO" onclick="fnWdkRemoveChild(this);removeLinhaRevisao(this);"><i id="ICONREMOVEFILTRO" class="flaticon flaticon-trash icon-lg ICONREMOVEFILTRO" aria-hidden="true"></i></span>
+															</td>
+
+															<td>
+																<input type="zoom" class="form-control formatacaoCRM" id="CAMPOFILTROZOOM" name="CAMPOFILTROZOOM"
+																	data-zoom="{
+																		'displayKey':'DESCRICAO',
+																		'datasetId':'dsCamposEstrutura',
+																		'fields':[
+																			{
+																				'field':'CAMPO',
+																				'label':'Campo',
+																				'standard':'true',
+																				'search':'true'
+																			}  ,
+																			{
+																				'field':'DESCRICAO',
+																				'label':'Descrição',
+																				'standard':'true',
+																				'search':'true'
+																			}  
+																		]
+																	}"
+																>
+																<input type="hidden" id="CAMPOFILTRO" name="CAMPOFILTRO"/>
+																<input type="hidden" id="TABELAFILTRO" name="TABELAFILTRO"/>
+															</td>
+															<td>
+																<input type="zoom" class="form-control formatacaoCRM" id="VALORFILTROZOOM" name="VALORFILTROZOOM"
+																	data-zoom="{
+																		'displayKey':'VALOR',
+																		'datasetId':'dsValorCamposEstrutura',
+																		'fields':[
+																			{
+																				'field':'VALOR',
+																				'label':'Valor',
+																				'standard':'true',
+																				'search':'true'
+																			}  
+																		]
+																	}"
+																>
+																<input type="hidden" id="VALORFILTRO" name="VALORFILTRO"/>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+
+											</div>
+
+											<div class="tab-pane form-group col-md-12 REVISAOBLANK" name="REVISAOBLANK" id="REVISAOBLANK">
+
+												<section>
+
+													<legend class="info titulos2">Projeto
+														<button class="botaoview" onclick="$('#ABACAMPO').click();titulo(1);">
+															<i class="flaticon flaticon-bar-chart-view icon-md" aria-hidden="true"></i>
+														</button>
+													</legend>
+
+													<div class="row form-group col-md-12">
+
+														<div class="form-group col-md-4">
+															<label class="info labelalvo">OS do Projeto</label>
+															<div class="input-group">
+																<span class="input-group-addon">OS</span>
+																<input type="zoom" class="form-control formatacaoCRM" readonly id="OS_INFOREV" placeholder="Selecione a OS" name="OS_INFOREV"
+																	data-zoom="{
+																		'displayKey':'OS',
+																		'datasetId':'dsOSEstrutura',
+																		'fields':[
+																			{
+																				'field':'OS',
+																				'label':'Cód. - Descrição',
+																				'standard':'true',
+																				'search':'true'
+																			}   
+																		]
+																	}"
+																>
+																<input id="NUM_OSREV" name="NUM_OSREV" type="hidden">
+																<input type="hidden" id="DESCRICAO_OS_INFOREV" name="DESCRICAO_OS_INFOREV">
+																<input type="hidden" id="IDPRJ_OSREV" name="IDPRJ_OSREV">
+																<input type="hidden" id="CODCOLIGADAREV" name="CODCOLIGADAREV">
+																<input type="hidden" id="CODFILIALREV" name="CODFILIALREV">
+															</div>
+														</div>
+
+													</div>
+												
+												</section>
+
+												<section>
+
+													<legend class="info titulos2">Valores
+														<button class="botaoview" onclick="$('#ABACAMPO').click();titulo(1);">
+															<i class="flaticon flaticon-bar-chart-view icon-md" aria-hidden="true"></i>
+														</button>
+													</legend>
+
+													<div class="row form-group col-md-12">
+
+														<div class="form-group col-md-4">
+															<label class="info labelalvo">Campo</label>
+															<div class="input-group" style="margin-top: 5% !important;">
+																<span class="input-group-addon">Campo</span>
+																<input type="zoom" class="form-control formatacaoCRM" readonly placeholder="Selecione o campo" id="CAMPOREV" name="CAMPOREV"
+																	data-zoom="{
+																		'displayKey':'DESCRICAO',
+																		'datasetId':'dsCamposEstrutura',
+																		'fields':[
+																			{
+																				'field':'CAMPO',
+																				'label':'Campo',
+																				'standard':'true',
+																				'search':'true'
+																			}  ,
+																			{
+																				'field':'DESCRICAO',
+																				'label':'Descrição',
+																				'standard':'true',
+																				'search':'true'
+																			}  
+																		]
+																	}"
+																>
+															</div>
+															<input type="hidden" id="CODCAMPOREV" name="CODCAMPOREV">
+														</div>
+
+														<div class="form-group col-md-4">
+
+															<label class="info labelalvo">Valor</label>
+															<div class="INSEREHTMLREV" id="INSEREHTMLREV" name="INSEREHTMLREV"> 
+																
+															</div>
+
+														</div>
+
+													</div>
+												
+												</section>
+
+												<section>
+
+													<legend class="info titulos2">Alvos														
+														<button class="botaoview" onclick="$('#ABAALVO').click();titulo(2);">
+															<i class="flaticon flaticon-bar-chart-view icon-md" aria-hidden="true"></i>
+														</button>
+													</legend>
+
+													<div class="row form-group col-md-12">
+
+														<div class="form-group col-md-4 tit">
+		
+															<label class="info labelalvo">Atualizar Estrutura principal</label>
+															<div class="switch switch-danger switch-labels switch-xl">
+																<input class="switch-input" type="checkbox" readonly id="ESTRUTURAPRINCIPALREV" name="ESTRUTURAPRINCIPALREV"/>
+																<label class="switch-button" for="ESTRUTURAPRINCIPALREV">Toggle</label>
+															</div>
+		
+														</div>
+		
+														<div class="form-group col-md-8 tit">
+															<label class="info labelalvo">Cód. Tarefa</label>
+															<div class="input-group" style="width: 40%;">
+																<span class="input-group-addon">Cód. Trf</span>
+																<input type="zoom" class="form-control formatacaoCRM" readonly id="CODTRFPAIREV" name="CODTRFPAIREV" placeholder="Selecione o Código da Tarefa" 
+																	data-zoom="{
+																		'displayKey':'CODTRFPAI',
+																		'datasetId':'dsEXCodTrfPaiOS',
+																		'fields':[
+																			{
+																				'field':'DESCRICAO',
+																				'label':'Cód. Tarefa - Nome',
+																				'standard':'true',
+																				'search':'true'
+																			}
+																		]
+																	}"
+																>
+															</div>
+															<input type="hidden" class="form-control formatacaoCRM" id="CODTRFEXREV" name="CODTRFEXREV">
+														</div> 
+	
+													</div>
+
+												
+	
+													<div class="row form-group col-md-12">
+		
+														<div class="form-group col-md-12">
+		
+															<div class="col-md-2">
+																<label class="info labelalvo">Atualizar Execuções</label>
+															</div>
+															<div class="input-group col-md-8">
+																<span class="input-group-addon">Execuções</span>
+																<input type="zoom" class="form-control formatacaoCRM" readonly id="EXECUCOES_OSREV" name="EXECUCOES_OSREV" placeholder="Selecione a Execução"
+																	data-zoom="{
+																		'displayKey':'EXECUCAO',
+																		'datasetId':'dsEXExecTagOS',
+																		'maximumSelectionLength':'10',
+																		'fields':[
+																			{
+																				'field':'EXECUCAO',
+																				'label':'Execuções',
+																				'standard':'true',
+																				'search':'true'
+																			}
+																		]
+																	}"
+																>
+																<input type="hidden" class="form-control formatacaoCRM" id="EXECUCAO_INFOREV" name="EXECUCAO_INFOREV">
+															</div> 
+		
+		
+														</div>
+													
+													</div>
+												
+												</section>
+
+												<section>
+
+													<legend class="info titulos2">Filtros
+														<button class="botaoview" onclick="$('#ABAFILTROS').click();titulo(4);">
+															<i class="flaticon flaticon-bar-chart-view icon-md" aria-hidden="true"></i>
+														</button>
+													</legend>
+	
+													<div class="row form-group col-md-12">
+		
+														<table class="table table-layout-fixed" tablename="FILTROSADICIONADOSREV" id="FILTROSADICIONADOSREV" name="FILTROSADICIONADOSREV" nodeletebutton="true" noaddbutton="true">
+															<thead>
+																<tr>
+																	<th style="width: 7rem !important;">
+																		<span class="input-group-addon" id="ADICIONAFILTROREV" name="ADICIONAFILTROREV" ><i id="ICONADICIONAFILTROREV" class="flaticon flaticon-add-box icon-xl" aria-hidden="true"></i></span> 
+																	</th>
+		
+																	<th>
+																		Filtros
+																	</th>
+																	<th>
+																		Valor
+																	</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>
+																		<span class="input-group-addon" id="REMOVEFILTROREV" name="REMOVEFILTROREV"><i id="ICONREMOVEFILTROREV" class="flaticon flaticon-trash icon-lg ICONREMOVEFILTROREV" aria-hidden="true"></i></span>
+																	</td>
+		
+																	<td>
+																		<input type="zoom" class="form-control formatacaoCRM" id="CAMPOFILTROZOOMREV" name="CAMPOFILTROZOOMREV"
+																			data-zoom="{
+																				'displayKey':'DESCRICAO',
+																				'datasetId':'dsCamposEstrutura',
+																				'fields':[
+																					{
+																						'field':'CAMPO',
+																						'label':'Campo',
+																						'standard':'true',
+																						'search':'true'
+																					}  ,
+																					{
+																						'field':'DESCRICAO',
+																						'label':'Descrição',
+																						'standard':'true',
+																						'search':'true'
+																					}  
+																				]
+																			}"
+																		>
+																		<input type="hidden" id="CAMPOFILTROREV" name="CAMPOFILTROREV"/>
+																	</td>
+																	<td>
+																		<input type="zoom" class="form-control formatacaoCRM" id="VALORFILTROZOOMREV" name="VALORFILTROZOOMREV"
+																			data-zoom="{
+																				'displayKey':'VALOR',
+																				'datasetId':'dsValorCamposEstrutura',
+																				'fields':[
+																					{
+																						'field':'VALOR',
+																						'label':'Valor',
+																						'standard':'true',
+																						'search':'true'
+																					}  
+																				]
+																			}"
+																		>
+																		<input type="hidden" id="VALORFILTROREV" name="VALORFILTROREV"/>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+		
+													</div>
+
+												</section>
+
+											</div>
+
+										</div>
+
+									</div>
+									<div class="row form-group displayflexbot">
+										<div class="form-group">
+											<button type="button" class="btn btn-info" id="ANTERIOR" onclick="Anterior()">Anterior</button>
+										</div>
+										<div class="row form-group progress">
+											<div class="progress-bar progress-bar-striped active progress-bar-danger" role="progressbar" id="SPANAVANCO" aria-valuemin="0" aria-valuemax="100">
+											</div>
+										</div>
+										<div class="form-group">
+											<button type="button" class="btn btn-danger" id="CANCELAR" onclick="Cancelar()">Cancelar</button>
+										</div>
+										<div class="form-group">
+											<button type="button" class="btn btn-info" id="PROXIMO" onclick="Proximo()">Próximo</button>
+										</div>
+									</div>
+									<div id="SQLTEXT" style="position:relative; width:100%; height: 100%; zoom: 200%;display: none;"></div>
+									</div>
+
+								</section>
+
+							</div>	
+
+							<div id="ALTERACOESBLANK" class="modal">
+
+								<div class="form-group col-md-10 fundoModal">
+
+									<div class="text-center tituloTabela titulo">
+										<div class="input-group input-group-md" style="text-align: center;width: max(50%,20em);padding-top:1%;">
+											<span class="input-group-addon" style="background-color: #b92113;" id="REINICIARPESQUISA" name="REINICIARPESQUISA" onclick="ReiniciarPesquisa()"><i class="fluigicon fluigicon-denounce icon-sm"></i></span>
+											<input type="text" class="form-control formatacaoCRM" placeholder="Insira a pesquisa" id="VALORPESQUISA" name="VALORPESQUISA" onchange="BuscaPesquisa()">
+											<span class="input-group-addon" style="background-color: #b92113;" id="PESQUISAR" name="PESQUISAR" onclick="BuscaPesquisa()"><i class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+										</div>
+										<h4><strong>Itens a serem alterados</strong></h4>
+										<div>
+											<a href="#fechar" id="fechar" title="Fechar" class="fechar"><strong>X</strong></a>
+										</div>
+									</div>
+
+									<div class="relatorioMovimento">
+
+										<div class="coluna">
+
+											<div class="RASTREABILIDADE">
+
+											</div>
+
+
+										</div>
+									
+									</div>
+									
+								</div>
+
+							</div>
+						
+						</div>
+				
+					</div>
+				
+				</div>
+			
+			</form>
+		
+		</div>
+	
+	</body>
+
+	<script type="text/javascript" src="documentReady.js"></script>
+    <script type="text/javascript" src="beforeSendValidate.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="selectZoom.js"></script>
+
+</html>

@@ -1,0 +1,1887 @@
+<html>
+
+    <head>
+
+        <!-- BIBLIOTECA PADRÕES DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-treeview.min.css">
+        <script src="/style-guide/js/fluig-style-guide-treeview.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+        <!-- BIBLIOTECAS SWEET ALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+
+        <!-- MATERIAL UI -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <script type="text/javascript" src="https://unpkg.com/@mui/material@5.12.0/umd/material-ui.production.min.js"></script>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+            
+
+    </head>
+    
+    <body style="padding-top: 0px;">
+
+        <!-- INÍCIO DA CUSTOMIZAÇÃO DO STYLE GUIDE -->
+        <div class="fluig-style-guide">
+
+            <!-- TAG PARA CRIAR O FORMULÁRIO -->
+            <form name="form" role="form">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES DAS SOLICITAÇÕES DO PROCESSO -->
+                <input id="ATIVIDADE" name="ATIVIDADE" type="hidden">
+                <input id="NUMPROCESSO" name="NUMPROCESSO" type="hidden">
+                <input id="SOLICITANTE" name="SOLICITANTE" type="hidden">
+                <input id="USUARIOATUAL" name="USUARIOATUAL" type="hidden">
+                <input id="USUARIOCALDERARIA" name="USUARIOCALDERARIA" type="hidden">
+                <input id="USUARIOUSINAGEM" name="USUARIOUSINAGEM" type="hidden">
+                <input id="USUARIOAPROVADOR" name="USUARIOAPROVADOR" type="hidden">
+                <input id="DESCPROCESSOFLUIG" name="DESCPROCESSOFLUIG" type="hidden" value="Apontamento de Materia Prima">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES OCULTOS DOS EXCLUSIVOS DO WORKFLOW -->
+                <input id="EXCLUSIVO1" name="EXCLUSIVO1" type="hidden">
+                <input id="EXCLUSIVO2" name="EXCLUSIVO2" type="hidden">
+
+                <div class="main_panel" id="mainpanel" name="mainpanel">
+
+                    <div class="col-md-12" id="TITULOPRINCIPAL" name="TITULOPRINCIPAL">
+                        <div class="text-center">
+                            <span class="titulo text-center TITULO"><h3><strong>A P O N T A M E N T O &nbsp;&nbsp; D E &nbsp;&nbsp; M A T É R I A &nbsp;&nbsp; - &nbsp;&nbsp; P R I M A &nbsp;&nbsp; </strong></h3></span>
+                        </div>
+                    </div>
+
+                    <div class="main-content" id="maincontent" name="maincontent">
+
+                        <!-- TAG PARA DELIMITAR O PAINEL DO FORMULÁRIO -->
+                        <div class="col-md-12" id="PRINCIPAL" name="PRINCIPAL">
+
+                            <div class="tab-content">
+
+                                <div class="tab-pane col-md-12 active APONTARBLANK" name="APONTARBLANK" id="APONTARBLANK">
+
+                                    <div class="cabecalho_principal">
+
+                                        <div class="text-center">
+                                            <span class="titulo text-center TITULO"><h3><strong>Apontamento de Componentes</strong></h3></span>
+                                        </div>
+
+                                        <div class="buttons-ferramentas">
+
+                                            <a href="#ADICIONARAPONT" class="btn btn-default waves-effect" data-position="bottom" data-delay="50" data-tooltip="Adicionar baixa de componente Comum">
+                                                <span class="material-icons" style="color: green;">
+                                                    add_circle
+                                                </span>
+                                                Adicionar baixa de componente
+                                            </a>
+
+                                            <a href="#ADICIONARAPONTPAPC" class="btn btn-default waves-effect" data-position="bottom" data-delay="50" data-tooltip="Adicionar baixa de Plano de Corte">
+                                                <span class="material-icons"  style="color: green;">
+                                                library_add
+                                                </span>
+                                                Adicionar baixa de Plano de Corte
+                                            </a>
+
+                                            <a class="btn btn-default waves-effect" onclick="PreencheModalEdicao()" data-position="bottom" data-delay="50" data-tooltip="Edita um registro apenas">
+                                                <span class="material-icons" style="color: #ffbf00">
+                                                edit_square
+                                                </span>
+                                                Editar registro
+                                            </a>
+
+                                            <a class="btn btn-default waves-effect"  onclick="ExcluirRegistros()" data-position="bottom" data-delay="50" data-tooltip="Permite excluir vários registros">
+                                                <span class="material-icons"  style="color:#b92113">
+                                                backspace
+                                                </span>
+                                                Excluir registro
+                                            </a>
+
+                                        </div>
+
+                                        <hr></hr>
+
+                                        <div class="TABELABAIXAS" id="TABELABAIXAS" name="TABELABAIXAS">
+
+                                            <div class="table-datatable">
+
+                                                <div class="row" style="margin-bottom: 2% !important;">
+                                                    <div class="col-md-10">
+                                                        <div class="input-field">
+                                                            <i class="material-icons prefix">search</i>
+                                                            <input type="text" id="TABELA_BAIXAS_PESQUISA" name="TABELA_BAIXAS_PESQUISA" onchange="PesquisaTabela('TABELABAIXAS',this)"> 
+                                                            <label for="TABELA_BAIXAS_PESQUISA">Pesquisar...</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <a class="filtros-dropdown dropdown-button btn btn-default waves-effect waves-red" href='#' data-activates="FILTROSRAPIDOS">Filtros Rápidos
+                                                            <i class="material-icons">expand_more</i>
+                                                        </a>
+                                                        <ul id="FILTROSRAPIDOS" class="dropdown-content">
+                                                            <li><a href="#!" onclick="filtrosRapidos(1,'LISTABAIXAS')"><i class="material-icons">check_box_outline_blank</i>Pendentes de Preenchimento</a></li>
+                                                            <li><a href="#!" onclick="filtrosRapidos(2,'LISTABAIXAS')"><i class="material-icons">check</i>Preenchidos</a></li>
+                                                            <li><a href="#!" onclick="filtrosRapidos(3,'LISTABAIXAS')"><i class="material-icons">clear_all</i>Todos</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- Table -->
+                                                <table id="LISTABAIXAS" class="LISTABAIXAS highlight striped " name="LISTABAIXAS">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th class="filtros-tabela"> 
+                                                                <p>
+                                                                    <input type="checkbox" name="CHECKBOX_HEAD" id="CHECKBOX_HEAD"  class="filled-in" onclick="preencheCheckBox('LISTABAIXAS')"/>    
+                                                                    <label for="CHECKBOX_HEAD"></label>
+                                                                </p>
+                                                                <a>
+                                                                    ID<i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                                </a>
+                                                            </th>
+
+                                                            <th class="filtros-tabela">
+                                                                <a>
+                                                                    Projeto
+                                                                </a>
+                                                                <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                            </th>
+
+                                                            <th class="filtros-tabela">
+                                                                <a>
+                                                                    OP / Plano de Corte
+                                                                </a>
+                                                                <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                            </th>
+
+                                                            <th class="filtros-tabela">
+                                                                <a>
+                                                                    Atividade / Lote do Plano
+                                                                </a>
+                                                                <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                            </th>
+
+                                                            <th class="filtros-tabela">
+                                                                <a>
+                                                                    Produto
+                                                                </a>
+                                                                <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                            </th>
+
+                                                            <th class="filtros-tabela">
+                                                                <a>
+                                                                    Descrição Produto
+                                                                </a>
+                                                                <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                            </th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        
+                                                    </tbody>
+                                                </table>
+
+                                                <table id="LISTABAIXASAUX_APONT" class="LISTABAIXASAUX_APONT" name="LISTABAIXASAUX_APONT" tablename="LISTABAIXASAUX_APONT" style="display: none;" nodeletebutton="true" noaddbutton="true">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>SEQ</th>
+                                                            <th>TIPO</th>
+                                                            <th>CODFILIAL</th>
+                                                            <th>CODCOLIGADA</th>
+                                                            <th>CODPRJ</th>
+                                                            <th>OP</th>
+                                                            <th>EXEC</th>
+                                                            <th>CODESTRUTURA</th>
+                                                            <th>IDATV</th>
+                                                            <th>CODATV</th>
+                                                            <th>IDPRD</th>
+                                                            <th>CODIGOPRODUTO</th>
+                                                            <th>DESCPROD</th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <tr>
+                                                            <td>
+                                                                <input type="hidden" id="SEQAUXAPONT" name="SEQAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="TIPOAUXAPONT" name="TIPOAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODFILIALAUXAPONT" name="CODFILIALAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODCOLIGADAAUXAPONT" name="CODCOLIGADAAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODPRJAUXAPONT" name="CODPRJAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="OPAUXAPONT" name="OPAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="EXECAUXAPONT" name="EXECAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODESTRUTURAOPAUXAPONT" name="CODESTRUTURAOPAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="IDATVAUXAPONT" name="IDATVAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODATVAUXAPONT" name="CODATVAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="IDPRDAUXAPONT" name="IDPRDAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODIGOPRODUTOAUXAPONT" name="CODIGOPRODUTOAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="DESCPRODAUXAPONT" name="DESCPRODAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="TIPOPRODAUXAPONT" name="TIPOPRODAUXAPONT">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="TOTALAPONTAUXAPONT" name="TOTALAPONTAUXAPONT">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                        
+                                                    </tbody>
+                                                </table>
+
+                                                <table id="LISTALOTESAUX_APONT" class="LISTALOTESAUX_APONT" name="LISTALOTESAUX_APONT" tablename="LISTALOTESAUX_APONT" style="display: none;" nodeletebutton="true" noaddbutton="true">
+                                                    <thead>
+                                                        <tr>
+        
+                                                            <th>SEQ</th>
+                                                            <th>TIPO</th>
+                                                            <th>CODFILIAL</th>
+                                                            <th>CODCOLIGADA</th>
+                                                            <th>IDPRD</th>
+                                                            <th>PREVISTO</th>
+                                                            <th>APONTADO</th>
+                                                            <th>GRUPO</th>
+                                                            <th>MASKPRD</th>
+                                                            <th>SUBSTITUTO</th>
+                                                            <th>NUMLOTE</th>
+                                                            <th>IDLOTE</th>
+                                                            <th>SALDOFISICO2</th>
+                                                            <th>IDSTATUS</th>
+                                                            <th>DESCRICAOSTATUS</th>
+                                                            <th>CODLOC</th>
+                                                            <th>SELECIONADO</th>
+                                                            <th>CODUND</th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+        
+                                                        <tr>
+                                                            <td>
+                                                                <input type="hidden" id="SEQAUXLOTE" name="SEQAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="TIPOAUXLOTE" name="TIPOAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODFILIALAUXLOTE" name="CODFILIALAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODCOLIGADAAUXLOTE" name="CODCOLIGADAAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="IDPRODUTOAUXLOTE" name="IDPRODUTOAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODPRODUTOAUXLOTE" name="CODPRODUTOAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CUSTOMEDIOAUXLOTE" name="CUSTOMEDIOAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="PREVISTOAUXLOTE" name="PREVISTOAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="APONTADOAUXLOTE" name="APONTADOAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="GRUPOAUXLOTE" name="GRUPOAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="MASKPRDAUXLOTE" name="MASKPRDAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="SUBSTITUTOAUXLOTE" name="SUBSTITUTOAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="NUMLOTEAUXLOTE" name="NUMLOTEAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="IDLOTEAUXLOTE" name="IDLOTEAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="SALDOFISICO2AUXLOTE" name="SALDOFISICO2AUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="IDSTATUSAUXLOTE" name="IDSTATUSAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="DESCRICAOSATUSAUXLOTE" name="DESCRICAOSATUSAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODLOCAUXLOTE" name="CODLOCAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="QTDAPONTAAUXLOTE" name="QTDAPONTAAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="SELECIONADOAUXLOTE" name="SELECIONADOAUXLOTE">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODUNDAUXLOTE" name="CODUNDAUXLOTE">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                        
+                                                </table>
+                                                
+                                                <table id="LISTABAIXASAUX_PAPC" class="LISTABAIXASAUX_PAPC" tablename="LISTABAIXASAUX_PAPC" name="LISTABAIXASAUX_PAPC" style="display: none;" nodeletebutton="true" noaddbutton="true">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>SEQ</th>
+                                                            <th>TIPO</th>
+                                                            <th>CODFILIAL</th>
+                                                            <th>CODCOLIGADA</th>
+                                                            <th>CODPRJ</th>
+                                                            <th>PLANO</th>
+                                                            <th>NUMLOTE</th>
+                                                            <th>IDLOTE</th>
+                                                            <th>IDPRD</th>
+                                                            <th>CODIGOPRODUTO</th>
+                                                            <th>DESCPROD</th>
+                                                            <th>SALDOLOTE</th>
+                                                            <th>SALDOPLANO</th>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <input type="hidden" id="SEQAUXPAPC" name="SEQAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="TIPOAUXPAPC" name="TIPOAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODFILIALAUXPAPC" name="CODFILIALAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODCOLIGADAAUXPAPC" name="CODCOLIGADAAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODPRJAUXPAPC" name="CODPRJAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="PLANOAUXPAPC" name="PLANOAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="NUMLOTEAUXPAPC" name="NUMLOTEAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="IDLOTEAUXPAPC" name="IDLOTEAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="IDPRDAUXPAPC" name="IDPRDAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="CODIGOPRODUTOAUXPAPC" name="CODIGOPRODUTOAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="DESCPRODAUXPAPC" name="DESCPRODAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="SALDOLOTEAUXPAPC" name="SALDOLOTEAUXPAPC">
+                                                            </td>
+                                                            <td>
+                                                                <input type="hidden" id="SALDOPLANOAUXPAPC" name="SALDOPLANOAUXPAPC">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <table id="IDMOVCOMPONENTES" tablename="IDMOVCOMPONENTES" style="display: none;"  nodeletebutton="true" noaddbutton="true">
+                    
+                                                    <thead>
+            
+                                                        <tr>
+            
+                                                            <th class="form-group col-md-1"><label class="info"><strong>Código</strong></label></th>
+                                                            <th class="form-group col-md-1"><label class="info"><strong>Id Lote</strong></label></th>
+                                                            <th class="form-group col-md-1"><label class="info"><strong>Qtde Ut.</strong></label></th>
+                                                            <th class="form-group col-md-1"><label class="info"><strong>Seq Atv</strong></label></th>
+                                                            <th class="form-group col-md-1"><label class="info"><strong>Seq Comp</strong></label></th>
+                                                            <th class="form-group col-md-1"><label class="info"><strong>Id mov</strong></label></th>
+            
+                                                        </tr>
+            
+                                                    </thead>
+            
+                                                    <tbody>
+            
+                                                        <tr>
+            
+                                                            <td>
+                                                                <input type="text" class="form-control" id="IMIDPRDCOMP" name="IMIDPRDCOMP" readonly> 
+                                                            </td>
+            
+                                                            <td>
+                                                                <input type="text" class="form-control" id="IMIDLOTE" name="IMIDLOTE" readonly> 
+                                                            </td>
+            
+                                                            <td>
+                                                                <input type="text" class="form-control" id="IMQTDEUT" name="IMQTDEUT" readonly> 
+                                                            </td>
+            
+                                                            <td>
+                                                                <input type="text" class="form-control" id="IMSEQATV" name="IMSEQATV" readonly> 
+                                                            </td>
+            
+                                                            <td>
+                                                                <input type="text" class="form-control" id="IMSEQCOMP" name="IMSEQCOMP" readonly> 
+                                                            </td>
+            
+                                                            <td>
+                                                                <input type="text" class="form-control" id="IMIDMOV" name="IMIDMOV" readonly> 
+                                                            </td>
+                                                                        
+                                                            <td>
+                                                                <input type="text" class="form-control" id="IMCODCOLIGADA" name="IMCODCOLIGADA" readonly> 
+                                                            </td>
+                                                                        
+                                                            <td>
+                                                                <input type="text" class="form-control" id="IMCODFILIAL" name="IMCODFILIAL" readonly> 
+                                                            </td>
+            
+                                                        </tr>
+            
+                                                    </tbody>
+            
+                                                </table>
+
+                                            </div>
+
+                                        </div>
+                                
+                                    </div>
+
+                                </div>
+
+                                
+                                <div class="tab-pane col-md-12 LISTARBLANK" name="LISTARBLANK" id="LISTARBLANK">
+
+                                    <div class="text-center">
+                                        <span class="titulo text-center TITULO"><h3><strong>Pendências de componentes</strong></h3></span>
+                                    </div>
+
+                                    <hr></hr>
+
+                                    <div class="col-md-12">
+
+                                        <div class="row">
+        
+                                            <div class="input-field col-md-2">
+                                                <label for="FILIALPEND">Filial</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="FILIALPEND" name="FILIALPEND"
+                                                    data-zoom="{
+                                                        'displayKey':'FILIAL',
+                                                        'datasetId':'dsFilial',
+                                                        'fields':[
+                                                            {
+                                                                'field':'FILIAL',
+                                                                'label':'Cód. - Nome',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }   
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="CODFILIALPEND" name="CODFILIALPEND" validate="PEND">
+        
+                                            </div>
+        
+                                            <div class="input-field col-md-5">
+                                                <label for="CODCCUSTOPEND">OS do Projeto</label>
+                                                <input id="CODCCUSTOPEND" name="CODCCUSTOPEND" type="zoom" data-zoom="{
+                                                    'displayKey':'DESCRICAOOS',
+                                                    'datasetId':'dsBuscaOS4',
+                                                    'fields':[
+                                                        {
+                                                            'field':'DESCRICAOOS',
+                                                            'label':'Cód. - Descrição',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        }   
+                                                    ]
+                                                }">
+                                                    <input type="hidden" id="CODPRJPEND" name="CODPRJPEND" validate="PEND">
+                                                    <input type="hidden" id="CODCOLIGADAPEND" name="CODCOLIGADAPEND" validate="PEND">
+                                            </div>
+        
+                                            <div class="input-field col-md-3">
+                                                <label for="CODORDEMPEND">Código da Ordem</label>
+                                                <input id="CODORDEMPEND" name="CODORDEMPEND" type="zoom" class="validate" data-zoom="{
+                                                    'displayKey':'CODORDEM',
+                                                    'datasetId':'dsOrdemProducaoOS',
+                                                    'fields':[
+                                                        {
+                                                            'field':'CODORDEM',
+                                                            'label':'Cod. Ordem',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        }   
+                                                    ]
+                                                }"
+                                                >
+                                                <input type="hidden" id="OPPEND" name="OPPEND" validate="PEND">
+                                                <input type="hidden" id="EXECPEND" name="EXECPEND" validate="PEND">
+                                                <input type="hidden" id="STATUSOPPEND" name="STATUSOPPEND">
+                                                <input type="hidden" id="CODESTRUTURAOPPEND" name="CODESTRUTURAOPPEND" validate="PEND">
+                                                
+                                            </div>
+
+                                            <div class="row buttons-ferramentas col-md-2">
+            
+                                                <a class="btn btn-default waves-effect waves-green" data-position="bottom" data-delay="50" data-tooltip="Concluir" onclick="preenchePendComponentes()">
+                                                    <span class="material-icons">
+                                                        search
+                                                    </span>
+                                                    Buscar
+                                                </a>
+            
+                                            </div>
+
+                                        </div>
+                                    
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                    
+                                        <div class="table-datatable">
+
+                                            <div class="row" style="margin-bottom: 2% !important;">
+
+                                                <div class="col-md-10">
+
+                                                    <div class="input-field">
+
+                                                        <i class="material-icons prefix">search</i>
+                                                        <input type="text" id="TABELA_PEND_PESQUISA" name="TABELA_PEND_PESQUISA" onchange="PesquisaTabela('PEND',this)"> 
+                                                        <label for="TABELA_PEND_PESQUISA">Pesquisar...</label>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-2">
+
+                                                    <a class="filtros-dropdown dropdown-button btn btn-default waves-effect waves-red" href='#' data-activates="FILTROSRAPIDOSPEND">Filtros Rápidos
+                                                        <i class="material-icons">expand_more</i>
+                                                    </a>
+
+                                                    <ul id="FILTROSRAPIDOSPEND" class="dropdown-content">
+                                                        <li><a href="#!" onclick="filtrosRapidos(1,'PEND')"><i class="material-icons">announcement</i>Pendência de Apontamento</a></li>
+                                                        <li><a href="#!" onclick="filtrosRapidos(2,'PEND')"><i class="material-icons">storage</i>Pendência de Almoxarifado</a></li>
+                                                        <li><a href="#!" onclick="filtrosRapidos(3,'PEND')"><i class="material-icons">settings</i>Pendência de PCP</a></li>
+                                                        <li><a href="#!" onclick="filtrosRapidos(4,'PEND')"><i class="material-icons">autorenew</i>Outros</a></li>
+                                                        <li><a href="#!" onclick="filtrosRapidos(5,'PEND')"><i class="material-icons">check</i>Todos</a></li>
+                                                    </ul>
+
+                                                </div>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                    </div>
+
+                                    <hr></hr>
+
+                                    
+                                    <div class="col-md-12 panel-group COMPONENTESPEND" id="accordionComp">
+
+                                    </div>
+                                    
+                                </div>
+
+                                
+                                <div class="tab-pane col-md-12 PAPCBLANK" name="PAPCBLANK" id="PAPCBLANK">
+
+                                    <div class="text-center">
+                                        <span class="titulo text-center TITULO"><h3><strong>Pendências de planos de corte/aproveitamento</strong></h3></span>
+                                    </div>
+                                    
+                                    <hr></hr>
+
+                                    <div class="col-md-12">
+
+                                        <div class="row">
+        
+                                            <div class="input-field col-md-2">
+                                                <label for="FILIALPENDPAPC">Filial</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="FILIALPENDPAPC" name="FILIALPENDPAPC"
+                                                    data-zoom="{
+                                                        'displayKey':'FILIAL',
+                                                        'datasetId':'dsFilial',
+                                                        'fields':[
+                                                            {
+                                                                'field':'FILIAL',
+                                                                'label':'Cód. - Nome',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }   
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" id="CODFILIALPENDPAPC" name="CODFILIALPENDPAPC" validate="PENDPAPC">
+        
+                                            </div>
+        
+                                            <div class="input-field col-md-5">
+                                                <label for="CODCCUSTOPENDPAPC">OS do Projeto</label>
+                                                <input id="CODCCUSTOPENDPAPC" name="CODCCUSTOPENDPAPC" type="zoom" data-zoom="{
+                                                    'displayKey':'DESCRICAOOS',
+                                                    'datasetId':'dsBuscaOS4',
+                                                    'fields':[
+                                                        {
+                                                            'field':'DESCRICAOOS',
+                                                            'label':'Cód. - Descrição',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        }   
+                                                    ]
+                                                }">
+                                                    <input type="hidden" id="CODPRJPENDPAPC" name="CODPRJPENDPAPC" validate="PENDPAPC">
+                                                    <input type="hidden" id="CODCOLIGADAPENDPAPC" name="CODCOLIGADAPENDPAPC" validate="PENDPAPC">
+                                            </div>
+
+                                            <div class="row buttons-ferramentas col-md-2">
+            
+                                                <a class="btn btn-default waves-effect waves-green" data-position="bottom" data-delay="50" data-tooltip="Concluir" onclick="preenchePendComponentesPAPC()">
+                                                    <span class="material-icons">
+                                                        search
+                                                    </span>
+                                                    Buscar
+                                                </a>
+            
+                                            </div>
+
+                                        </div>
+                                    
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                    
+                                        <div class="table-datatable">
+
+                                            <div class="row" style="margin-bottom: 2% !important;">
+
+                                                <div class="col-md-10">
+
+                                                    <div class="input-field">
+
+                                                        <i class="material-icons prefix">search</i>
+                                                        <input type="text" id="TABELA_PENDPAPC_PESQUISA" name="TABELA_PENDPAPC_PESQUISA" onchange="PesquisaTabela('PENDPAPC',this)"> 
+                                                        <label for="TABELA_PENDPAPC_PESQUISA">Pesquisar...</label>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-2">
+
+                                                    <a class="filtros-dropdown dropdown-button btn btn-default waves-effect waves-red" href='#' data-activates="FILTROSRAPIDOSPENDPAPC">Filtros Rápidos
+                                                        <i class="material-icons">expand_more</i>
+                                                    </a>
+
+                                                    <ul id="FILTROSRAPIDOSPENDPAPC" class="dropdown-content">
+                                                        <li><a href="#!" onclick="filtrosRapidos(1,'PENDPAPC')"><i class="material-icons">announcement</i>Pendência de Apontamento</a></li>
+                                                        <li><a href="#!" onclick="filtrosRapidos(2,'PENDPAPC')"><i class="material-icons">storage</i>Pendência de Almoxarifado</a></li>
+                                                        <li><a href="#!" onclick="filtrosRapidos(3,'PENDPAPC')"><i class="material-icons">settings</i>Pendência de PCP</a></li>
+                                                        <li><a href="#!" onclick="filtrosRapidos(4,'PENDPAPC')"><i class="material-icons">autorenew</i>Outros</a></li>
+                                                        <li><a href="#!" onclick="filtrosRapidos(5,'PENDPAPC')"><i class="material-icons">check</i>Todos</a></li>
+                                                    </ul>
+
+                                                </div>
+
+                                            </div>
+                                        
+                                        </div>
+
+                                    </div>
+
+                                    <hr></hr>
+
+                                    
+                                    <div class="col-md-12 panel-group COMPONENTESPENDPAPC" id="accordionComp">
+
+                                    </div>
+
+                                </div>
+
+                                
+                                <div class="tab-pane col-md-12 CLEARBLANK" name="CLEARBLANK" id="CLEARBLANK">
+
+                                    <div class="text-center">
+                                        <span class="titulo text-center TITULO"><h3><strong>Limpar Preenchimento do Formulário</strong></h3></span>
+                                    </div>
+                                    
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                        <!-- TAG PARA DELIMITAR O MENU DO FORMULÁRIO -->
+                        <div class="lateral_menu" id="lateral_menu" name="lateral_menu">
+
+                            <ul class="nav nav-tabs clearfix" role="tablist">
+                                <li id="ABA1" name="ABA1" class="active ABA1"><a id="ABA11" href="#APONTARBLANK" class="aba" role="tab" data-toggle="tab">
+                                    <span class="material-icons">
+                                    home
+                                    </span><h4><strong>Apontar Materiais</strong></h4></a></li>
+                                <li id="ABA2" name="ABA2" class="ABA2"><a id="ABA22" href="#LISTARBLANK" role="tab" class="aba" data-toggle="tab">
+                                    <span class="material-icons">
+                                        format_list_bulleted
+                                        </span><h4><strong>Listar Pendências</strong></h4></a></li>
+                                <li id="ABA3" name="ABA3" class="ABA3"><a id="ABA33" href="#PAPCBLANK" role="tab" class="aba" data-toggle="tab">
+                                    <span class="material-icons">
+                                        dataset
+                                        </span><h4><strong>Pendências PAPC</strong></h4></a></li>
+                                <li id="ABA4" name="ABA4" class="ABA4" onclick="LimpaFormulario()"><a id="ABA44" role="tab" class="aba" data-toggle="tab">
+                                    <span class="material-icons">
+                                        cancel
+                                        </span><h4><strong>Limpar Formulário</strong></h4></a></li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <div id="ADICIONARAPONT" class="modal">
+
+                        <div class="fundoModal">
+    
+                            <form class="col-md-12">
+
+                                <div class="row">
+
+                                    <div class="input-field col-md-3">
+                                        <label for="FILIALAPONT">Filial</label>
+                                        <input type="zoom" class="form-control formatacaoCRM" id="FILIALAPONT" name="FILIALAPONT"
+                                            data-zoom="{
+                                                'displayKey':'FILIAL',
+                                                'datasetId':'dsFilial',
+                                                'fields':[
+                                                    {
+                                                        'field':'FILIAL',
+                                                        'label':'Cód. - Nome',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    }   
+                                                ]
+                                            }"
+                                        >
+                                        <input type="hidden" id="CODFILIALAPONT" name="CODFILIALAPONT" validate="APONT">
+
+                                    </div>
+
+                                    <div class="input-field col-md-5">
+                                        <label for="CODCCUSTOAPONT">OS do Projeto</label>
+                                        <input id="CODCCUSTOAPONT" name="CODCCUSTOAPONT" type="zoom" data-zoom="{
+                                            'displayKey':'DESCRICAOOS',
+                                            'datasetId':'dsBuscaOS4',
+                                            'fields':[
+                                                {
+                                                    'field':'DESCRICAOOS',
+                                                    'label':'Cód. - Descrição',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                }   
+                                            ]
+                                        }">
+                                            <input type="hidden" id="CODPRJAPONT" name="CODPRJAPONT" validate="APONT">
+                                            <input type="hidden" id="CODCOLIGADAAPONT" name="CODCOLIGADAAPONT" validate="APONT">
+                                    </div>
+
+                                </div>
+    
+                                <div class="row">
+
+                                    <div class="input-field col-md-3">
+                                        <label for="CODORDEMAPONT">Código da Ordem</label>
+                                        <input id="CODORDEMAPONT" name="CODORDEMAPONT" type="zoom" class="validate" data-zoom="{
+                                            'displayKey':'CODORDEM',
+                                            'datasetId':'dsOrdemProducaoOS',
+                                            'fields':[
+                                                {
+                                                    'field':'CODORDEM',
+                                                    'label':'Cod. Ordem',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                }   
+                                            ]
+                                        }"
+                                        >
+                                        <input type="hidden" id="OPAPONT" name="OPAPONT" validate="APONT">
+                                        <input type="hidden" id="EXECAPONT" name="EXECAPONT" validate="APONT">
+                                        <input type="hidden" id="STATUSOPAPONT" name="STATUSOPAPONT">
+                                        <input type="hidden" id="CODESTRUTURAOPAPONT" name="CODESTRUTURAOPAPONT" validate="APONT">
+                                        
+                                    </div>
+
+                                    <div class="input-field col-md-3">
+                                        <label for="IDATVORDEMAPONT">ID da Atividade</label>
+                                        <input id="IDATVORDEMAPONT" name="IDATVORDEMAPONT" type="zoom" class="validate" data-zoom="{
+                                            'displayKey':'ATVPOSTO',
+                                            'datasetId':'dsAtividadeOS',
+                                            'fields':[
+                                                {
+                                                    'field':'ATVPOSTO',
+                                                    'label':'Id Atv. - Posto',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                } 
+                                            ]
+                                        }">
+                                        <input type="hidden" id="IDATVAPONT" name="IDATVAPONT" validate="APONT">
+                                        <input type="hidden" id="CODATVAPONT" name="CODATVAPONT" validate="APONT">
+                                        
+                                    </div>
+
+                                    <div class="input-field col-md-6">
+                                        <label for="CODIGOPRDAPONT">Código do Produto</label>
+                                        <input id="CODIGOPRDAPONT" name="CODIGOPRDAPONT" type="zoom" class="validate" data-zoom="{
+                                            'displayKey':'NOMEPRODUTO',
+                                            'datasetId':'dsComponentesOrdemProducao',
+                                            'fields':[
+                                                {
+                                                    'field':'CODIGOPRD',
+                                                    'label':'Código Produto',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                } ,
+                                                {
+                                                    'field':'DESCRICAO',
+                                                    'label':'Desc. Produto',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'TIPO',
+                                                    'label':'Posição',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'SALDOGERALFISICO',
+                                                    'label':'Saldo Geral',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                }  
+                                            ]
+                                        }">
+                                        <input type="hidden" id="IDPRDAPONT" name="IDPRDAPONT" validate="APONT">
+                                        <input type="hidden" id="CODIGOPRODUTOAPONT" name="CODIGOPRODUTOAPONT" validate="APONT">
+                                        <input type="hidden" id="DESCPRODAPONT" name="DESCPRODAPONT" validate="APONT">
+                                        <input type="hidden" id="TIPOPRODAPONT" name="TIPOPRODAPONT" validate="APONT">
+                                        
+                                    </div>
+    
+                                </div>
+
+                                <div class="row buttons-ferramentas">
+
+                                    <a href="#!" class="btn btn-default waves-effect waves-red" data-position="bottom" data-delay="50" data-tooltip="Cancelar">
+                                        <span class="material-icons">
+                                            close
+                                        </span>
+                                        Cancelar
+                                    </a>
+
+                                    <a class="btn btn-default waves-effect waves-green" data-position="bottom" data-delay="50" data-tooltip="Concluir" onclick="AddApont()">
+                                        <span class="material-icons">
+                                            done
+                                        </span>
+                                        Concluir
+                                    </a>
+
+                                </div>
+    
+                            </form>
+    
+                        </div>
+    
+                    </div>
+    
+                    <div id="ADICIONARAPONTPAPC" class="modal">
+    
+                        <div class="fundoModal">
+    
+                            <form class="col-md-12">
+
+                                <div class="row">
+                                    <div class="input-field col-md-3">
+                                        <label for="FILIALPAPC">Filial</label>
+                                        <input type="zoom" class="form-control formatacaoCRM" id="FILIALPAPC" name="FILIALPAPC"
+                                            data-zoom="{
+                                                'displayKey':'FILIAL',
+                                                'datasetId':'dsFilial',
+                                                'fields':[
+                                                    {
+                                                        'field':'FILIAL',
+                                                        'label':'Cód. - Nome',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    }   
+                                                ]
+                                            }"
+                                        >
+                                        <input type="hidden" id="CODFILIALPAPC" name="CODFILIALPAPC" validate="PAPC">
+                                    </div>
+
+                                    <div class="input-field col-md-5">
+                                        <label for="CODCCUSTOPAPC">OS do Projeto</label>
+                                        <input id="CODCCUSTOPAPC" name="CODCCUSTOPAPC" type="zoom" class="validate" data-zoom="{
+                                            'displayKey':'DESCRICAOOS',
+                                            'datasetId':'dsBuscaOS4',
+                                            'fields':[
+                                                {
+                                                    'field':'DESCRICAOOS',
+                                                    'label':'Cód. - Descrição',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                }   
+                                            ]
+                                        }">
+                                        <input type="hidden" id="CODPRJPAPC" name="CODPRJPAPC" validate="PAPC">
+                                        <input type="hidden" id="CODCOLIGADAPAPC" name="CODCOLIGADAPAPC" validate="PAPC">
+                                    </div>
+                                
+                                </div>
+    
+                                <div class="row">
+    
+                                    <div class="input-field col-md-3">
+                                        <label for="NUMPLANOPAPC">Plano de corte</label>
+                                        <input id="NUMPLANOPAPC" name="NUMPLANOPAPC" type="zoom" class="validate" data-zoom="{
+                                            'displayKey':'NUMPLANOCORTE',
+                                            'datasetId':'dsNumPlanoCorte',
+                                            'fields':[
+                                                {
+                                                    'field':'NUMPLANOCORTE',
+                                                    'label':'N° Plano de Corte',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                }     
+                                            ]
+                                        }">
+                                        <input type="hidden" id="NUMPLANOCORTEPAPC" name="NUMPLANOCORTEPAPC" validate="PAPC">
+                                    </div>
+
+                                    <div class="input-field  col-md-5">
+                                        <label for="CODIGOPRDPAPC">Código do Produto</label>
+                                        <input id="CODIGOPRDPAPC" name="CODIGOPRDPAPC" type="zoom" class="form-control validate" data-zoom="{
+                                            'displayKey':'NOMEPRODUTO',
+                                            'datasetId':'dsComponentesOrdemProducao',
+                                            'fields':[
+                                                {
+                                                    'field':'CODIGOPRD',
+                                                    'label':'Código Produto',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                } ,
+                                                {
+                                                    'field':'DESCRICAO',
+                                                    'label':'Desc. Produto',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'TIPO',
+                                                    'label':'Posição',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'SALDOGERALFISICO',
+                                                    'label':'Saldo Geral',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                } 
+                                            ]
+                                        }">
+                                        <input type="hidden" id="IDPRDPAPC" name="IDPRDPAPC" validate="PAPC">
+                                        <input type="hidden" id="CODIGOPRODUTOPAPC" name="CODIGOPRODUTOPAPC" validate="PAPC">
+                                        <input type="hidden" id="DESCPRODPAPC" name="DESCPRODPAPC" validate="PAPC">
+                                        
+                                    </div>
+                                    <div class="input-field col-md-3">
+                                        <label for="LOTEPRDPAPC">Lote do Produto</label>
+                                        <input id="LOTEPRDPAPC" name="LOTEPRDPAPC" type="zoom" class="form-control validate"data-zoom="{
+                                            'displayKey':'NUMLOTE',
+                                            'datasetId':'dsLotesMPPAPC',
+                                            'fields':[
+                                                {
+                                                    'field':'NUMLOTE',
+                                                    'label':'N° Lote',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'CODIGOPRD',
+                                                    'label':'Cód.',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'DESCRICAO',
+                                                    'label':'Descrição',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'ESTOQUE_ATUAL',
+                                                    'label':'Estoque',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                }            
+                                            ]
+                                        }"
+                                    >
+                                    <input type="hidden" id="NUMLOTEPAPC" name="NUMLOTEPAPC" validate="PAPC">
+                                    <input type="hidden" id="IDLOTEPAPC" name="IDLOTEPAPC" validate="PAPC">
+                                        
+                                    </div>
+    
+                                </div>
+
+                                <div class="row buttons-ferramentas">
+
+                                    <a href="#!" class="btn btn-default waves-effect waves-red" data-position="bottom" data-delay="50" data-tooltip="Cancelar">
+                                        <span class="material-icons">
+                                            close
+                                        </span>
+                                        Cancelar
+                                    </a>
+
+                                    <a class="btn btn-default waves-effect waves-green" data-position="bottom" data-delay="50" data-tooltip="Concluir" onclick="AddPAPC()">
+                                        <span class="material-icons">
+                                        done
+                                        </span>
+                                        Concluir
+                                    </a>
+
+                                </div>
+    
+                            </form>
+    
+                        </div>
+    
+                    </div>
+    
+                    <div id="EDITARAPONT" class="modal">
+    
+                        <div class="fundoModal">
+    
+                            <div class="modalapont">
+
+                                <form class="col-md-12">
+
+                                    <div class="row">
+    
+                                        <div class="input-field col-md-3">
+                                            <label for="EDITFILIALAPONT">Filial</label>
+                                            <input type="zoom" class="form-control formatacaoCRM" id="EDITFILIALAPONT" name="EDITFILIALAPONT"
+                                                data-zoom="{
+                                                    'displayKey':'FILIAL',
+                                                    'datasetId':'dsFilial',
+                                                    'fields':[
+                                                        {
+                                                            'field':'FILIAL',
+                                                            'label':'Cód. - Nome',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        }   
+                                                    ]
+                                                }"
+                                            >
+                                            <input type="hidden" id="EDITCODFILIALAPONT" name="EDITCODFILIALAPONT" validate="EDITAPONT">
+    
+                                        </div>
+    
+                                        <div class="input-field col-md-5">
+                                            <label for="EDITCODCCUSTOAPONT">OS do Projeto</label>
+                                            <input id="EDITCODCCUSTOAPONT" name="EDITCODCCUSTOAPONT" type="zoom" class="validate" data-zoom="{
+                                                'displayKey':'DESCRICAOOS',
+                                                'datasetId':'dsBuscaOS4',
+                                                'fields':[
+                                                    {
+                                                        'field':'DESCRICAOOS',
+                                                        'label':'Cód. - Descrição',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    }   
+                                                ]
+                                            }">
+                                                <input type="hidden" id="EDITCODPRJAPONT" name="EDITCODPRJAPONT" validate="EDITAPONT">
+                                                <input type="hidden" id="EDITCODCOLIGADAAPONT" name="EDITCODCOLIGADAAPONT" validate="EDITAPONT">
+                                        </div>
+    
+                                    </div>
+        
+                                    <div class="row">
+    
+                                        <div class="input-field col-md-3">
+                                            <label for="EDITCODORDEMAPONT">Código da Ordem</label>
+                                            <input id="EDITCODORDEMAPONT" name="EDITCODORDEMAPONT" type="zoom" class="validate" data-zoom="{
+                                                'displayKey':'CODORDEM',
+                                                'datasetId':'dsOrdemProducaoOS',
+                                                'fields':[
+                                                    {
+                                                        'field':'CODORDEM',
+                                                        'label':'Cod. Ordem',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    }   
+                                                ]
+                                            }"
+                                            >
+                                            <input type="hidden" id="EDITOPAPONT" name="EDITOPAPONT" validate="EDITAPONT">
+                                            <input type="hidden" id="EDITEXECAPONT" name="EDITEXECAPONT" validate="EDITAPONT">
+                                            <input type="hidden" id="EDITSTATUSOPAPONT" name="EDITSTATUSOPAPONT">
+                                            <input type="hidden" id="EDITCODESTRUTURAOPAPONT" name="EDITCODESTRUTURAOPAPONT" validate="EDITAPONT">
+                                            
+                                        </div>
+    
+                                        <div class="input-field col-md-3">
+                                            <label for="EDITIDATVORDEMAPONT">ID da Atividade</label>
+                                            <input id="EDITIDATVORDEMAPONT" name="EDITIDATVORDEMAPONT" type="zoom" class="validate" data-zoom="{
+                                                'displayKey':'ATVPOSTO',
+                                                'datasetId':'dsAtividadeOS',
+                                                'fields':[
+                                                    {
+                                                        'field':'ATVPOSTO',
+                                                        'label':'Id Atv. - Posto',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    } 
+                                                ]
+                                            }">
+                                            <input type="hidden" id="EDITIDATVAPONT" name="EDITIDATVAPONT" validate="EDITAPONT">
+                                            <input type="hidden" id="EDITCODATVAPONT" name="EDITCODATVAPONT" validate="EDITAPONT">
+                                            
+                                        </div>
+    
+                                        <div class="input-field col-md-6">
+                                            <label for="EDITCODIGOPRDAPONT">Código do Produto</label>
+                                            <input id="EDITCODIGOPRDAPONT" name="EDITCODIGOPRDAPONT" type="zoom" class="validate" data-zoom="{
+                                                'displayKey':'NOMEPRODUTO',
+                                                'datasetId':'dsComponentesOrdemProducao',
+                                                'fields':[
+                                                    {
+                                                        'field':'CODIGOPRD',
+                                                        'label':'Código Produto',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    } ,
+                                                    {
+                                                        'field':'DESCRICAO',
+                                                        'label':'Desc. Produto',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    },
+                                                    {
+                                                        'field':'TIPO',
+                                                        'label':'Posição',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    },
+                                                    {
+                                                        'field':'SALDOGERALFISICO',
+                                                        'label':'Saldo Geral',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    } 
+                                                ]
+                                            }">
+                                            <input type="hidden" id="EDITIDPRDAPONT" name="EDITIDPRDAPONT" validate="EDITAPONT">
+                                            <input type="hidden" id="EDITCODIGOPRODUTOAPONT" name="EDITCODIGOPRODUTOAPONT" validate="EDITAPONT">
+                                            <input type="hidden" id="EDITDESCPRODAPONT" name="EDITDESCPRODAPONT" validate="EDITAPONT">
+                                        </div>
+        
+                                    </div>
+    
+                                    <div class="row buttons-ferramentas">
+    
+                                        <a href="#!" class="btn btn-default waves-effect waves-red" data-position="bottom" data-delay="50" data-tooltip="Cancelar">
+                                            <span class="material-icons">
+                                                close
+                                            </span>
+                                            Cancelar
+                                        </a>
+    
+                                        <a class="btn btn-default waves-effect waves-green" data-position="bottom" data-delay="50" data-tooltip="Concluir" onclick="EditApont()">
+                                            <span class="material-icons">
+                                            done
+                                            </span>
+                                            Concluir
+                                        </a>
+    
+                                    </div>
+        
+                                </form>
+
+                            </div>
+                            
+                            <div class="modalapontpapc" style="display: none;">
+    
+                                <form class="col-md-12">
+
+                                <div class="row">
+                                    <div class="input-field col-md-3">
+                                        <label for="EDITFILIALPAPC">Filial</label>
+                                        <input type="zoom" class="form-control formatacaoCRM" id="EDITFILIALPAPC" name="EDITFILIALPAPC"
+                                            data-zoom="{
+                                                'displayKey':'FILIAL',
+                                                'datasetId':'dsFilial',
+                                                'fields':[
+                                                    {
+                                                        'field':'FILIAL',
+                                                        'label':'Cód. - Nome',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    }   
+                                                ]
+                                            }"
+                                        >
+                                        <input type="hidden" id="EDITCODFILIALPAPC" name="EDITCODFILIALPAPC" validate="EDITPAPC">
+                                    </div>
+
+                                    <div class="input-field col-md-5">
+                                        <label for="EDITCODCCUSTOPAPC">OS do Projeto</label>
+                                        <input id="EDITCODCCUSTOPAPC" name="EDITCODCCUSTOPAPC" type="zoom" class="validate" data-zoom="{
+                                            'displayKey':'DESCRICAOOS',
+                                            'datasetId':'dsBuscaOS4',
+                                            'fields':[
+                                                {
+                                                    'field':'DESCRICAOOS',
+                                                    'label':'Cód. - Descrição',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                }   
+                                            ]
+                                        }">
+                                        <input type="hidden" id="EDITCODPRJPAPC" name="EDITCODPRJPAPC" validate="EDITPAPC">
+                                        <input type="hidden" id="EDITCODCOLIGADAPAPC" name="EDITCODCOLIGADAPAPC" validate="EDITPAPC">
+                                    </div>
+                                
+                                </div>
+    
+                                <div class="row">
+    
+                                    <div class="input-field col-md-3">
+                                        <label for="EDITNUMPLANOPAPC">Plano de corte</label>
+                                        <input id="EDITNUMPLANOPAPC" name="EDITNUMPLANOPAPC" type="zoom" class="validate" data-zoom="{
+                                            'displayKey':'NUMPLANOCORTE',
+                                            'datasetId':'dsNumPlanoCorte',
+                                            'fields':[
+                                                {
+                                                    'field':'NUMPLANOCORTE',
+                                                    'label':'N° Plano de Corte',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                }     
+                                            ]
+                                        }">
+                                        <input type="hidden" id="EDITNUMPLANOCORTEPAPC" name="EDITNUMPLANOCORTEPAPC" validate="EDITPAPC">                         
+                                    </div>
+
+                                    <div class="input-field col-md-5">
+                                        <label for="EDITCODIGOPRDPAPC">Código do Produto</label>
+                                        <input id="EDITCODIGOPRDPAPC" name="EDITCODIGOPRDPAPC" type="zoom" class="form-control validate" data-zoom="{
+                                            'displayKey':'NOMEPRODUTO',
+                                            'datasetId':'dsComponentesOrdemProducao',
+                                            'fields':[
+                                                {
+                                                    'field':'CODIGOPRD',
+                                                    'label':'Código Produto',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                } ,
+                                                {
+                                                    'field':'DESCRICAO',
+                                                    'label':'Desc. Produto',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'TIPO',
+                                                    'label':'Posição',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'SALDOGERALFISICO',
+                                                    'label':'Saldo Geral',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                } 
+                                            ]
+                                        }">
+
+                                        <input type="hidden" id="EDITIDPRDPAPC" name="EDITIDPRDPAPC" validate="EDITPAPC">
+                                        <input type="hidden" id="EDITCODIGOPRODUTOPAPC" name="EDITCODIGOPRODUTOPAPC" validate="EDITPAPC">
+                                        <input type="hidden" id="EDITDESCPRODPAPC" name="EDITDESCPRODPAPC" validate="EDITPAPC">
+                                        
+                                    </div>
+                                    <div class="input-field col-md-3">
+                                        <label for="EDITLOTEPRDPAPC">Lote do Produto</label>
+                                        <input id="EDITLOTEPRDPAPC" name="EDITLOTEPRDPAPC" type="zoom" class="form-control validate"data-zoom="{
+                                            'displayKey':'NUMLOTE',
+                                            'datasetId':'dsLotesMPPAPC',
+                                            'fields':[
+                                                {
+                                                    'field':'NUMLOTE',
+                                                    'label':'N° Lote',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'CODIGOPRD',
+                                                    'label':'Cód.',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'DESCRICAO',
+                                                    'label':'Descrição',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                },
+                                                {
+                                                    'field':'ESTOQUE_ATUAL',
+                                                    'label':'Estoque',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                }            
+                                            ]
+                                        }"
+                                        > 
+                                        <input type="hidden" id="EDITNUMLOTEPAPC" name="EDITNUMLOTEPAPC" validate="EDITPAPC">
+                                        <input type="hidden" id="EDITIDLOTEPAPC" name="EDITIDLOTEPAPC" validate="EDITPAPC">
+
+                                    </div>
+    
+                                </div>
+
+                                <div class="row buttons-ferramentas">
+
+                                    <a href="#!" class="btn btn-default waves-effect waves-red" data-position="bottom" data-delay="50" data-tooltip="Cancelar">
+                                        <span class="material-icons">
+                                            close
+                                        </span>
+                                        Cancelar
+                                    </a>
+
+                                    <a class="btn btn-default waves-effect waves-green" data-position="bottom" data-delay="50" data-tooltip="Concluir" onclick="EditPAPC()">
+                                        <span class="material-icons">
+                                        done
+                                        </span>
+                                        Concluir
+                                    </a>
+
+                                </div>
+    
+                            </form>
+    
+                            </div>
+                        
+                        </div>
+    
+                    </div>
+
+                    <div id="PREENCHELOTEMODAL" class="modal">
+    
+                        <div class="fundoModal" id="LOTEPAPC" name="LOTEPAPC">
+
+                            <div class="super-table">
+
+                                <div class="table-datatable">
+
+                                    <div class="row" style="margin-bottom: 2% !important;">
+                                        <div class="col-md-10">
+                                            <div class="input-field">
+                                                <i class="material-icons prefix">search</i>
+                                                <input type="text" id="TABELA_PAPC_PESQUISA" name="TABELA_PAPC_PESQUISA" onchange="PesquisaTabela('RELATORIOPAPC',this)"> 
+                                                <label for="TABELA_PAPC_PESQUISA">Pesquisar...</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <a class="filtros-dropdown dropdown-button btn btn-default waves-effect waves-red" href='#' data-activates="FILTROSRAPIDOSPAPC">Filtros Rápidos
+                                                <i class="material-icons">expand_more</i>
+                                            </a>
+                                            <ul id="FILTROSRAPIDOSPAPC" class="dropdown-content">
+                                                <li><a href="#PREENCHELOTEMODAL" onclick="filtrosRapidos(1,'RELATORIOPAPC')"><i class="material-icons">check_box_outline_blank</i>Pendentes de Baixa</a></li>
+                                                <li><a href="#PREENCHELOTEMODAL" onclick="filtrosRapidos(2,'RELATORIOPAPC')"><i class="material-icons">check</i>Baixado</a></li>
+                                                <li><a href="#PREENCHELOTEMODAL" onclick="filtrosRapidos(3,'RELATORIOPAPC')"><i class="material-icons">clear_all</i>Todos</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                    <!-- Table -->
+                                        <table id="RELATORIOPAPC" class="RELATORIOPAPC highlight striped " name="RELATORIOPAPC">
+                                            <thead>
+                                                <tr>
+
+                                                    <th class="filtros-tabela"> 
+                                                        <a>
+                                                            ID<i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                        </a>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Projeto
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            OP
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Exec
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Qtd
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Cód. Est.
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Desc. Est.
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Matéria Prima
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Desc. MP
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Qtd Total
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Qtd Distribuída
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Cód. Sucata 
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Desc. Sucata 
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Qtd. Sucata 
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Qtd. Apontada 
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                    <div class="row buttons-ferramentas">
+
+                                        <a href="#!" class="btn btn-default waves-effect waves-red" data-position="bottom" data-delay="50" data-tooltip="Cancelar">
+                                            <span class="material-icons">
+                                                close
+                                            </span>
+                                            Cancelar
+                                        </a>
+
+    
+                                    </div>
+
+                                </div>
+                            
+                            </div>
+
+                        </div>
+
+                        <div class="fundoModal" id="LOTEAPONT" name="LOTEAPONT">
+
+                            <div class="super-table">
+
+                                <div class="table-datatable">
+
+                                    <div class="row" style="margin-bottom: 2% !important;">
+
+                                        <div class="col-md-10">
+                                            <div class="input-field">
+                                                <i class="material-icons prefix">search</i>
+                                                <input type="text" id="TABELA_APONT_PESQUISA" name="TABELA_APONT_PESQUISA" onchange="PesquisaTabela('RELATORIOAPONT',this)"> 
+                                                <label for="TABELA_APONT_PESQUISA">Pesquisar...</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <a class="filtros-dropdown dropdown-button btn btn-default waves-effect waves-red" href='#PREENCHELOTEMODAL' data-activates="FILTROSRAPIDOSAPONT">Filtros Rápidos
+                                                <i class="material-icons">expand_more</i>
+                                            </a>
+                                            
+                                            <ul id="FILTROSRAPIDOSAPONT" class="dropdown-content">
+                                                <li><a href="#PREENCHELOTEMODAL" onclick="filtrosRapidos(1,'RELATORIOAPONT')"><i class="material-icons">check_box_outline_blank</i>Saldo Restante</a></li>
+                                                <li><a href="#PREENCHELOTEMODAL" onclick="filtrosRapidos(2,'RELATORIOAPONT')"><i class="material-icons">check</i>Saldo Zerado</a></li>
+                                                <li><a href="#PREENCHELOTEMODAL" onclick="filtrosRapidos(3,'RELATORIOAPONT')"><i class="material-icons">clear_all</i>Todos</a></li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row" style="margin-bottom: 2% !important;">
+
+                                        <div class="col-md-1"></div>
+
+                                        <div class="input-field col-md-10">
+                                            
+                                            <label for="LOTEAPONTAMENTO"><i class="material-icons prefix" style="margin-left: -2em;">arrow_forward</i>Insira o lote que deseja apontar</label>
+                                            <input id="LOTEAPONTAMENTO" name="LOTEAPONTAMENTO" type="zoom" data-zoom="{
+                                                'displayKey':'NUMLOTE',
+                                                'datasetId':'dsRelatorioBaixa',
+                                                'maximumSelectionLength':'10',
+                                                'fields':[
+                                                    {
+                                                        'field':'NUMLOTE',
+                                                        'label':'Num. Lote',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    },
+                                                    {
+                                                        'field':'CODLOC',
+                                                        'label':'Local',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    },
+                                                    {
+                                                        'field':'SALDOFISICO2',
+                                                        'label':'Saldo',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    }    
+                                                ]
+                                            }">
+                                            
+                                        </div>  
+
+                                        <div class="col-md-1"></div>
+
+                                    </div>
+
+                                    <div class="row">
+                                       
+                                        <table id="RELATORIOAPONT" class="RELATORIOAPONT highlight striped " style="width: max-content !important;" name="RELATORIOAPONT">
+
+                                            <thead>
+                                                <tr>
+                                                    <th class="filtros-tabela"> 
+                                                        <a>
+                                                            ID<i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                        </a>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Num. Lote
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Id. Lote
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Loc. de Estoque
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Und. de Medida
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Qtd. Em Estoque
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Status
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+
+                                                    <th class="filtros-tabela">
+                                                        <a>
+                                                            Apontar
+                                                        </a>
+                                                        <i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                    </th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                
+                                            </tbody>
+                                            
+                                        </table>
+
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="form-group col-md-3">
+                                            <label class="info">Previsto</label>
+                                            <input type="text" class="form-control formatacaoCRM" id="RELLOTEPREV" name="RELLOTEPREV" readonly>
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label class="info">Apontado</label>
+                                            <input type="text" class="form-control formatacaoCRM" id="RELLOTEAPONT" name="RELLOTEAPONT" readonly>
+                                        </div>
+
+                                        <div class="form-group col-md-3">
+                                            <label class="info">Total selecionado</label>
+                                            <input type="text" class="form-control formatacaoCRM" id="RELLOTESELEC" name="RELLOTESELEC" readonly>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row buttons-ferramentas">
+
+                                        <a class="btn btn-default waves-effect waves-red" data-position="bottom" data-delay="50" data-tooltip="Cancelar" onclick="CancelaApontLote()">
+                                            <span class="material-icons">
+                                                close
+                                            </span>
+                                            Cancelar
+                                        </a>
+
+                                        <a class="btn btn-default waves-effect waves-green" data-position="bottom" data-delay="50" data-tooltip="Concluir" onclick="ConcluirLote()">
+                                            <span class="material-icons">
+                                            done
+                                            </span>
+                                            Concluir
+                                        </a>
+
+                                    </div>
+
+                                </div>
+                            
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- MODAL PARA A PRODUTO RM -->
+                    <div id="LOTESBLANK" class="modal">
+
+                        <div class="row">
+
+                            <div class="form-group col-md-1"></div>
+
+                            <div class="form-group col-md-10 fundoModal" style="margin-bottom: 20px !important;">
+
+                                <div class="text-center tituloTabela titulo">
+                                    <h4><strong>Lotes do Produto</strong></h4>
+                                </div>
+
+                                <div class="table-responsive ScrollWrapper">
+
+                                    <div>
+
+                                        <table class="table table-layout-fixed MATERIAIS_INFO_SALVOS TABELA_PROD_RM" border="0" nodeletebutton="true" noaddbutton="true" style="max-height: 65% !important;">
+                                        
+                                            <thead>
+
+                                                <tr>
+
+                                                    <th class="filtros-tabela"> 
+                                                        <a>
+                                                            Id do Lote<i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                        </a>
+                                                    </th>
+
+                                                    <th class="filtros-tabela"> 
+                                                        <a>
+                                                            Numero do lote/op<i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                        </a>
+                                                    </th>
+
+                                                    <th class="filtros-tabela"> 
+                                                        <a>
+                                                            Saldo total do lote<i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                        </a>
+                                                    </th>
+
+                                                    <th class="filtros-tabela"> 
+                                                        <a>
+                                                            Status do lote/op<i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                        </a>
+                                                    </th>
+
+                                                    <th class="filtros-tabela"> 
+                                                        <a>
+                                                            Local de Estoque<i class="material-icons filter-toggle">arrow_drop_up</i>
+                                                        </a>
+                                                    </th>
+
+                                                </tr>
+
+                                            </thead>
+                                            
+                                            <tbody>
+
+                                            
+                                            </tbody>
+                                        
+                                        </table>
+
+                                    </div>
+
+                                </div>
+
+                                <div class="row buttons-ferramentas">
+
+                                    <a href="#!" class="btn btn-default waves-effect waves-red" data-position="bottom" data-delay="50" data-tooltip="Cancelar">
+                                        <span class="material-icons">
+                                            close
+                                        </span>
+                                        Cancelar
+                                    </a>
+        
+        
+                                </div>
+                                
+                            </div>
+
+                            <div class="form-group col-md-1"></div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            
+    
+            </form>
+
+        </div>
+
+    </body>
+
+    <script type="text/javascript" src="documentReady.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="selectZoom.js"></script>
+    <script type="text/javascript" src="buttons.js"></script>
+    <script type="text/javascript" src="beforeSendValidate.js"></script>
+
+</html>

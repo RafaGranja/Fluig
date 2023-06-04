@@ -1,0 +1,256 @@
+<html>
+
+	<head>
+
+		<!-- BIBLIOTECA PADRÕES DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-treeview.min.css">
+        <script src="/style-guide/js/fluig-style-guide-treeview.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+        <!-- BIBLIOTECAS SWEET ALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+	</head>
+
+	<body>
+
+		<div class="fluig-style-guide">
+
+			<form name="form" role="form" id="form">
+
+				<div class="container col-md-12 ">
+
+					<div class="form-group col-md-12">
+
+						<input type="hidden" id="NUMPROCESSO" name="NUMPROCESSO">
+						<input type="hidden" id="USUARIOATUAL" name="USUARIOATUAL">
+						<input type="hidden" id="ATIVIDADE" name="ATIVIDADE">
+						<input type="hidden" id="FORMMODE" name="FORMMODE">
+
+						<div class="panel panel-default" id="PANEL1" name="PANEL1">
+
+							<div class="panel-heading text-center">
+
+								<div class="text-center pb-30 CADASTRO">
+
+									<span class="titulo text-center TITULO"><h3><strong>C A D A S T R O &nbsp;&nbsp; D E &nbsp;&nbsp; C O M P O N E N T E &nbsp;&nbsp; S U B S T I T U T O </strong></h3></span>
+									
+									<div class="ml-110">
+                                        <span id="TRIANGULO" name="TRIANGULO"></span>
+                                        <span id="TRIANGULO" name="TRIANGULO"></span>
+                                        <span id="TRIANGULO" name="TRIANGULO"></span>
+                                    </div>
+									
+								</div>
+
+							</div>
+
+							<div class="panel-body">
+								
+								<div class="row filtrosObrigatorios" >
+
+									<div class="row form-group col-md-12 pb-25">	
+
+										<!-- CAMPO DE DATA CRIAÃ‡Ã‚O -->
+										<div class="form-group col-md-2">
+											<label class="info">Data Criação</label>
+											<div class="input-group date">
+												<input type="text" class="form-control" id="DATACRIACAO" name="DATACRIACAO" readonly>
+												<input type="hidden" class="form-control" id="DATACRIACAOBANCO" name="DATACRIACAOBANCO" readonly>
+												<input type="hidden" name="DATAORIGINAL" id="DATAORIGINAL">
+												<span class="input-group-addon">
+													<span class="fluigicon fluigicon-calendar"></span>
+												</span>
+											</div>
+										</div>
+										
+										<!-- CAMPO DA OS -->
+										<div class="form-group col-md-4">
+											<label class="info">OS *</label>
+											<input type="zoom" class="form-control formatacaoCRM" id="PROJETO" name="PROJETO"
+												data-zoom="{
+													'displayKey':'OS',
+													'datasetId':'dsBuscaOS4',
+													'fields':[
+														{
+															'field':'OS',
+															'label':'Código',
+															'standard':'true',
+															'search':'true'
+														},{
+															'field':'DESCOS',
+															'label':'Descrição',
+															'standard':'true',
+															'search':'true'
+														}
+													]
+												}"
+											>
+											<input type="hidden" id="CODCOLIGADA" name="CODCOLIGADA">
+											<input type="hidden" id="CODFILIAL" name="CODFILIAL">
+											<input type="hidden" id="OS" name="OS">
+										</div>
+
+										<!-- CAMPO DO COMPONENTE -->
+										<div class="form-group col-md-5">
+											<label class="info">Cód. Estrutura *</label> <!-- disabled="true" -->
+											<input type="zoom" class="form-control formatacaoCRM" id="ESTRUTURA" name="ESTRUTURA"
+												data-zoom="{
+													'displayKey':'ESTRUTURA',
+													'maximumSelectionLength':'10',
+													'datasetId':'dsBuscaCodEstrutura',
+													'fields':[
+														{
+															'field':'ESTRUTURA',
+															'label':'Código da Estrutura - Descrição',
+															'standard':'true',
+															'search':'true'
+														}
+													]
+												}" >
+											<input type="hidden" id="ESTRUTURAOS" name="ESTRUTURAOS">
+
+										</div>
+										
+									</div>
+
+								</div>
+
+									<div class="row filtrosOpcionais" >
+
+										<div class="row form-group col-md-12 pb-25" >	
+											<!-- CAMPO DO COMPONENETE PRINCIPAL -->	
+											<div class="form-group col-md-5 " id="DIVFILTRAPRINCIPAL" name="DIVFILTRAPRINCIPAL">
+												<label class="info ">Componente Principal</label>  <!-- disabled="true" -->
+												<input type="zoom" class="form-control formatacaoCRM" id="FILTRAPRINCIPAL" name="FILTRAPRINCIPAL" 
+														data-zoom="{
+														'displayKey':'CODIGOPRD',
+														'datasetId':'dsComponentesPrincipaisEstrutura',
+														'fields':[
+															{
+																'field':'CODIGOPRD',
+																'label':'Código',
+																'standard':'true',
+																'search':'true'
+															},{
+																'field':'NOMEFANTASIA',
+																'label':' Descrição',
+																'search':'true'
+															}																								
+														]
+													}"  >		
+											</div>
+											<input type="hidden" id="FILTRAPRINCIPALAUX" name="FILTRAPRINCIPALAUX">
+
+											<div class="form-group col-md-7">
+												<div class="form-group col-md-9 mt-25 ">
+													<a href="#TABLECOMPONENTES"><button type="button" class="btn btn-primary" onclick="buscar();" id="BUSCARCOMPPRINC" name="BUSCARCOMPPRINC" style="background-color:#b92113">Buscar</button></a>
+												</div>
+											</div>
+
+										</div>	
+
+									</div>
+
+								<div class="row form-group col-md-12 pb-25 " >
+								
+									<div class="form-group col-md-12">
+
+										<span><strong><h4>(*) Campos de preenchimento obrigatório </h4></strong></span>
+
+									</div>
+									
+								</div>	
+
+									<!-- PAINEL DE COMPONENTES PRINCIPAIS -->
+
+								<div class="row form-group pt-25" id="TABLECOMPONENTES" name="TABLECOMPONENTES">
+									<input type="hidden" id="TEMTABELA" name="TEMTABELA">
+									<input type="hidden" id="CONTADORPRINCIPAIS" name="CONTADORPRINCIPAIS">
+
+									<div class="panel panel-default col-md-12 mt-25 pb-25 PANELCOMPONENTES" name="PANELCOMPONENTES" id="accordion">
+										<div class="panel-heading mt-25">
+											<h3 style="color:#b92113; text-align: center; "><strong>C O M P O N E N T E S &nbsp;&nbsp;P R I N C I P A I S</strong></h3>
+										</div>
+										<div class="panel-body" id="FORMCOMPONENTES" name="FORMCOMPONENTES">
+										</div>
+									</div>
+
+								</div>
+
+								<!-- TABELA AUXILIAR QUE GUARDA INFORMAÇÔES IMPORTANTES DO FORMULÁRIO -->
+
+								<div class="col-md-12" style="border:none;">
+									<table hidden class="table table-bordered col-md-12" tablename="TABELAAUX" id="TABELAAUX" name="TABELAAUX" noaddbutton='true' nodeletebutton='true'>
+										<input type="hidden" name="QTDROWSAUX" id="QTDROWSAUX">
+										
+										<thead>
+
+											<tr>
+
+												<th class="form-group col-md-1">Filial</th>
+												<th class="form-group col-md-1">Coligada</th>
+												<th class="form-group col-md-2">Código da Estrutura</th>
+												<th class="form-group col-md-2">Código da Atividade</th>
+												<th class="form-group col-md-2">Componentes Principal</th>
+												<th class="form-group col-md-2">Componente Substituto</th>
+												<th class="form-group col-md-1">Quantidade</th>
+												<th class="form-group col-md-1">Unidade</th>
+
+											</tr>
+
+										</thead>
+
+										<tbody>
+											
+											<tr>
+
+												<td class="form-group col-md-1"><input class="form-control" type="text" id="CODFILIALAUX" name="CODFILIALAUX"></td>
+												<td class="form-group col-md-1"><input class="form-control" type="text" id="COLIGADAAUX" name="COLIGADAAUX"></td>
+												<td class="form-group col-md-2"><input class="form-control" type="text" id="ESTRUTURAAUX" name="ESTRUTURAAUX"></td>
+												<td class="form-group col-md-2"><input class="form-control" type="text" id="CODATIVIDADEAUX" name="CODATIVIDADEAUX"></td>
+												<td class="form-group col-md-2"><input class="form-control" type="text" id="PRODORIGEMAUX" name="PRODORIGEMAUX"></td>
+												<input type="hidden" name="IDPRODORIGEMAUX" id="IDPRODORIGEMAUX">
+												<td class="form-group col-md-2"><input class="form-control" type="text" id="PRODUTOAUX" name="PRODUTOAUX"></td>
+												<input type="hidden" name="IDPRODAUX" id="IDPRODAUX">
+												<td class="form-group col-md-1"><input class="form-control" type="number" id="QTDUSADAAUX" name="QTDUSADAAUX"></td>
+												<td class="form-group col-md-1"><input class="form-control" type="text" id="UNIDAUX" name="UNIDAUX"></td>
+
+											</tr>
+
+										</tbody>
+										
+									</table>
+
+								</div>	
+							
+							</div>
+
+						</div>
+					
+					</div>	
+
+				</div>
+
+			</form>
+
+		</div>
+
+	</body>
+
+	<script type="text/javascript" src="selectZoom.js"></script>
+	<script type="text/javascript" src="button.js"></script>
+	<script type="text/javascript" src="documentReady.js"></script>
+	<script type="text/javascript" src="util.js"></script>
+	<script type="text/javascript" src="beforeSendValidate.js"></script>
+</html>

@@ -1,0 +1,1476 @@
+<html>
+
+    <head>
+
+        <!-- BIBLIOTECA PADRÕES DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-treeview.min.css">
+        <script src="/style-guide/js/fluig-style-guide-treeview.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+        <!-- BIBLIOTECAS SWEET ALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    </head>
+    
+    <body>
+
+        <!-- INÍCIO DA CUSTOMIZAÇÃO DO STYLE GUIDE -->
+        <div class="fluig-style-guide">
+
+            <!-- TAG PARA CRIAR O FORMULÁRIO -->
+            <form name="form" role="form">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES DAS SOLICITAÇÕES DO PROCESSO -->
+                <input id="ATIVIDADE" name="ATIVIDADE" type="hidden">
+                <input id="NUMPROCESSO" name="NUMPROCESSO" type="hidden">
+                <input id="SOLICITANTE" name="SOLICITANTE" type="hidden">
+                <input id="USUARIOATUAL" name="USUARIOATUAL" type="hidden">
+                <input id="USUARIOCALDERARIA" name="USUARIOCALDERARIA" type="hidden">
+                <input id="USUARIOUSINAGEM" name="USUARIOUSINAGEM" type="hidden">
+                <input id="USUARIOAPROVADOR" name="USUARIOAPROVADOR" type="hidden">
+                <input id="ALERTASUBIRSALDO" name="ALERTASUBIRSALDO" type="hidden">
+                
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES OCULTOS DOS EXCLUSIVOS DO WORKFLOW -->
+                <input id="EXCLUSIVO1" name="EXCLUSIVO1" type="hidden">
+                <input id="EXCLUSIVO2" name="EXCLUSIVO2" type="hidden">
+                <input id="TABELA" name="TABELA" type="hidden">
+                <input id="IDMAX_CRIACAO" name="IDMAX_CRIACAO" type="hidden">
+                
+                <!-- TAG PARA DELIMITAR O PAINEL DO FORMULÁRIO -->
+                <!-- <div class="form-group col-md-1"></div> -->
+                <div class="form-group col-md-12">
+
+                    <!-- TAG PARA CENTRALIZAR O FORMULÁRIO -->
+                    <div class="container col-md-12">
+
+                        <!-- INÍCIO DO CONTEÚDO DO PAINEL -->
+                        <div class="panel panel-default" id="PANEL1">
+
+                            <!-- CORPO DO FORMULÁRIO -->
+                            <div class="panel-body">
+
+                                <div class="text-center CADASTRO">
+                                    <span class="titulo text-center"><h3><strong>A P O N T A M E N T O </strong></h3></span>
+                                    <div class="ml-110">
+                                        <span id="TRIANGULO" name="TRIANGULO"></span>
+                                        <span id="TRIANGULO" name="TRIANGULO"></span>
+                                        <span id="TRIANGULO" name="TRIANGULO"></span>
+                                    </div>
+                                </div>
+
+                                <div class="row form-group col-md-12">
+
+                                    <div class="form-group expansor1 col-md-12">
+
+                                        <label class="infoVermelho">
+                                            <span id="ICONEXPANDIR" name="ICONEXPANDIR" onclick="expandirFiltro();" style="margin-left: 4px;">
+                                                <i class="fluigicon fluigicon-pointer-right icon-xs iconecor"></i>
+                                                <i class="fluigicon fluigicon-pointer-right icon-xs iconecor"></i>
+                                                <i class="fluigicon fluigicon-pointer-right icon-xs iconecor"></i>
+                                            </span>
+        
+                                            <span id="ICONREDUZIR" name="ICONREDUZIR" onclick="reduzirFiltro();" style="margin-left: 4px; display: auto;">
+                                                <i class="fluigicon fluigicon-pointer-down icon-xs iconecor"></i>
+                                                <i class="fluigicon fluigicon-pointer-down icon-xs iconecor"></i>
+                                                <i class="fluigicon fluigicon-pointer-down icon-xs iconecor"></i>
+                                            </span>
+                                        </label>
+                                    
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="row form-group filtros">
+
+                                    <div class="row form-group col-md-12">
+
+                                        <div class="form-group col-md-6">
+                                            <label class="info">Filial</label>
+                                            <input type="zoom" class="form-control formatacaoCRM" id="FILIAL" name="FILIAL"
+                                                data-zoom="{
+                                                    'displayKey':'FILIAL',
+                                                    'datasetId':'dsFilial',
+                                                    'fields':[
+                                                        {
+                                                            'field':'FILIAL',
+                                                            'label':'Cód. - Nome',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        }   
+                                                    ]
+                                                }"
+                                            >
+                                            <input type="hidden" id="CODFILIAL" name="CODFILIAL">
+                                        </div>
+    
+                                        <div class="form-group col-md-6">
+                                            <label class="info" for="only-date">Data Apontamento</label>
+                                            <div class="input-group date" id="PERIODO1">
+                                                <input type="text" class="form-control" id="DATA_DE" name="DATA_DE" mask="99/99/9999" onblur="verificaData()"/>
+                                                <span class="input-group-addon" id="SPANDE" name="SPANDE">
+                                                    <span class="fluigicon fluigicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+                                    
+                                    <div class="row form-group col-md-12 pb-30">
+    
+                                        <div class="form-group col-md-6">
+                                            <label class="info">Matrícula</label>
+                                            <input type="zoom" class="form-control formatacaoCRM" id="MATRICULA" name="MATRICULA"
+                                                data-zoom="{
+                                                    'displayKey':'PESSOA',
+                                                    'datasetId':'dsMatriculaOperador',
+                                                    'fields':[
+                                                        {
+                                                            'field':'PESSOA',
+                                                            'label':'Cód - Nome',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        },
+                                                        {
+                                                            'field':'TURNO',
+                                                            'label':'Turno',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        }      
+                                                    ]
+                                                }"
+                                            >
+                                            <input type="hidden" id="CODMO" name="CODMO">
+                                        </div>
+                                        
+                                        <div class="form-group col-md-4">
+                                            <label class="info">Turno</label>
+                                            <input type="text" class="form-control formatacaoCRM" id="TURNO" name="TURNO" readonly>
+                                        </div>
+    
+                                        <div class="form-group col-md-2 pt-25 BUSCAR">
+                                            <button type="button" class="btn btn-primary" onclick="buscar();" id="BUSCAR" name="BUSCAR">Buscar</button>
+                                        </div>
+    
+                                    </div>
+
+                                </div>
+
+                                <!-- TABELA DOS ITENS DA NF COM DETALHAMENTO -->
+                                <div class="row form-group col-md-12 mb-25 ITENS_INFO" style="margin-bottom: 20px !important;">
+
+                                    <div id="DIAS" name="DIAS" class="mb-25">
+
+                                    </div>
+
+                                    <div class="text-center tituloTabela titulo mb-25 pt-15">
+                                        <strong>Atividades Programadas</strong>
+                                    </div>
+
+                                    <table tablename="ATIVIDADES" id="ATIVIDADES" name="ATIVIDADES" style="border:0" class="table table-bordered" nodeletebutton="true" noaddbutton="true">
+
+                                        <thead>
+
+                                            <tr>
+                                                
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+                                            <!-- LINHA 1 -->
+                                            <tr id="LINHAATV">
+
+                                                <!-- <td>
+                                                    <div>
+                                                        <button type="button" class="btn btn-primary EXCLUIRATV" id="EXCLUIRATV" name="EXCLUIRATV" onclick="excluirAtv(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                    </div>
+                                                </td> -->
+
+                                                <!-- <td>
+                                                    <div>
+                                                        <button type="button" class="btn btn-primary COPIARATV" id="COPIARATV" name="COPIARATV" onclick="copiarAtv(this);"><i class="fluigicon fluigicon-copy icon-sm"></i></button>
+                                                    </div>
+                                                </td> -->
+
+                                                <td>
+
+                                                    <div class="INFO_ATVS">
+
+                                                        <div class="row">
+
+                                                            <div class="form-group col-md-5">
+                                                                <label class="info">Descrição</label>
+                                                                <input type="text" class="form-control formatacaoCRM" title="" onmouseover="mouse(this);" id="DESCRICAO" name="DESCRICAO" readonly>
+                                                                <input type="hidden" class="form-control" id="CODIGOPRD" name="CODIGOPRD">
+                                                                <input type="hidden" class="form-control" id="IDPRD" name="IDPRD">
+                                                                <input type="hidden" class="form-control" id="CODCOLIGADAATV" name="CODCOLIGADAATV">
+                                                                <input type="hidden" class="form-control" id="CODFILIALATV" name="CODFILIALATV">
+                                                                <input type="hidden" class="form-control" id="CODESTRUTURAATV" name="CODESTRUTURAATV">
+                                                                <input type="hidden" class="form-control" id="OSATV" name="OSATV">
+                                                                <input type="hidden" class="form-control" id="IDPRJATV" name="IDPRJATV">
+                                                                <input type="hidden" class="form-control" id="IDTRFSUCATV" name="IDTRFSUCATV">
+                                                                <input type="hidden" class="form-control" id="SEQ" name="SEQ">
+                                                                <input type="hidden" class="form-control" id="IDATVORDEMPROGRAMACAO" name="IDATVORDEMPROGRAMACAO">
+                                                                <input type="hidden" class="form-control" id="IDMOVENTRADA" name="IDMOVENTRADA">
+                                                                <input type="hidden" class="form-control" id="STATUSAPONTAMENTO" name="STATUSAPONTAMENTO">
+                                                                <input type="hidden" class="form-control" id="EXECUCAO" name="EXECUCAO">
+                                                            </div>
+                
+                                                            <div class="form-group col-md-2">
+                                                                <label class="info">Qtd Prev.</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="QTDOP" name="QTDOP" title="" onmouseover="mouse(this);" readonly>
+                                                            </div>
+                                                            
+                                                            <div class="form-group col-md-2">
+                                                                <label class="info">Qtd Saldo</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="QTDSALDO" name="QTDSALDO" title="" onmouseover="mouse(this);" readonly>
+                                                            </div>
+                                                            
+                                                            <div class="form-group col-md-2">
+                                                                <label class="info">Qtd Realizada</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="SALDOREALIZADO" name="SALDOREALIZADO" title="" onmouseover="mouse(this);" onchange="verificaQtdRalizada(this)" readonly> 
+                                                                <input type="hidden" class="form-control formatacaoCRM" id="CUSTOPOSTO" name="CUSTOPOSTO" title="" readonly> 
+                                                                <input type="hidden" class="form-control formatacaoCRM" id="ULTIMAATVOP" name="ULTIMAATVOP" readonly> 
+                                                            </div>
+
+                                                            <div class="form-group col-md-1">
+                                                                <label class="info">Und</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="UNDOP" name="UNDOP" title="" onmouseover="mouse(this);" readonly>
+                                                            </div>
+                
+                                                        </div>
+
+                                                        <div class="row">
+
+                                                            <div class="form-group col-md-4">
+                                                                <label class="info">Atividade</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="DSCATIVIDADE" name="DSCATIVIDADE" title="" onmouseover="mouse(this);" readonly>
+                                                                <input type="hidden" class="form-control formatacaoCRM" id="CODATIVIDADE" name="CODATIVIDADE" readonly>
+                                                            </div>
+                
+                                                            <div class="form-group col-md-2">
+                                                                <label class="info">Célula</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="CELULA" name="CELULA" title="" onmouseover="mouse(this);" readonly>
+                                                            </div>
+                
+                                                            <div class="form-group col-md-3">
+                                                                <label class="info">Programado</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="SALDOPROGRAMADO" name="SALDOPROGRAMADO" title="" onmouseover="mouse(this);" readonly>
+                                                            </div>
+                
+                                                            <div class="form-group col-md-3">
+                                                                <label class="info">Data Programada</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="DATAPROGRAMADA" name="DATAPROGRAMADA" title="" onmouseover="mouse(this);" readonly>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+                                                            
+                                                            <!-- <div class="form-group col-md-2">
+                                                                <label class="info">Atv Ant.</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="ATVANTERIOR" name="ATVANTERIOR" title="" onmouseover="mouse(this);" readonly>
+                                                            </div> -->
+
+                                                            <div class="form-group col-md-2">
+                                                                <label class="info">OP</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="OP" name="OP" title="" onmouseover="mouse(this);" readonly>
+                                                                <input type="hidden" id="STATUSOP" name="STATUSOP">
+                                                            </div>
+                                                            
+                                                            <div class="form-group col-md-2">
+                                                                <label class="info">Operação</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="OPERACAO" name="OPERACAO" title="" onmouseover="mouse(this);" readonly>
+                                                            </div>
+
+                                                            <div class="form-group col-md-2">
+                                                                <label class="info">ID Atividade</label>
+                                                                <input type="text" class="form-control formatacaoCRM" id="IDATIVIDADE" name="IDATIVIDADE" title="" onmouseover="mouse(this);" readonly>
+                                                                <input type="hidden" id="STATUSATV" name="STATUSATV">
+                                                            </div>
+
+                                                            <div class="form-group col-md-2">
+                                                                <label class="info">Avanço (%)</label>
+                                                                <input type="hidden" class="form-control formatacaoCRM" id="QTDEAVANCO" name="QTDEAVANCO">
+                                                                <input type="number" min="0" max="100" class="form-control formatacaoCRM" id="AVANCO" name="AVANCO" onchange="calculaAvanco(this)">
+                                                                <input type="hidden" class="form-control formatacaoCRM" id="QTDEATV" name="QTDEATV" readonly>
+                                                                <input type="hidden" class="form-control formatacaoCRM" id="QTDEPREV" name="QTDEPREV" readonly>
+                                                                <input type="hidden" class="form-control formatacaoCRM" id="QTDESALDO" name="QTDESALDO" readonly>
+                                                                <input type="hidden" class="form-control formatacaoCRM" id="AVANCOATUALATV" name="AVANCOATUALATV" readonly>
+                                                            </div>
+
+                                                            <div class="form-group col-md-2">
+                                                                <label class="info">Subir Saldo</label>
+                                                                <input type="number" min="1" class="form-control formatacaoCRM" id="QTDREALIZADA" name="QTDREALIZADA" title="" onmouseover="mouse(this);" onchange="verificaValorSaldo(this)" readonly>
+                                                                <!-- <input type="text" class="form-control formatacaoCRM" id="AVANCOCALCULADO" name="AVANCOCALCULADO" title="" onmouseover="mouse(this);" readonly> -->
+                                                            </div>
+
+                                                            <!-- <div class="form-group col-md-2">
+                                                                <label for="OPCONCLUIDA" class="info">OP Concluída</label>
+                                                                <input type="checkbox" class="form-control formatacaoCRM" id="OPCONCLUIDA" name="OPCONCLUIDA" title="" onmouseover="mouse(this);" onclick="verificaApontCompOP(this)" readonly>
+                                                            </div> -->
+
+                                                        </div>
+                                                        
+                                                    </div>
+
+                                                    <div class="row form-group EXPANSOR" EXPANSOR>
+
+                                                        <span class="ICON" ICON id="ICON" name="ICON" onclick="expandir(this);" style="margin-left: 4px;">
+                                                            <i class="fluigicon fluigicon-pointer-right icon-xs iconecor"></i>
+                                                            <i class="fluigicon fluigicon-pointer-right icon-xs iconecor"></i>
+                                                            <i class="fluigicon fluigicon-pointer-right icon-xs iconecor"></i>
+                                                            <input type="hidden" id="ACESSOICON" name="ACESSOICON">
+                                                        </span>
+
+                                                        <span class="ICONR" ICONR id="ICONR" name="ICONR" onclick="reduzir(this);" style="margin-left: 4px; display: auto;">
+                                                            <i class="fluigicon fluigicon-pointer-down icon-xs iconecor"></i>
+                                                            <i class="fluigicon fluigicon-pointer-down icon-xs iconecor"></i>
+                                                            <i class="fluigicon fluigicon-pointer-down icon-xs iconecor"></i>
+                                                            <input type="hidden" id="ACESSOICONR" name="ACESSOICONR">
+                                                        </span>
+
+                                                        <input type="hidden" id="EXPANSOR" name="EXPANSOR">
+
+                                                    </div>
+
+                                                    <!-- INÍCIO DAS ABAS DE NAVEGAÇÃO DENTRO DA TABELA DAS ATIVIDADES -->
+                                                    <div class="row form-group ABAS_ATVS" ABAS_ATVS id="ABAS_ATVS">
+
+                                                        <ul class="nav nav-tabs clearfix" role="tablist">
+                                                            <li class="active ABAQTDES"><a id="ABAQTDES" href="#QTDESBLANK" onclick="exibeQtdes(this)" role="tab" data-toggle="tab"><input type="hidden" id="ACESSOQTDES" name="ACESSOQTDES"><strong>Horas</strong></a></li>
+                                                            <!-- <li class="ABAPROCESSO"><a id="ABAPROCESSO" href="#PROCESSOBLANK" onclick="exibeProcesso(this)" role="tab" data-toggle="tab"><input type="hidden" id="ACESSOPROC" name="ACESSOPROC"><strong>Processo</strong></a></li> -->
+                                                            <!-- <li class="ABAIMPRODUTIVO"><a id="ABAIMPRODUTIVO" href="#IMPRODUTIVOBLANK" onclick="exibeImprodutivo(this)" role="tab" data-toggle="tab"><input type="hidden" id="ACESSOCOMP" name="ACESSOCOMP"><strong>Improdutivo</strong></a></li> -->
+                                                            <!-- <li class="ABACOMPONENTES"><a id="ABACOMPONENTES" href="#COMPONENTESBLANK" onclick="exibeComponentes(this)" role="tab" data-toggle="tab"><input type="hidden" id="ACESSOIMP" name="ACESSOIMP"><strong>Componentes</strong></a></li> -->
+                                                        </ul>
+
+                                                        <!-- CONTEÚDO DAS ABAS -->
+                                                        <div class="tab-content">
+
+                                                            <!-- ABA DE PARA DO ITEM -->
+                                                            <div class="tab-pane form-group col-md-12 active" QTDESBLANK name="QTDESBLANK" id="QTDESBLANK">
+
+                                                                <div class="mb-25">
+
+                                                                    <!-- <div class="row">
+
+                                                                        <div class="form-group col-md-4">
+                                                                            <label class="info">Atividade</label>
+                                                                            <input type="text" class="form-control formatacaoCRM" id="DSCATIVIDADE" name="DSCATIVIDADE" title="" onmouseover="mouse(this);" readonly>
+                                                                            <input type="hidden" class="form-control formatacaoCRM" id="CODATIVIDADE" name="CODATIVIDADE" readonly>
+                                                                            <input type="hidden" class="form-control formatacaoCRM" id="IDATIVIDADE" name="IDATIVIDADE" readonly>
+                                                                        </div>
+                            
+                                                                        <div class="form-group col-md-2">
+                                                                            <label class="info">Célula</label>
+                                                                            <input type="text" class="form-control formatacaoCRM" id="CELULA" name="CELULA" title="" onmouseover="mouse(this);" readonly>
+                                                                        </div>
+                            
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="info">Programado</label>
+                                                                            <input type="text" class="form-control formatacaoCRM" id="SALDOPROGRAMADO" name="SALDOPROGRAMADO" title="" onmouseover="mouse(this);" readonly>
+                                                                        </div>
+                            
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="info">Data Programada</label>
+                                                                            <input type="text" class="form-control formatacaoCRM" id="DATAPROGRAMADA" name="DATAPROGRAMADA" title="" onmouseover="mouse(this);" readonly>
+                                                                        </div>
+    
+                                                                    </div> -->
+    
+                                                                    <!-- <div class="row">
+                                                                        
+                                                                        <div class="form-group col-md-4">
+                                                                            <label class="info">Horas Realizadas</label>
+                                                                            <input type="text" class="form-control formatacaoCRM" id="HORASAPONTADAS" name="HORASAPONTADAS" readonly>
+                                                                        </div>
+                            
+                                                                        <div class="form-group col-md-4">
+                                                                            <label class="info">Avanço Realizado (%)</label>
+                                                                            <input type="number" min="0" class="form-control formatacaoCRM" id="AVANCOREALIZADO" name="AVANCOREALIZADO" readonly>
+                                                                        </div>
+
+                                                                        <div class="form-group col-md-4">
+                                                                            <label class="info">Qtde Apontada</label>
+                                                                            <input type="text" class="form-control formatacaoCRM" id="QTDEAVANCO" name="QTDEAVANCO" onchange="calculaAvanco(this)">
+                                                                            <input type="hidden" class="form-control formatacaoCRM" id="AVANCO" name="AVANCO" readonly>
+                                                                            <input type="hidden" class="form-control formatacaoCRM" id="QTDEATV" name="QTDEATV" readonly>
+                                                                            <input type="hidden" class="form-control formatacaoCRM" id="QTDEPREV" name="QTDEPREV" readonly>
+                                                                            <input type="hidden" class="form-control formatacaoCRM" id="QTDESALDO" name="QTDESALDO" readonly>
+                                                                        </div>
+
+                                                                    </div> -->
+
+                                                                    <!-- <div class="row form-group col-md-12">
+                                                                        <div class="text-center info mb-25 pt-15">
+                                                                            <strong>Horas</strong>
+                                                                        </div>    
+                                                                    </div>
+                                                                    
+                                                                    <div class="row form-group col-md-12">
+
+                                                                        <div class="form-group col-md-1"></div>
+                                                                        <div class="form-group col-md-5">
+                                                                            <label class="info">Código</label>
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="info" for="only-time">Início</label>
+                                                                        </div>
+                                                                        <div class="form-group col-md-3">
+                                                                            <label class="info" for="only-time">Fim</label>
+                                                                        </div>
+
+                                                                    </div> -->
+
+                                                                    <div class="row">
+
+                                                                        <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADOTOTAL" name="SALDOTRABALHADOTOTAL">
+
+                                                                        <div class="row form-group col-md-12 PERIODO1">
+
+                                                                            <div class="form-group col-md-1 pt-30">
+                                                                                <button type="button" class="btn btn-primary EXCLUIRHORAPROD" id="EXCLUIRHORAPROD1" name="EXCLUIRHORAPROD1" onclick="excluirHoraProd(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                                            </div>
+
+                                                                            <!-- <div class="form-group col-md-5">
+
+                                                                                <div class="input-group input-group-md">
+                                                                                    <span class="input-group-addon" id="LIMPARZOOMTIPO1" name="LIMPARZOOMTIPO1" onclick="limparZoomTipo1(this);"><i id="ICONZOOMTIPO1V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                                    <input type="text" class="form-control" id="TIPO1" name="TIPO1" title="" onmouseover="mouse(this)" onclick="zoomTipo1('tipo1',this);" readonly>
+                                                                                    <span class="input-group-addon" id="ABRIRZOOMTIPO1" name="ABRIRZOOMTIPO1" onclick="zoomTipo1('tipo1',this);"><i id="ICONZOOMTIPO1" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                                </div>
+                                                                                <input type="hidden" id="CODTIPO1" name="CODTIPO1">
+                                                                                <input type="hidden" id="DESCRICAOTIPO1" name="DESCRICAOTIPO1">
+        
+                                                                            </div> -->
+
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="info">Tipo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="TIPO1" name="TIPO1"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'TIPO',
+                                                                                        'datasetId':'dsTipoHorasImprodutivas',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'TIPO',
+                                                                                                'label':'Tipo - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODTIPO1" name="CODTIPO1">
+                                                                                <input type="hidden" id="DESCRICAOTIPO1" name="DESCRICAOTIPO1">
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Início</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAINICIOATV1" name="HORAINICIOATV1" onblur="habilitaHoraFimAtv(this);" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Fim</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAFIMATV1" name="HORAFIMATV1" onblur="limpaHoraFimAtv(this)" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                    <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADO1" name="SALDOTRABALHADO1">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="row form-group col-md-12 PERIODO2">
+
+                                                                            <div class="form-group col-md-1 pt-30">
+                                                                                <button type="button" class="btn btn-primary EXCLUIRHORAPROD" id="EXCLUIRHORAPROD2" name="EXCLUIRHORAPROD2" onclick="excluirHoraProd(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                                            </div>
+
+                                                                            <!-- <div class="form-group col-md-5">
+
+                                                                                <div class="input-group input-group-md">
+                                                                                    <span class="input-group-addon" id="LIMPARZOOMTIPO2" name="LIMPARZOOMTIPO2" onclick="limparZoomTipo2(this);"><i id="ICONZOOMTIPO2V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                                    <input type="text" class="form-control" id="TIPO2" name="TIPO2" title="" onmouseover="mouse(this)" onclick="zoomTipo2('tipo2',this);" readonly>
+                                                                                    <span class="input-group-addon" id="ABRIRZOOMTIPO2" name="ABRIRZOOMTIPO2" onclick="zoomTipo2('tipo2',this);"><i id="ICONZOOMTIPO2" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                                </div>
+                                                                                <input type="hidden" id="CODTIPO2" name="CODTIPO2">
+                                                                                <input type="hidden" id="DESCRICAOTIPO2" name="DESCRICAOTIPO2">
+        
+                                                                            </div> -->
+
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="info">Tipo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="TIPO2" name="TIPO2"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'TIPO',
+                                                                                        'datasetId':'dsTipoHorasImprodutivas',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'TIPO',
+                                                                                                'label':'Tipo - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODTIPO2" name="CODTIPO2">
+                                                                                <input type="hidden" id="DESCRICAOTIPO2" name="DESCRICAOTIPO2">
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Início</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAINICIOATV2" name="HORAINICIOATV2" onclick="preencheHoraInicio(2,this)" onblur="habilitaHoraFimAtv(this);" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Fim</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAFIMATV2" name="HORAFIMATV2" onblur="limpaHoraFimAtv(this)" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                    <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADO2" name="SALDOTRABALHADO2">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="row form-group col-md-12 PERIODO3">
+
+                                                                            <div class="form-group col-md-1 pt-30">
+                                                                                <button type="button" class="btn btn-primary EXCLUIRHORAPROD" id="EXCLUIRHORAPROD3" name="EXCLUIRHORAPROD3" onclick="excluirHoraProd(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                                            </div>
+
+                                                                            <!-- <div class="form-group col-md-5">
+
+                                                                                <div class="input-group input-group-md">
+                                                                                    <span class="input-group-addon" id="LIMPARZOOMTIPO3" name="LIMPARZOOMTIPO3" onclick="limparZoomTipo3(this);"><i id="ICONZOOMTIPO3V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                                    <input type="text" class="form-control" id="TIPO3" name="TIPO3" title="" onmouseover="mouse(this)" onclick="zoomTipo3('tipo3',this);" readonly>
+                                                                                    <span class="input-group-addon" id="ABRIRZOOMTIPO3" name="ABRIRZOOMTIPO3" onclick="zoomTipo3('tipo3',this);"><i id="ICONZOOMTIPO3" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                                </div>
+                                                                                <input type="hidden" id="CODTIPO3" name="CODTIPO3">
+                                                                                <input type="hidden" id="DESCRICAOTIPO3" name="DESCRICAOTIPO3">
+        
+                                                                            </div> -->
+
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="info">Tipo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="TIPO3" name="TIPO3"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'TIPO',
+                                                                                        'datasetId':'dsTipoHorasImprodutivas',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'TIPO',
+                                                                                                'label':'Tipo - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODTIPO3" name="CODTIPO3">
+                                                                                <input type="hidden" id="DESCRICAOTIPO3" name="DESCRICAOTIPO3">
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Início</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAINICIOATV3" name="HORAINICIOATV3" onclick="preencheHoraInicio(3,this)" onblur="habilitaHoraFimAtv(this);" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Fim</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAFIMATV3" name="HORAFIMATV3" onblur="limpaHoraFimAtv(this)" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                    <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADO3" name="SALDOTRABALHADO3">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="row form-group col-md-12 PERIODO4">
+
+                                                                            <div class="form-group col-md-1 pt-30">
+                                                                                <button type="button" class="btn btn-primary EXCLUIRHORAPROD" id="EXCLUIRHORAPROD4" name="EXCLUIRHORAPROD4" onclick="excluirHoraProd(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                                            </div>
+
+                                                                            <!-- <div class="form-group col-md-5">
+
+                                                                                <div class="input-group input-group-md">
+                                                                                    <span class="input-group-addon" id="LIMPARZOOMTIPO4" name="LIMPARZOOMTIPO4" onclick="limparZoomTipo4(this);"><i id="ICONZOOMTIPO4V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                                    <input type="text" class="form-control" id="TIPO4" name="TIPO4" title="" onmouseover="mouse(this)" onclick="zoomTipo4('tipo4',this);" readonly>
+                                                                                    <span class="input-group-addon" id="ABRIRZOOMTIPO4" name="ABRIRZOOMTIPO4" onclick="zoomTipo4('tipo4',this);"><i id="ICONZOOMTIPO4" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                                </div>
+                                                                                <input type="hidden" id="CODTIPO4" name="CODTIPO4">
+                                                                                <input type="hidden" id="DESCRICAOTIPO4" name="DESCRICAOTIPO4">
+        
+                                                                            </div> -->
+
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="info">Tipo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="TIPO4" name="TIPO4"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'TIPO',
+                                                                                        'datasetId':'dsTipoHorasImprodutivas',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'TIPO',
+                                                                                                'label':'Tipo - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODTIPO4" name="CODTIPO4">
+                                                                                <input type="hidden" id="DESCRICAOTIPO4" name="DESCRICAOTIPO4">
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Início</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAINICIOATV4" name="HORAINICIOATV4" onclick="preencheHoraInicio(4,this)" onblur="habilitaHoraFimAtv(this);" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Fim</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAFIMATV4" name="HORAFIMATV4" onblur="limpaHoraFimAtv(this)" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                    <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADO4" name="SALDOTRABALHADO4">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div>
+
+                                                                        <div class="row form-group col-md-12 PERIODO5">
+
+                                                                            <div class="form-group col-md-1 pt-30">
+                                                                                <button type="button" class="btn btn-primary EXCLUIRHORAPROD" id="EXCLUIRHORAPROD5" name="EXCLUIRHORAPROD5" onclick="excluirHoraProd(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                                            </div>
+
+                                                                            <!-- <div class="form-group col-md-5">
+
+                                                                                <div class="input-group input-group-md">
+                                                                                    <span class="input-group-addon" id="LIMPARZOOMTIPO5" name="LIMPARZOOMTIPO5" onclick="limparZoomTipo5(this);"><i id="ICONZOOMTIPO5V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                                    <input type="text" class="form-control" id="TIPO5" name="TIPO5" title="" onmouseover="mouse(this)" onclick="zoomTipo5('tipo5',this);" readonly>
+                                                                                    <span class="input-group-addon" id="ABRIRZOOMTIPO5" name="ABRIRZOOMTIPO5" onclick="zoomTipo5('tipo5',this);"><i id="ICONZOOMTIPO5" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                                </div>
+                                                                                <input type="hidden" id="CODTIPO5" name="CODTIPO5">
+                                                                                <input type="hidden" id="DESCRICAOTIPO5" name="DESCRICAOTIPO5">
+        
+                                                                            </div> -->
+
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="info">Tipo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="TIPO5" name="TIPO5"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'TIPO',
+                                                                                        'datasetId':'dsTipoHorasImprodutivas',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'TIPO',
+                                                                                                'label':'Tipo - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODTIPO5" name="CODTIPO5">
+                                                                                <input type="hidden" id="DESCRICAOTIPO5" name="DESCRICAOTIPO5">
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Início</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAINICIOATV5" name="HORAINICIOATV5" onclick="preencheHoraInicio(5,this)" onblur="habilitaHoraFimAtv(this);" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Fim</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAFIMATV5" name="HORAFIMATV5" onblur="limpaHoraFimAtv(this)" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                    <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADO5" name="SALDOTRABALHADO5">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div> 
+
+                                                                        <div class="row form-group col-md-12 PERIODO6">
+
+                                                                            <div class="form-group col-md-1 pt-30">
+                                                                                <button type="button" class="btn btn-primary EXCLUIRHORAPROD" id="EXCLUIRHORAPROD6" name="EXCLUIRHORAPROD6" onclick="excluirHoraProd(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                                            </div>
+
+                                                                            <!-- <div class="form-group col-md-5">
+
+                                                                                <div class="input-group input-group-md">
+                                                                                    <span class="input-group-addon" id="LIMPARZOOMTIPO6" name="LIMPARZOOMTIPO6" onclick="limparZoomTipo6(this);"><i id="ICONZOOMTIPO6V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                                    <input type="text" class="form-control" id="TIPO6" name="TIPO6" title="" onmouseover="mouse(this)" onclick="zoomTipo6('tipo6',this);" readonly>
+                                                                                    <span class="input-group-addon" id="ABRIRZOOMTIPO6" name="ABRIRZOOMTIPO6" onclick="zoomTipo6('tipo6',this);"><i id="ICONZOOMTIPO6" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                                </div>
+                                                                                <input type="hidden" id="CODTIPO6" name="CODTIPO6">
+                                                                                <input type="hidden" id="DESCRICAOTIPO6" name="DESCRICAOTIPO6">
+        
+                                                                            </div> -->
+
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="info">Tipo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="TIPO6" name="TIPO6"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'TIPO',
+                                                                                        'datasetId':'dsTipoHorasImprodutivas',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'TIPO',
+                                                                                                'label':'Tipo - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODTIPO6" name="CODTIPO6">
+                                                                                <input type="hidden" id="DESCRICAOTIPO6" name="DESCRICAOTIPO6">
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Início</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAINICIOATV6" name="HORAINICIOATV6" onclick="preencheHoraInicio(6,this)" onblur="habilitaHoraFimAtv(this);" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Fim</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAFIMATV6" name="HORAFIMATV6" onblur="limpaHoraFimAtv(this)" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                    <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADO6" name="SALDOTRABALHADO6">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div> 
+
+                                                                        <div class="row form-group col-md-12 PERIODO7">
+
+                                                                            <div class="form-group col-md-1 pt-30">
+                                                                                <button type="button" class="btn btn-primary EXCLUIRHORAPROD" id="EXCLUIRHORAPROD7" name="EXCLUIRHORAPROD7" onclick="excluirHoraProd(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                                            </div>
+
+                                                                            <!-- <div class="form-group col-md-5">
+
+                                                                                <div class="input-group input-group-md">
+                                                                                    <span class="input-group-addon" id="LIMPARZOOMTIPO7" name="LIMPARZOOMTIPO7" onclick="limparZoomTipo7(this);"><i id="ICONZOOMTIPO7V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                                    <input type="text" class="form-control" id="TIPO7" name="TIPO7" title="" onmouseover="mouse(this)" onclick="zoomTipo7('tipo7',this);" readonly>
+                                                                                    <span class="input-group-addon" id="ABRIRZOOMTIPO7" name="ABRIRZOOMTIPO7" onclick="zoomTipo7('tipo7',this);"><i id="ICONZOOMTIPO7" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                                </div>
+                                                                                <input type="hidden" id="CODTIPO7" name="CODTIPO7">
+                                                                                <input type="hidden" id="DESCRICAOTIPO7" name="DESCRICAOTIPO7">
+        
+                                                                            </div> -->
+
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="info">Tipo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="TIPO7" name="TIPO7"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'TIPO',
+                                                                                        'datasetId':'dsTipoHorasImprodutivas',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'TIPO',
+                                                                                                'label':'Tipo - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODTIPO7" name="CODTIPO7">
+                                                                                <input type="hidden" id="DESCRICAOTIPO7" name="DESCRICAOTIPO7">
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Início</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAINICIOATV7" name="HORAINICIOATV7" onclick="preencheHoraInicio(7,this)" onblur="habilitaHoraFimAtv(this);" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Fim</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAFIMATV7" name="HORAFIMATV7" onblur="limpaHoraFimAtv(this)" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                    <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADO7" name="SALDOTRABALHADO7">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div> 
+
+                                                                        <div class="row form-group col-md-12 PERIODO8">
+
+                                                                            <div class="form-group col-md-1 pt-30">
+                                                                                <button type="button" class="btn btn-primary EXCLUIRHORAPROD" id="EXCLUIRHORAPROD8" name="EXCLUIRHORAPROD8" onclick="excluirHoraProd(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                                            </div>
+
+                                                                            <!-- <div class="form-group col-md-5">
+
+                                                                                <div class="input-group input-group-md">
+                                                                                    <span class="input-group-addon" id="LIMPARZOOMTIPO8" name="LIMPARZOOMTIPO8" onclick="limparZoomTipo8(this);"><i id="ICONZOOMTIPO8V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                                    <input type="text" class="form-control" id="TIPO8" name="TIPO8" title="" onmouseover="mouse(this)" onclick="zoomTipo8('tipo8',this);" readonly>
+                                                                                    <span class="input-group-addon" id="ABRIRZOOMTIPO8" name="ABRIRZOOMTIPO8" onclick="zoomTipo8('tipo8',this);"><i id="ICONZOOMTIPO8" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                                </div>
+                                                                                <input type="hidden" id="CODTIPO8" name="CODTIPO8">
+                                                                                <input type="hidden" id="DESCRICAOTIPO8" name="DESCRICAOTIPO8">
+        
+                                                                            </div> -->
+
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="info">Tipo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="TIPO8" name="TIPO8"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'TIPO',
+                                                                                        'datasetId':'dsTipoHorasImprodutivas',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'TIPO',
+                                                                                                'label':'Tipo - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODTIPO8" name="CODTIPO8">
+                                                                                <input type="hidden" id="DESCRICAOTIPO8" name="DESCRICAOTIPO8">
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Início</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAINICIOATV8" name="HORAINICIOATV8" onclick="preencheHoraInicio(8,this)" onblur="habilitaHoraFimAtv(this);" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Fim</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAFIMATV8" name="HORAFIMATV8" onblur="limpaHoraFimAtv(this)" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                    <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADO8" name="SALDOTRABALHADO8">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div> 
+
+                                                                        <div class="row form-group col-md-12 PERIODO9">
+
+                                                                            <div class="form-group col-md-1 pt-30">
+                                                                                <button type="button" class="btn btn-primary EXCLUIRHORAPROD" id="EXCLUIRHORAPROD9" name="EXCLUIRHORAPROD9" onclick="excluirHoraProd(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                                            </div>
+
+                                                                            <!-- <div class="form-group col-md-5">
+
+                                                                                <div class="input-group input-group-md">
+                                                                                    <span class="input-group-addon" id="LIMPARZOOMTIPO9" name="LIMPARZOOMTIPO9" onclick="limparZoomTipo9(this);"><i id="ICONZOOMTIPO9V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                                    <input type="text" class="form-control" id="TIPO9" name="TIPO9" title="" onmouseover="mouse(this)" onclick="zoomTipo9('tipo9',this);" readonly>
+                                                                                    <span class="input-group-addon" id="ABRIRZOOMTIPO9" name="ABRIRZOOMTIPO9" onclick="zoomTipo9('tipo9',this);"><i id="ICONZOOMTIPO9" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                                </div>
+                                                                                <input type="hidden" id="CODTIPO9" name="CODTIPO9">
+                                                                                <input type="hidden" id="DESCRICAOTIPO9" name="DESCRICAOTIPO9">
+        
+                                                                            </div> -->
+
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="info">Tipo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="TIPO9" name="TIPO9"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'TIPO',
+                                                                                        'datasetId':'dsTipoHorasImprodutivas',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'TIPO',
+                                                                                                'label':'Tipo - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODTIPO9" name="CODTIPO9">
+                                                                                <input type="hidden" id="DESCRICAOTIPO9" name="DESCRICAOTIPO9">
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Início</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAINICIOATV9" name="HORAINICIOATV9" onclick="preencheHoraInicio(9,this)" onblur="habilitaHoraFimAtv(this);" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Fim</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAFIMATV9" name="HORAFIMATV9" onblur="limpaHoraFimAtv(this)" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                    <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADO9" name="SALDOTRABALHADO9">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div> 
+
+                                                                        <div class="row form-group col-md-12 PERIODO10">
+
+                                                                            <div class="form-group col-md-1 pt-30">
+                                                                                <button type="button" class="btn btn-primary EXCLUIRHORAPROD" id="EXCLUIRHORAPROD10" name="EXCLUIRHORAPROD10" onclick="excluirHoraProd(this);"><i class="fluigicon fluigicon-trash icon-sm"></i></button>
+                                                                            </div>
+
+                                                                            <!-- <div class="form-group col-md-5">
+
+                                                                                <div class="input-group input-group-md">
+                                                                                    <span class="input-group-addon" id="LIMPARZOOMTIPO10" name="LIMPARZOOMTIPO10" onclick="limparZoomTipo10(this);"><i id="ICONZOOMTIPO10V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                                    <input type="text" class="form-control" id="TIPO10" name="TIPO10" title="" onmouseover="mouse(this)" onclick="zoomTipo10('tipo10',this);" readonly>
+                                                                                    <span class="input-group-addon" id="ABRIRZOOMTIPO10" name="ABRIRZOOMTIPO10" onclick="zoomTipo10('tipo10',this);"><i id="ICONZOOMTIPO10" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                                </div>
+                                                                                <input type="hidden" id="CODTIPO10" name="CODTIPO10">
+                                                                                <input type="hidden" id="DESCRICAOTIPO10" name="DESCRICAOTIPO10">
+        
+                                                                            </div> -->
+
+                                                                            <div class="form-group col-md-5">
+                                                                                <label class="info">Tipo</label>
+                                                                                <input type="zoom" class="form-control formatacaoCRM" id="TIPO10" name="TIPO10"
+                                                                                    data-zoom="{
+                                                                                        'displayKey':'TIPO',
+                                                                                        'datasetId':'dsTipoHorasImprodutivas',
+                                                                                        'fields':[
+                                                                                            {
+                                                                                                'field':'TIPO',
+                                                                                                'label':'Tipo - Descrição',
+                                                                                                'standard':'true',
+                                                                                                'search':'true'
+                                                                                            }   
+                                                                                        ]
+                                                                                    }"
+                                                                                >
+                                                                                <input type="hidden" id="CODTIPO10" name="CODTIPO10">
+                                                                                <input type="hidden" id="DESCRICAOTIPO10" name="DESCRICAOTIPO10">
+                                                                            </div>
+
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Início</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAINICIOATV10" name="HORAINICIOATV10" onclick="preencheHoraInicio(10,this)" onblur="habilitaHoraFimAtv(this);" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+    
+                                                                            <div class="form-group col-md-3">
+                                                                                <label class="info">Fim</label>
+                                                                                <div class="input-group date">
+                                                                                    <input type="text" class="form-control" id="HORAFIMATV10" name="HORAFIMATV10" onblur="limpaHoraFimAtv(this)" mask="00:00">
+                                                                                    <span class="input-group-addon">
+                                                                                        <span class="fluigicon fluigicon-time"></span>
+                                                                                    </span>
+                                                                                    <input type="hidden" class="form-control formatacaoCRM" id="SALDOTRABALHADO10" name="SALDOTRABALHADO10">
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                        
+                                                                    </div>
+
+                                                                    <div class="row form-group col-md-12">
+                                                                        <div class="form-group col-md-1 pt-25">
+                                                                            <button type="button" class="btn btn-primary ADDHORAPROD" onclick="addHoraProd(this);" id="ADDHORAPROD" name="ADDHORAPROD"><i class="fluigicon fluigicon-plus icon-sm"></i></button>
+                                                                            <input type="hidden" id="BTADDHORAPROD" name="BTADDHORAPROD">
+                                                                        </div>
+                                                                        <div class="col-md-11"></div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                                
+                                                            </div>
+
+                                                            <!-- ABA REFERENTE A TABELAS -->
+                                                            <div class="tab-pane form-group col-md-12 PROCESSOBLANK" PROCESSOBLANK name="PROCESSOBLANK" id="PROCESSOBLANK">
+
+                                                                <div class="row mb-25">
+
+                                                                    <div class="form-group col-md-12">
+                                                                        <label class="info">Processo da Atividade</label>
+                                                                        <textarea type="text" class="form-control formatacaoCRM" rows="8" id="PROCESSO" name="PROCESSO" readonly></textarea>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            <!-- ABA PARA A HORAS IMPRODUTIVAS -->
+                                                            <!-- <div class="tab-pane form-group col-md-12 IMPRODUTIVOBLANK" IMPRODUTIVOBLANK name="IMPRODUTIVOBLANK" id="IMPRODUTIVOBLANK">
+
+                                                                <div class="row">
+
+                                                                    <div class="form-group col-md-6">
+
+                                                                        <label class="info">Tipo 1</label>
+                                                                        <div class="input-group input-group-md">
+                                                                            <span class="input-group-addon" id="LIMPARZOOMTIPO1" name="LIMPARZOOMTIPO1" onclick="limparZoomTipo1(this);"><i id="ICONZOOMTIPO1V" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                            <input type="text" class="form-control" id="TIPO1" name="TIPO1" title="" onmouseover="mouse(this)" onclick="zoomTipo1('tipo1',this);" readonly>
+                                                                            <span class="input-group-addon" id="ABRIRZOOMTIPO1" name="ABRIRZOOMTIPO1" onclick="zoomTipo1('tipo1',this);"><i id="ICONZOOMTIPO1" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                        </div>
+                                                                        <input type="hidden" id="CODTIPO1" name="CODTIPO1">
+                                                                        <input type="hidden" id="DESCRICAOTIPO1" name="DESCRICAOTIPO1">
+
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label class="info" for="only-time">Início</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="text" class="form-control" id="HORAINICIOIMPRO1" name="HORAINICIOIMPRO1" onblur="habilitaHoraFimImpr1(this);">
+                                                                            <span class="input-group-addon">
+                                                                                <span class="fluigicon fluigicon-time"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label class="info" for="only-time">Fim</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="text" class="form-control" id="HORAFIMIMPRO1" name="HORAFIMIMPRO1" onblur="limpaHoraFimImpr1(this)">
+                                                                            <span class="input-group-addon">
+                                                                                <span class="fluigicon fluigicon-time"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div> 
+                                                                
+                                                                <div class="row">
+
+                                                                    <div class="form-group col-md-6">
+
+                                                                        <label class="info">Tipo 2</label>
+                                                                        <div class="input-group input-group-md">
+                                                                            <span class="input-group-addon" id="LIMPARZOOMTIPO2" name="LIMPARZOOMTIPO2" onclick="limparZoomTipo2(this);"><i id="ICONZOOMTIPO2" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                            <input type="text" class="form-control" id="TIPO2" name="TIPO2" title="" onmouseover="mouse(this)" onclick="zoomTipo2('tipo2',this);" readonly>
+                                                                            <span class="input-group-addon" id="ABRIRZOOMTIPO2" name="ABRIRZOOMTIPO2" onclick="zoomTipo2('tipo2',this);"><i id="ICONZOOMTIPO2" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                        </div>
+                                                                        <input type="hidden" id="CODTIPO2" name="CODTIPO2">
+                                                                        <input type="hidden" id="DESCRICAOTIPO2" name="DESCRICAOTIPO2">
+
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label class="info" for="only-time">Início</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="text" class="form-control" id="HORAINICIOIMPRO2" name="HORAINICIOIMPRO2" onblur="habilitaHoraFimImpr2(this);">
+                                                                            <span class="input-group-addon">
+                                                                                <span class="fluigicon fluigicon-time"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label class="info" for="only-time">Fim</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="text" class="form-control" id="HORAFIMIMPRO2" name="HORAFIMIMPRO2" onblur="limpaHoraFimImpr2(this)">
+                                                                            <span class="input-group-addon">
+                                                                                <span class="fluigicon fluigicon-time"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="row">
+
+                                                                    <div class="form-group col-md-6">
+
+                                                                        <label class="info">Tipo 3</label>
+                                                                        <div class="input-group input-group-md">
+                                                                            <span class="input-group-addon" id="LIMPARZOOMTIPO3" name="LIMPARZOOMTIPO3" onclick="limparZoomTipo3(this);"><i id="ICONZOOMTIPO3" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                            <input type="text" class="form-control" id="TIPO3" name="TIPO3" title="" onmouseover="mouse(this)" onclick="zoomTipo3('tipo3',this);" readonly>
+                                                                            <span class="input-group-addon" id="ABRIRZOOMTIPO3" name="ABRIRZOOMTIPO3" onclick="zoomTipo3('tipo3',this);"><i id="ICONZOOMTIPO3" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                        </div>
+                                                                        <input type="hidden" id="CODTIPO3" name="CODTIPO3">
+                                                                        <input type="hidden" id="DESCRICAOTIPO3" name="DESCRICAOTIPO3">
+
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label class="info" for="only-time">Início</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="text" class="form-control" id="HORAINICIOIMPRO3" name="HORAINICIOIMPRO3" onblur="habilitaHoraFimImpr3(this);">
+                                                                            <span class="input-group-addon">
+                                                                                <span class="fluigicon fluigicon-time"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label class="info" for="only-time">Fim</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="text" class="form-control" id="HORAFIMIMPRO3" name="HORAFIMIMPRO3" onblur="limpaHoraFimImpr3(this)">
+                                                                            <span class="input-group-addon">
+                                                                                <span class="fluigicon fluigicon-time"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="row">
+
+                                                                    <div class="form-group col-md-6">
+
+                                                                        <label class="info">Tipo 4</label>
+                                                                        <div class="input-group input-group-md">
+                                                                            <span class="input-group-addon" id="LIMPARZOOMTIPO4" name="LIMPARZOOMTIPO4" onclick="limparZoomTipo4(this);"><i id="ICONZOOMTIPO4" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                            <input type="text" class="form-control" id="TIPO4" name="TIPO4" title="" onmouseover="mouse(this)" onclick="zoomTipo4('tipo4',this);" readonly>
+                                                                            <span class="input-group-addon" id="ABRIRZOOMTIPO4" name="ABRIRZOOMTIPO4" onclick="zoomTipo3('tipo4',this);"><i id="ICONZOOMTIPO4" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                        </div>
+                                                                        <input type="hidden" id="CODTIPO4" name="CODTIPO4">
+                                                                        <input type="hidden" id="DESCRICAOTIPO4" name="DESCRICAOTIPO4">
+
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label class="info" for="only-time">Início</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="text" class="form-control" id="HORAINICIOIMPRO4" name="HORAINICIOIMPRO4" onblur="habilitaHoraFimImpr4(this);">
+                                                                            <span class="input-group-addon">
+                                                                                <span class="fluigicon fluigicon-time"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label class="info" for="only-time">Fim</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="text" class="form-control" id="HORAFIMIMPRO4" name="HORAFIMIMPRO4" onblur="limpaHoraFimImpr4(this)">
+                                                                            <span class="input-group-addon">
+                                                                                <span class="fluigicon fluigicon-time"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <div class="row mb-25">
+
+                                                                    <div class="form-group col-md-6">
+
+                                                                        <label class="info">Tipo 5</label>
+                                                                        <div class="input-group input-group-md">
+                                                                            <span class="input-group-addon" id="LIMPARZOOMTIPO5" name="LIMPARZOOMTIPO5" onclick="limparZoomTipo5(this);"><i id="ICONZOOMTIPO5" class="fluigicon fluigicon-remove icon-xs"></i></span>
+                                                                            <input type="text" class="form-control" id="TIPO5" name="TIPO5" title="" onmouseover="mouse(this)" onclick="zoomTipo5('tipo5',this);" readonly>
+                                                                            <span class="input-group-addon" id="ABRIRZOOMTIPO5" name="ABRIRZOOMTIPO5" onclick="zoomTipo5('tipo5',this);"><i id="ICONZOOMTIPO5" class="fluigicon fluigicon-zoom-in icon-sm"></i></span>
+                                                                        </div>
+                                                                        <input type="hidden" id="CODTIPO5" name="CODTIPO5">
+                                                                        <input type="hidden" id="DESCRICAOTIPO5" name="DESCRICAOTIPO5">
+
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label class="info" for="only-time">Início</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="text" class="form-control" id="HORAINICIOIMPRO5" name="HORAINICIOIMPRO5" onblur="habilitaHoraFimImpr5(this);">
+                                                                            <span class="input-group-addon">
+                                                                                <span class="fluigicon fluigicon-time"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group col-md-3">
+                                                                        <label class="info" for="only-time">Fim</label>
+                                                                        <div class="input-group date">
+                                                                            <input type="text" class="form-control" id="HORAFIMIMPRO5" name="HORAFIMIMPRO5" onblur="limpaHoraFimImpr5(this)">
+                                                                            <span class="input-group-addon">
+                                                                                <span class="fluigicon fluigicon-time"></span>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div> -->
+
+                                                            <!-- ABA PARA A CLASSIFICAÇÃO -->
+                                                            <div class="tab-pane form-group col-md-12 COMPONENTESBLANK" COMPONENTESBLANK name="COMPONENTESBLANK" id="COMPONENTESBLANK">
+
+                                                                <div class="row mb-25" id="TABELACOMP" name="TABELACOMP">
+
+                                                                    <input type="hidden" id="COMP" name="COMP">
+
+                                                                </div>
+
+                                                            </div>
+                                                            
+
+                                                        </div>
+
+                                                    </div>
+
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+
+                                <div class="form-group col-md-12 TABELACOMPONENTES">
+
+                                    <table id="COMPONENTESGERAL" tablename="COMPONENTESGERAL" class="table table-sm table-bordered table-layout-fixed SOMA_RECAPTOSDISPATV" border="0" nodeletebutton="true" noaddbutton="true">
+                    
+                                        <thead>
+
+                                            <tr>
+
+                                                <th class="form-group col-md-1"><label class="info"><strong>Descrição</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Código</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Id Lote</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Num Lote</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Qtde</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Und</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Qtde Ut.</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Seq Atv</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Seq Comp</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Est Atual</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Cod Loc</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Custo Medio</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Classificação</strong></label></th>
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+                                            <tr>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="DESCRICAOCOMPG" name="DESCRICAOCOMPG" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="CODIGOCOMPG" name="CODIGOCOMPG" readonly> 
+                                                    <input type="text" class="form-control" id="IDPRDCOMPG" name="IDPRDCOMPG" readonly> 
+                                                    <input type="text" class="form-control" id="IDPRDORIGEM" name="IDPRDORIGEM" readonly> 
+                                                    <input type="text" class="form-control" id="IDPRDPRINCIPALCOMPG" name="IDPRDPRINCIPALCOMPG" readonly> 
+                                                    <input type="text" class="form-control" id="IDMOVBAIXA" name="IDMOVBAIXA"> 
+                                                    <input type="text" class="form-control" id="BAIXAID" name="BAIXAID"> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="IDLOTECOMPG" name="IDLOTECOMPG" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="NUMLOTECOMPG" name="NUMLOTECOMPG" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="QTDECOMPG" name="QTDECOMPG" readonly>
+                                                    <input type="text" class="form-control" id="SALDOCOMPG" name="SALDOCOMPG" readonly>  
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="UNDCOMPG" name="UNDCOMPG" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="QTDEUTG" name="QTDEUTG" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="SEQATV" name="SEQATV" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="SEQCOMP" name="SEQCOMP" readonly>
+                                                    <input type="text" class="form-control" id="SEQCOMPGERAL" name="SEQCOMPGERAL" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="ESTOOQUEATUALCOMPG" name="ESTOOQUEATUALCOMPG" readonly> 
+                                                    <input type="text" class="form-control" id="STATUSLOTE" name="STATUSLOTE" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="CODLOCCOMPG" name="CODLOCCOMPG" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="CUSTOMEDIOCOMPG" name="CUSTOMEDIOCOMPG" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="CODTB2FAT" name="CODTB2FAT" readonly> 
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                                <div class="form-group col-md-12 IDMOVCOMPONENTES" style="display: none;">
+
+                                    <table id="IDMOVCOMPONENTES" tablename="IDMOVCOMPONENTES" class="table table-sm table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                    
+                                        <thead>
+
+                                            <tr>
+
+                                                <th class="form-group col-md-1"><label class="info"><strong>Código</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Id Lote</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Qtde Ut.</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Seq Atv</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Seq Comp</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Id mov</strong></label></th>
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+                                            <tr>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="IMIDPRDCOMP" name="IMIDPRDCOMP" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="IMIDLOTE" name="IMIDLOTE" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="IMQTDEUT" name="IMQTDEUT" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="IMSEQATV" name="IMSEQATV" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="IMSEQCOMP" name="IMSEQCOMP" readonly> 
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" class="form-control" id="IMIDMOV" name="IMIDMOV" readonly> 
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+            
+            </form>
+
+        </div>
+
+    </body>
+
+    <script type="text/javascript" src="documentReady.js"></script>
+    <script type="text/javascript" src="beforeSendValidate.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="selectZoom.js"></script>
+
+</html>
