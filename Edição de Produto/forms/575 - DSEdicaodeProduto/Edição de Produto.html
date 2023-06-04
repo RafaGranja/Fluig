@@ -1,0 +1,519 @@
+<html>
+
+    <head>
+
+        <!-- BIBLIOTECA PADRÃO DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+       
+       <!--  <link rel="stylesheet" type="text/css" href="/style-guide/css/fluig-style-guide-treeview.min.css">
+        <script src="/style-guide/js/fluig-style-guide-treeview.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+
+        <!-- BIBLIOTECAS SWEET ALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    </head>
+    
+    <body>
+
+        <!-- INÍCIO DA CUSTOMIZAÇÃO DO STYLE GUIDE -->
+        <div class="fluig-style-guide">
+
+            <!-- TAG PARA CRIAR O FORMULÁRIO -->
+            <form name="form" role="form">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES DAS SOLICITAÇÕES DO PROCESSO -->
+                <input id="ATIVIDADE" name="ATIVIDADE" type="hidden">
+                <input id="NUMPROCESSO" name="NUMPROCESSO" type="hidden">
+                <input id="SOLICITANTE" name="SOLICITANTE" type="hidden">
+                <input id="USUARIOATUAL" name="USUARIOATUAL" type="hidden">
+                
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES OCULTOS DOS EXCLUSIVOS DO WORKFLOW -->
+                <input id="EXCLUSIVO1" name="EXCLUSIVO1" type="hidden">
+                <input id="EXCLUSIVO2" name="EXCLUSIVO2" type="hidden">
+                <input id="TABELA" name="TABELA" type="hidden">
+                <input id="IDMAX_CRIACAO" name="IDMAX_CRIACAO" type="hidden">
+
+                <!-- TAG PARA DELIMITAR O PAINEL DO FORMULÁRIO -->
+                <div class="form-group col-md-1"></div>
+                <div class="form-group col-md-10">
+
+                    <!-- TAG PARA CENTRALIZAR O FORMULÁRIO -->
+                    <div class="container col-md-12">
+
+                        <!-- INÍCIO DO CONTEÚDO DO PAINEL -->
+                        <div class="panel panel-default" id="PANEL1">
+
+                            <!-- CABEÇALHO DO FORMULÁRIO -->
+                            <div class="panel-heading text-center">
+                                <span class="titulo text-center TITULO"><h3><strong>E D I Ç Ã O &nbsp;&nbsp; D E &nbsp;&nbsp; P R O D U T O</strong></h3></span>
+                            </div>
+
+                            <!-- CORPO DO FORMULÁRIO -->
+                            <div class="panel-body">
+
+                                <!-- ABAS DE NAVEGAÇÃO -->
+                                <div class="form-group col-md-12">
+    
+                                    <ul class="nav nav-tabs clearfix" role="tablist">
+                                        <li class="ABA_EDICAO active" id="ABA_EDICAO"><a class="aba" href="#EDICAO_BLANK" role="tab" data-toggle="tab"><strong class="aba">Edição</strong></a></li>
+                                        <li class="ABA_CADASTRO" id="ABA_CADASTRO"><a class="aba" href="#CADASTRO_BLANK" role="tab" data-toggle="tab"><strong class="aba">Cadastro</strong></a></li>
+                                    </ul>
+
+                                </div>
+
+                                <!-- CONTEÚDO DAS ABAS -->  
+                                <div class="row CONTEUDO_ABAS tab-content">
+    
+                                    <!-- ABA DOS DADOS DA EDIÇÃO -->
+                                    
+                                    <div class="tab-pane active form-group col-md-12 pt-15" id="EDICAO_BLANK">
+
+                                        <div class="row">
+
+                                            <div class="form-group col-md-12">
+                                                <label class="info">Produto/Serviço</label>
+                                                <input type="zoom" class="form-control formatacaoCRM" id="PRODUTO" name="PRODUTO" 
+                                                    data-zoom="{
+                                                        'displayKey':'DESCCOMPLETA',
+                                                        'datasetId':'DsCRMConsultaProdutoCadastrado',
+                                                        'fields':[
+                                                            {
+                                                                'field':'DESCCOMPLETA',
+                                                                'label':'Código - Descrição',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }
+                                                        ]
+                                                    }"
+                                                >
+                                                <input type="hidden" class="form-group" id="VALORPRODUTO" name="VALORPRODUTO">  
+                                            </div> 
+                                        
+
+
+                                        </div>
+        
+                                        <div class="row">
+        
+                                            <div class="form-group col-md-4">
+                                                <label class="info">Tipo</label>
+                                                <select name="TIPO" id="TIPO" class="form-control formatacaoCRM" onchange="habilita()">
+                                                	<option id="SELECIONE" value="" >Selecione</option>
+                                                    <option value="PRODUTO">Produto</option>
+                                                    <option value="SERVICO">Serviço</option>
+                                                </select>
+                                                <input type="hidden" class="form-group" id="VALORTIPO" name="VALORTIPO"> 
+                                            </div>
+        
+                                            <div class="form-group col-md-8">
+                                                <label class="info">Nome</label>
+                                                <input type="text" class="form-control formatacaoCRM" id="NOME" name="NOME" onchange="validanome()">
+                                            </div>
+        
+                                        </div>
+        
+                                        <div class="row">
+        
+                                            <div class="form-group col-md-12">
+                                                <label class="info">Descrição</label>
+                                                <textarea class="form-control formatacaoCRM" name="DESCRICAO" id="DESCRICAO" rows="4"></textarea>
+                                            </div>
+        
+                                        </div>
+                                        
+                                        <div class="row">
+                                        <div class="form-group col-md-3">
+                                            <label class="info">Classificação Fiscal</label>
+                                            <input type="zoom" class="form-control formatacaoCRM" id="CLASSIFICACAO_FISCAL" name="CLASSIFICACAO_FISCAL"  
+                                                data-zoom="{
+                                                    'displayKey':'CLASSFISCAL',
+                                                    'datasetId':'DsCRMClassificacaoFiscal',
+                                                    'fields':[
+                                                        {
+                                                            'field':'CLASSFISCAL',
+                                                            'label':'Classificação Fiscal',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        }
+                                                    ]
+                                                }"
+                                            >
+                                            <input type="hidden" class="form-group" id="VALORFISCAL" name="VALORFISCAL">
+                                            
+                                        </div> 
+                                        <div class="form-group col-md-4" id="DIVGERAL">
+                                            <label class="info">Classificação Geral</label>
+                                            <input type="zoom" class="form-control formatacaoCRM" id="CLASSIFICACAO_CONTABIL" name="CLASSIFICACAO_CONTABIL" 
+                                            data-zoom="{
+                                                'displayKey':'CLASSCONTABIL',
+                                                'datasetId':'DsCRMClassificacaoGeral',
+                                                'fields':[
+                                                    {
+                                                        'field':'CLASSCONTABIL',
+                                                        'label':'Classificação Contábil',
+                                                        'standard':'true',
+                                                        'search':'true'
+                                                    }
+                                                ]
+                                            }"
+                                            
+                                            >
+                                            <input type="hidden" class="form-group" id="CODCONTABIL" name="CODCONTABIL">
+                                            <input type="hidden" class="form-group" id="CONTACONTABIL" name="CONTACONTABIL">
+                                            <input type="hidden" class="form-group" id="SITUACAOMERCADORIA" name="SITUACAOMERCADORIA">
+                                        
+                                            <!-- <input type="hidden" class="form-group" id="VALORCLASSIFGERAL" name="VALORCLASSIFGERAL"> --> 
+                                        </div>
+                                        <div class="form-group col-md-5" id="DIVNCM">
+                                            <label class="info">NCM</label>
+                                            <input type="zoom" class="form-control formatacaoCRM" id="NCM" name="NCM" 
+                                                data-zoom="{
+                                            'displayKey':'DESCCOMPLETA',
+                                            'datasetId':'DsCRMNCM',
+                                            'fields':[
+                                                {
+                                                    'field':'DESCCOMPLETA',
+                                                    'label':'NCM',
+                                                    'standard':'true',
+                                                    'search':'true'
+                                                }
+                                                ]
+                                                }"
+                                            >
+                                            <input type="hidden" class="form-group" id="CODNCM" name="CODNCM">
+                                        </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-7">
+                                                <label class="info">Unidade de Medida</label>
+                                                    <input type="zoom" class="form-control formatacaoCRM" id="UNIDADEMEDIDA" name="UNIDADEMEDIDA" 
+                                                        data-zoom="{
+                                                        'displayKey':'DESCCOMPLETA',
+                                                        'datasetId':'DsCRMUnidadeMedida',
+                                                        'fields':[
+                                                            {
+                                                                'field':'DESCCOMPLETA',
+                                                                'label':'Unidade de Medida',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }
+                                                        ]
+                                                    }"
+                                                    >
+                                                <input type="hidden" class="form-group" id="VALORUNIDADEMEDIDA" name="VALORUNIDADEMEDIDA">
+                                            </div>
+                                            <div class="form-group col-md-5">                                                
+                                                <label class="info" for="CONTROLE_LOTE">Controle por lote</label>
+                                                <br>
+                                                <div class="custom-radio custom-radio-inline  custom-radio-success pt-15">
+                                                <input type="radio" name="RADIO1" id="RAD1_SIM" value="SIM" onclick="salvaValor()">
+                                                <label class="info" for="RAD1_SIM">Sim</label>
+                                                </div>
+                                                <div class="custom-radio custom-radio-inline custom-radio-danger pt-15">
+                                                <input type="radio" name="RADIO1" id="RAD1_NAO" value="NAO"  onclick="salvaValor()">
+                                                <label class="info" for="RAD1_NAO">Não</label>
+                                                </div>
+                                                <input type="hidden" class="form-group" id="VALOR_RADIO1" name="VALOR_RADIO1">
+                                                <!--  <input class="switch-input" type="checkbox" value="true" data-on-text="SIM" data-on-color="success" data-off-color="danger" data-off-text="NÃƒO" name="switchControleLote" id="switchControleLote" "/> --> 
+                                                                                
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="row pt-15">
+                                            <div class="form-group col-md-12">
+                                                <div class="form-group col-md-12" id="PRIORIDADE_CADASTRO">
+                                                  <label class="info" for="PRIORIDADE_CADASTRO">Prioridade do Cadastro</label>
+                                                  <br>
+                                                    <div class="custom-radio custom-radio-inline  custom-radio-danger pt-15">
+                                                        <input type="radio" name="RAD6" id="RAD6_MA" value="MUITO_ALTA" onclick = "salvaValorCadastro()">
+                                                        <label class="info" for="RAD6_MA">Muito Alta</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-radio-inline custom-radio-warning pt-15">
+                                                      <input type="radio" name="RAD6" id="RAD6_A" value="ALTA" onclick = "salvaValorCadastro()">
+                                                      <label class="info" for="RAD6_A">Alta</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-radio-inline custom-radio-success pt-15">
+                                                        <input type="radio" name="RAD6" id="RAD6_M" value="MEDIA" onclick = "salvaValorCadastro()">
+                                                        <label class="info" for="RAD6_M">Média</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-radio-inline custom-radio-info pt-15" onclick = "salvaValorCadastro()">
+                                                        <input type="radio" name="RAD6" id="RAD6_B" value="BAIXA">
+                                                        <label class="info" for="RAD6_B">Baixa</label>
+                                                    </div>
+                                                  <input type="hidden" class="form-group" id="VALOR_RADIO6" name="VALOR_RADIO6">
+                                                  <input type="hidden" class="form-group" id="TEMPOATENDIMENTO" name="TEMPOATENDIMENTO">
+                                                  <!--  <input class="switch-input" type="checkbox" value="true" data-on-text="SIM" data-on-color="success" data-off-color="danger" data-off-text="NÃƒÂƒO" name="switchControleLote" id="switchControleLote" "/> --> 
+                                                </div>                                    
+                                          </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group col-md-12 pt-15 OBSERVACOES">
+                                                <label class="info">Observações</label>
+                                                <textarea type="text" rows="3" class="form-control" name="OBSERVACOES" id="OBSERVACOES"></textarea>
+                                            </div>        
+                                        </div>
+                                        <div class="row" id="DIV_MOTIVO">        
+                                            <div class="form-group col-md-12 ">
+                                                <label class="info"><strong><font color="red">Motivo Reprovação</font></strong></label>
+                                                <textarea class="form-control formatacaoCRM" name="MOTIVO" id="MOTIVO" rows="4" readonly></textarea>
+                                            </div>
+                                            <div class ="form-group col-md-12 MOTIVO_FISCAL">
+												<div class="form-group col-md-1">
+													<input id="OBSHIST" name="OBSHIST" type="hidden" >
+												</div>
+											</div>
+                                        </div>
+                                        
+                                         <!-- APROVAÇÃO FISCAL -->
+                                        <div class="FISCAL">
+                                            <div class="row">
+                                                <div class="form-group col-md-6" >
+                                                    <label class="info">Classificação</label>
+                                                    <input type="zoom" class="form-control formatacaoCRM" id="CLASSIFICACAO" name="CLASSIFICACAO" 
+                                                        data-zoom="{
+                                                            'displayKey':'DESCCOMPLETA',
+                                                            'datasetId':'DsCRMClassificacao',
+                                                            'fields':[
+                                                                {
+                                                                    'field':'DESCCOMPLETA',
+                                                                    'label':'Classificação',
+                                                                    'standard':'true',
+                                                                    'search':'true'
+                                                                }
+                                                            ]
+                                                        }"
+                                                        
+                                                    >
+                                                    <input type="hidden" class="form-group" id="VALORCLASSIFICACAO" name="VALORCLASSIFICACAO">
+                                                </div>
+                                                <div  class="form-group col-md-12">
+                                                    <label class="info">Referência</label>
+                                                    <select name="REFERENCIA" id="REFERENCIA" class="form-control formatacaoCRM"  onclick="escolharef()">
+                                                    <option value="0"> Nacional, exceto as indicadas nos códigos 3, 4, 5 e 8</option>
+                                                    <option value="4"> Nacional, cuja produção tenha sido feita em conformidade com os processos produtivos básicos de que tratam as legislações citadas nos Ajustes </option>
+                                                    <option value="5"> Nacional, mercadoria ou bem com Conteúdo de Importação inferior ou igual a 40%</option>
+                                                    <option value="6"> Estrangeira - Importação direta, sem similar nacional, constante em lista da CAMEX e gás natural </option>
+                                                    <option value="7"> Estrangeira - Adquirida no mercado interno, sem similar nacional, constante lista CAMEX e gás natural </option>
+                                                    <option value="1"> Estrangeira - Importação direta, exceto a indicada no código 6</option>
+                                                    <option value="2"> Estrangeira - Adquirida no mercado interno, exceto a indicada no código 7 </option>
+                                                    <option value="3"> Nacional, mercadoria ou bem com Conteúdo de Importação superior a 40% e inferior ou igual a 70% </option>
+                                                    <option value="8"> Nacional, mercadoria ou bem com Conteúdo de Importação superior a 70%  </option>
+                                                    </select>
+                                                    <input type="hidden" class="form-group" id="VALORREFERENCIA" name="VALORREFERENCIA">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6" id="DIVGRUPOPATRIMONIO">
+                                                    <label class="info">Grupo de Patrimônio</label>
+                                                    <input type="zoom" class="form-control formatacaoCRM" id="GRUPOPATRIMONIO" name="GRUPOPATRIMONIO"
+                                                    data-zoom="{
+                                                        'displayKey':'CODDESCRICAO',
+                                                        'datasetId':'DsCRMPatrimonio',
+                                                        'fields':[
+                                                            {
+                                                                'field':'CODDESCRICAO',
+                                                                'label':'Código - Descrição',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }
+                                                        ]
+                                                    }"
+                                                    >                                                
+                                                    <input type="hidden" class="form-group" id="VALORGRUPOPATRIMONIO" name="VALORGRUPOPATRIMONIO">
+                                                </div>
+                                                <div class="form-group col-md-6">
+                                                    <label class="info">Conta Contábil Sped</label>
+                                                    <input type="zoom" class="form-control formatacaoCRM" id="CONTACONTABILSPED" name="CONTACONTABILSPED"
+                                                    data-zoom="{
+                                                        'displayKey':'CONTASPED',
+                                                        'datasetId':'DsCRMContaSped',
+                                                        'fields':[
+                                                            {
+                                                                'field':'CONTASPED',
+                                                                'label':'Conta Contábil Sped',
+                                                                'standard':'true',
+                                                                'search':'true'
+                                                            }
+                                                        ]
+                                                    }"
+                                                    >
+                                                    <input type="hidden" class="form-group" id="VALOR_SPED" name="VALOR_SPED">
+                                                </div>
+                                                <div >
+                                                    <div class="form-group col-md-12">
+                                                        <label class="info" id="CODIGOCEST">CEST</label>
+                                                        <input type="text" class="form-control formatacaoCRM" id="CEST" name="CEST">
+                                                        <!--  <input type="hidden" class="form-group" id="VALOR_CEST" name="VALOR_CEST"> -->
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-md-6" id="DIVTRIBUTACAO">
+                                                    <label class="info"><strong>Tipo de Tributação</strong></label>
+                                                    <br>
+                                                    <div class="custom-radio custom-radio-inline  custom-radio-success pt-15">
+                                                        <input type="radio" name="RADIO4" id="RAD4_ICMS" value="ICMS">
+                                                        <label class="info" for="RAD4_ICMS">Tributação do ICMS/IPI</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-radio-inline custom-radio-success pt-15">
+                                                        <input type="radio" name="RADIO4" id="RAD4_ISS" value="ISS" >
+                                                        <label for="RAD4_ISS">Tributação pelo ISS</label>
+                                                    </div>                                            
+                                                    <input type="hidden" class="form-group" id="VALOR_RADIO4" name="VALOR_RADIO4">
+                                                </div>
+                                                <div class="form-group col-md-6 DIVCLASSIFICACAOSERVICO">
+                                                    <label class="info">Classificação do Serviço</label>
+                                                    <input type="text" class="form-control formatacaoCRM" id="CLASSIFICACAOSERVICO" name="CLASSIFICACAOSERVICO">
+                                                </div>
+                                            </div>
+    
+                                            <!-- RADIO PARA APROVAÃ‡ÃƒO DO CADASTRO -->
+                                            <div class="row">        
+                                                <div class="form-group col-md-12">
+                                                    <label class="info"><strong>Edição aprovada?</strong></label>
+                                                    <br>
+                                                    <div class="custom-radio custom-radio-inline custom-radio-primary pt-15">
+                                                        <input type="radio" name="RADIO3" id="RAD3_SIM" value="SIM" onclick="aprov()">
+                                                        <label class="info" for="RAD3_SIM">Sim</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-radio-inline custom-radio-primary pt-15">
+                                                        <input type="radio" name="RADIO3" id="RAD3_NAO" value="NAO" onclick="aprov()">
+                                                        <label for="RAD3_NAO">Não</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-radio-inline custom-radio-primary pt-15">
+                                                        <input type="radio" name="RADIO3" id="RAD3_ALTERAR" value="ALTERAR" onclick="aprov()">
+                                                        <label for="RAD3_ALTERAR">Alterar</label>
+                                                    </div>
+                                                    <input type="hidden" class="form-group" id="VALOR_RADIO3" name="VALOR_RADIO3">
+                                                </div>                                            
+                                            </div>        
+                                            <div class="row">        
+                                                <div class="form-group col-md-12 pt-15 MOTIVOAPR">
+                                                    <label class="info">Motivo</label>
+                                                    <textarea type="text" rows="3" class="form-control" name="MOTIVOAPR" id="MOTIVOAPR"></textarea>
+                                                </div>    
+                                            </div> 
+                                        </div>    
+                                    </div>    
+                                        
+                                   
+									
+
+                                    <!-- ABA DOS DADOS DO CADASTRO -->
+                                   
+                                    <div class="tab-pane form-group col-md-12 pt-15" id="CADASTRO_BLANK">
+                                        <div class="row">
+
+                                            <div class="form-group col-md-12">
+                                                <label class="info">Código Produto</label>
+                                                <input type="text" class="form-control formatacaoCRM" id="C_CODIGOPRD" name="C_CODIGOPRD" readonly>
+                                                <input type="hidden" class="form-group" id="ID_PRD" name="ID_PRD">
+                                                <input type="hidden" class="form-group" id="NOVO_IDPRD" name="NOVO_IDPRD">
+                                                <input type="hidden" class="form-group" id="TEMPEDIDO" name="TEMPEDIDO"> 
+                                            </div>                                         
+                                        </div>        
+                                        <div class="row">        
+                                            <div class="form-group col-md-4">
+                                                <label class="info">Tipo</label>
+                                                <select name="C_TIPO" id="C_TIPO" class="form-control formatacaoCRM" readonly>
+                                                    <option value=""></option>
+                                                    <option value="PRODUTO">Produto</option>
+                                                    <option value="SERVICO">Serviço</option>
+                                                </select>
+                                                <input type="hidden" class="form-group" id="C_VALORTIPO" name="C_VALORTIPO"> 
+                                            </div>        
+                                            <div class="form-group col-md-8">
+                                                <label class="info">Nome</label>
+                                                <input type="text" class="form-control formatacaoCRM" id="C_NOME" name="C_NOME" readonly>                                           
+                                            </div>        
+                                        </div>        
+                                        <div class="row">        
+                                            <div class="form-group col-md-12">
+                                                <label class="info">Descrição</label>
+                                                <textarea class="form-control formatacaoCRM" name="C_DESCRICAO" id="C_DESCRICAO" readonly rows="4"></textarea>                                             
+                                            </div>        
+                                        </div>                                        
+                                        <div class="row">        
+                                            <div class="form-group col-md-6">
+                                                <label class="info">Classificação Fiscal</label>                                               
+                                                <input type="text" class="form-control formatacaoCRM" id="C_CLASSIFICACAO_FISCAL" name="C_CLASSIFICACAO_FISCAL" readonly>                                              
+                                            </div>                                        
+                                            <div class="form-group col-md-6">
+                                                <div class="form-group col-md-6" id="CONTROLE_LOTE">
+                                                    <label class="info" for="CONTROLE_LOTE">Controle por lote</label>
+                                                    <br>
+                                                    <div class="custom-radio custom-radio-inline  custom-radio-success pt-15">
+                                                        <input type="radio" name="C_RADIO1" id="C_RAD1_SIM" value="SIM">
+                                                        <label class="info" for="C_RAD1_SIM">Sim</label>
+                                                    </div>
+                                                    <div class="custom-radio custom-radio-inline custom-radio-danger pt-15">
+                                                        <input type="radio" name="C_RADIO1" id="C_RAD1_NAO" value="NAO" checked>
+                                                        <label class="info" for="C_RAD1_NAO">Não</label>
+                                                    </div>
+                                                    <input type="hidden" class="form-group" id="C_VALOR_RADIO1" name="C_VALOR_RADIO1">                                                
+                                                    <!--  <input class="switch-input" type="checkbox" value="true" data-on-text="SIM" data-on-color="success" data-off-color="danger" data-off-text="NÃƒÂƒO" name="switchControleLote" id="switchControleLote" "/> --> 
+                                                </div>  
+                                            </div>
+                                        </div>
+                                        <div class="row">        
+                                            <div class="form-group col-md-6">
+                                                <label class="info">NCM</label>
+                                                <input type="text" class="form-control formatacaoCRM" id="C_NCM" name="C_NCM" readonly>                                                    
+                                            </div>        
+                                            <div class="form-group col-md-6">
+                                                <label class="info">CEST</label>
+                                                <input type="text" class="form-control formatacaoCRM" id="C_CEST" name="C_CEST" readonly>                                               
+                                            </div> 
+                                        </div>
+                                        <div class="row">        
+                                            <div class="form-group col-md-6">
+                                                <label class="info">Classificação Contábil</label>
+                                                <input type="text" class="form-control formatacaoCRM" id="C_CLASSIFICACAO_CONTABIL" name="C_CLASSIFICACAO_CONTABIL" readonly>                                                
+                                                <input type="hidden" class="form-group" id="C_CLASSIFICACAO_CONTABIL_H" name="C_CLASSIFICACAO_CONTABIL_H">
+                                                <input type="hidden" class="form-group" id="C_SITUACAOMERCADORIA" name="C_SITUACAOMERCADORIA">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label class="info">Unidade de Medida</label>
+                                                <input type="text" class="form-control formatacaoCRM" id="C_UNIDADEMEDIDA" name="C_UNIDADEMEDIDA" readonly>                                             
+                                            </div> 
+                
+                                        </div>
+                                    </div> 
+                                </div>   
+                                    
+                            </div>
+                                    
+                        </div>
+
+                    </div>
+
+                </div>               
+
+            </form>
+            <script src="js/documentReady.js"></script>
+            <script src="js/beforeSendValidate.js"></script>
+            <script src="js/utils.js"></script>
+            <script src="js/SelectedZoom.js"></script>
+           
+        </div>
+
+    </body>
+
+    <script>
+    
+        FLUIGC.switcher.init('#switchControleLote')
+        FLUIGC.switcher.init('#C_switchControleLote')
+		
+    </script>
+
+</html>

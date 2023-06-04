@@ -1,0 +1,371 @@
+<html>
+
+    <head>
+
+        <!-- BIBLIOTECA PADRÕES DO FLUIG -->
+        <link type="text/css" rel="stylesheet" href="/portal/resources/style-guide/css/fluig-style-guide.min.css"/>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+        <script type="text/javascript" src="/portal/resources/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="/webdesk/vcXMLRPC.js"></script>
+       
+        <!-- BIBLIOTECAS SWEET ALERT -->
+        <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+        <!-- CSS DO FORMULÁRIO -->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    </head>
+    
+    <body>
+
+        <!-- INÍCIO DA CUSTOMIZAÇÃO DO STYLE GUIDE -->
+        <div class="fluig-style-guide">
+
+            <!-- TAG PARA CRIAR O FORMULÁRIO -->
+            <form name="form" role="form">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES DAS SOLICITAÇÕES DO PROCESSO -->
+                <input id="ATIVIDADE" name="ATIVIDADE" type="hidden">
+                <input id="NUMPROCESSO" name="NUMPROCESSO" type="hidden">
+                <input id="SOLICITANTE" name="SOLICITANTE" type="hidden">
+                <input id="USUARIOATUAL" name="USUARIOATUAL" type="hidden">
+
+                <!-- CAMPOS OCULTOS PARA INFORMAÇÕES OCULTOS DOS EXCLUSIVOS DO WORKFLOW -->
+                <input id="EXCLUSIVO1" name="EXCLUSIVO1" type="hidden">
+                <input id="DATADE_PROG" name="DATADE_PROG" type="hidden">
+                <input id="DATAATE_PROG" name="DATAATE_PROG" type="hidden">
+                <input id="DATADE_ALOC" name="DATADE_ALOC" type="hidden">
+                <input id="DATAATE_ALOC" name="DATAATE_ALOC" type="hidden">
+                <input id="SEQATUAL" name="SEQATUAL" type="hidden">
+                <input id="HABILIDADEATUAL" name="HABILIDADEATUAL" type="hidden">
+
+                <!-- TAG PARA DELIMITAR O PAINEL DO FORMULÁRIO -->
+                <div class="form-group col-md-12">
+
+                    <!-- TAG PARA CENTRALIZAR O FORMULÁRIO -->
+                    <div class="container col-md-12">
+
+                        <!-- INÍCIO DO CONTEÚDO DO PAINEL -->
+                        <div class="panel panel-default" id="PANEL1">
+
+                            <!-- CORPO DO FORMULÁRIO -->
+                            <div class="panel-body">
+
+                                <div class="text-center">
+                                    <span class="titulo text-center TITULO"><h4><strong>G E R A Ç Ã O &nbsp;&nbsp; D E &nbsp;&nbsp; R A &nbsp;&nbsp; - &nbsp;&nbsp; P A &nbsp;&nbsp;E &nbsp;&nbsp;P C</strong></h4></span>
+                                </div>
+
+                                <div class="row expansor1 form-group col-md-12">
+                                    <label class="infoVermelho">
+                                        <span id="ICONEXPANDIR" name="ICONEXPANDIR" onclick="expandir(this);" style="margin-left: 4px;">
+                                            <i class="fluigicon fluigicon-plus-circle icon-sm"></i>
+                                        </span>
+    
+                                        <span id="ICONREDUZIR" name="ICONREDUZIR" onclick="reduzir(this);" style="margin-left: 4px; display: auto;">	
+                                            <i class="fluigicon fluigicon-minus-circle icon-sm"></i>
+                                        </span>
+                                        <strong>&nbsp;Filtros</strong>
+                                    </label>
+                                </div>
+                               
+                                <div class="row filtros pb-30">
+                                    
+                                    <div class="form-group col-md-12">
+
+                                        <div class="form-group col-md-2">
+                                            <label class="info" for="only-date">Data</label>
+                                            <div class="input-group date" id="PERIODO1">
+                                                <input type="text" class="form-control" id="DATA_ATUAL" name="DATA_ATUAL" readonly mask="99/99/9999"/>
+                                                <span class="input-group-addon" id="SPANDE" name="SPANDE">
+                                                    <span class="fluigicon fluigicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-1">
+                                            <label class="info">Filial *</label>
+                                            <input type="zoom" class="form-control formatacaoCRM" id="FILIAL" name="FILIAL"
+                                                data-zoom="{
+                                                    'displayKey':'CODFILIAL',
+                                                    'datasetId':'dsFilial',
+                                                    'fields':[
+                                                        {
+                                                            'field':'FILIAL',
+                                                            'label':'Cód. - Nome',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        }   
+                                                    ]
+                                                }"
+                                            >
+                                            <input type="hidden" id="CODFILIAL_FILTRO" name="CODFILIAL_FILTRO">
+                                            <input type="hidden" id="CODCOLIGADA_FILTRO" name="CODCOLIGADA_FILTRO">
+                                        </div>
+
+                                        <div class="form-group col-md-2">
+                                            
+                                            <label class="info">N° Plano *</label>
+                                            <input type="zoom" class="form-control formatacaoCRM" id="PLANOCORTE" name="PLANOCORTE"
+                                                data-zoom="{
+                                                    'displayKey':'NUMPLANOCORTE',
+                                                    'datasetId':'dsPlanoCorteFilial',
+                                                    'fields':[
+                                                        {
+                                                            'field':'NUMPLANOCORTE',
+                                                            'label':'N° do Plano de Corte',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        }   
+                                                    ]
+                                                }"
+                                            >
+                                            <input type="hidden" id="NUMPLANO" name="NUMPLANO">
+
+                                        </div>
+
+                                        <div class="form-group col-md-2" style="width:15%;">
+                                            <label class="info">Lote (CR)</label>
+                                            <input type="text" class="form-control" readonly id="NUMLOTE" name="NUMLOTE">
+                                            <input type="hidden" class="form-control" readonly id="IDLOTE" name="IDLOTE">
+                                        </div>
+
+                                        <div class="form-group col-md-1 BUSCAR pt-25">
+                                            <button type="button" class="btn btn-primary" onclick="buscar();" id="BUSCAR" name="BUSCAR">Buscar</button>
+                                        </div> 
+
+
+                                        <!-- <div class="form-group col-md-5">
+                                            <label class="info">OS *</label>
+                                            <input type="zoom" class="form-control formatacaoCRM" id="PROJETO" name="PROJETO"
+                                                data-zoom="{
+                                                    'displayKey':'CODPRJ',
+                                                    'datasetId':'dsOSEstrutura',
+                                                    'fields':[
+                                                        {
+                                                            'field':'OS',
+                                                            'label':'Cód. - Descrição',
+                                                            'standard':'true',
+                                                            'search':'true'
+                                                        }   
+                                                    ]
+                                                }"
+                                            >
+                                            <input type="hidden" id="CODPRJ" name="CODPRJ">
+                                            <input type="hidden" id="DESCRICAOPRJ" name="DESCRICAOPRJ">
+                                            <input type="hidden" id="IDPRJ" name="IDPRJ">
+                                        </div> -->
+                                        
+                                    </div>
+
+                                    <!-- <div class="row form-group col-md-12 pb-15">
+    
+                                        
+                                    </div> -->
+    
+                                    <div class="row form-group col-md-12 pb-15">
+                                        
+                                        <div class="form-group col-md-12">
+
+                                            <span><strong>(*) Campos de preenchimento obrigatório</strong></span>
+
+                                        </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="row form-group col-md-12 pb-30 TABELAS">
+
+                                    <div class="text-center tituloTabela titulo pb-15">
+                                        <h4><strong>Info. Plano</strong></h4>
+                                    </div>
+
+                                    <div class="table-responsive ScrollWrapper scrollPrincipal COMPONENTES">
+    
+                                        <div style="width:100%">
+                                                                                                        
+                                            <table id="PAPC" tablename="PAPC" class="table table-sm table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                        
+                                                <thead>
+
+                                                    <tr>
+                                                        
+                                                        <th style="width:20%;white-space: normal" class="form-group top"><label class="info"><strong>OS</strong></label></th>
+                                                        <th style="width:15%;white-space: normal" class="form-group top"><label class="info"><strong>OP</strong></label></th>
+                                                        <th style="width:20%;white-space: normal" class="form-group top"><label class="info"><strong>Desenho</strong></label></th>
+                                                        <th style="width:10%;white-space: normal" class="form-group top"><label class="info"><strong>Id. Atv.</strong></label></th>
+                                                        <th style="width:15%;white-space: normal" class="form-group top"><label class="info"><strong>Atividade</strong></label></th>
+                                                        <th style="width:10%;white-space: normal" class="form-group top"><label class="info"><strong>Cód. Atv</strong></label></th>
+                                                        <th style="width:10%;white-space: normal" class="form-group top"><label class="info"><strong>Qtd</strong></label></th>
+                                                        
+                                                    </tr>
+                                    
+                                                </thead>
+                                        
+                                                <tbody>
+                                        
+                                                    <tr class="LINHA" id="LINHA" name="LINHA">
+
+                                                        <td>
+                                                            <input type="text" class="form-control input_table" id="OSTABELA" name="OSTABELA" readonly title="" onmouseover="mouse(this);">
+                                                            
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" class="form-control input_table" id="OPTABELA" name="OPTABELA" readonly title="" onmouseover="mouse(this);">
+                                                            
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" class="form-control input_table" id="DESENHOTABELA" name="DESENHOTABELA" readonly title="" onmouseover="mouse(this);">
+                                                            
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <input type="text" class="form-control input_table" id="IDATVTABELA" name="IDATVTABELA" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+                                        
+                                                        <td>
+                                                            <input type="text" class="form-control input_table" id="ATIVIDADETABELA" name="ATIVIDADETABELA" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" class="form-control input_table" id="CODATIVIDADETABELA" name="CODATIVIDADETABELA" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+
+                                                        <td>
+                                                            <input type="text" class="form-control input_table" id="QTDTABELA" name="QTDTABELA" readonly title="" onmouseover="mouse(this);">
+                                                        </td>
+                                        
+                                                    </tr>
+                                        
+                                                </tbody>
+                                        
+                                            </table>
+                                        
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group col-md-6">
+                                        <div class="row form-group col-md-6">
+                                            <label class="info row col-md-12">Qtde MP a ser requisitada</label>
+                                            <input type="text" class="form-group form-control" style="width: 45%;" readonly id="QTDEREQ" name="QTDEREQ">
+                                            <input type="text" class="form-group form-control" style="width: 45%;" readonly id="UNDREQ" name="UNDREQ">
+                                            <label class="info pt-15 row col-md-12">Código do Componente a ser Requisitado</label>
+                                            <input type="text" class="form-group form-control col-md-1" readonly id="COMPONENTEREQ" name="COMPONENTEREQ">
+                                            <input type="text" class="orm-group form-control col-md-2"readonly id="DESCRICAOREQ" name="DESCRICAOREQ">
+                                        </div>
+                                        <input type="hidden" class="form-control" id="OPREQ" name="OPREQ">
+                                        <input type="hidden" class="form-control" id="IDATVREQ" name="IDATVREQ">
+                                        <input type="hidden" class="form-control" id="IDPRDREQ" name="IDPRDREQ">
+                                        <input type="hidden" class="form-control" id="IDPRDORIGEMREQ" name="IDPRDORIGEMREQ">
+                                        <input type="hidden" class="form-control" id="CUSTOMEDIOREQ" name="CUSTOMEDIOREQ">
+                                        <input type="hidden" class="form-control" id="CODLOCREQ" name="CODLOCREQ">
+                                        <input type="hidden" class="form-control" id="IDMOVREQ" name="IDMOVREQ">
+                                        <input type="hidden" class="form-control" id="CODCOLIGADAREQ" name="CODCOLIGADAREQ">
+                                        <input type="hidden" class="form-control" id="CODFILIALREQ" name="CODFILIALREQ">
+                                        <input type="hidden" class="form-control" id="OSREQ" name="OSREQ">
+                                    </div>
+                                
+                                </div>
+
+                                <div class="row form-group col-md-12 pb-30 TABELA_RA">
+
+                                    <div class="text-center tituloTabela titulo pb-15">
+                                        <h4><strong>RA's Geradas</strong></h4>
+                                    </div>
+                                    
+                                    <table tablename="TABELA_RA" class="table table-bordered table-layout-fixed" border="0" nodeletebutton="true" noaddbutton="true">
+                                            
+                                        <thead>
+
+                                            <tr>
+                                                
+                                                <th class="form-group col-md-1"><label class="info"><strong>N° RA</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>N° Ordem</strong></label></th>
+                                                <th class="form-group col-md-2"><label class="info"><strong>Status</strong></label></th>
+                                                <th class="form-group col-md-2"><label class="info"><strong>Cód.</strong></label></th>
+                                                <th class="form-group col-md-2"><label class="info"><strong>Descrição</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Qtde</strong></label></th>
+                                                <th class="form-group col-md-1"><label class="info"><strong>Und</strong></label></th>
+                                                <th class="form-group col-md-2"><label class="info"><strong>C. Custo</strong></label></th>
+                                                
+                                            </tr>
+
+                                        </thead>
+
+                                        <tbody>
+
+                                            <tr>
+
+                                                <td>
+                                                    <input type="text" id="NUMERORA" name="NUMERORA" class="form-control allign input_table" readonly title="" onmouseover="mouse(this);">
+                                                    <input type="hidden" id="IDMOVRA" name="IDMOVRA" class="form-control" readonly title="" onmouseover="mouse(this);">
+                                                    <input type="hidden" id="IDATVORDEMRA" name="IDATVORDEMRA" class="form-control" readonly title="" onmouseover="mouse(this);">
+                                                    <input type="hidden" id="CODCOLIGADARA" name="CODCOLIGADARA" class="form-control" readonly title="" onmouseover="mouse(this);">
+                                                    <input type="hidden" id="CODFILIALRA" name="CODFILIALRA" class="form-control" readonly title="" onmouseover="mouse(this);">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" id="CODORDEMRA" name="CODORDEMRA" class="form-control allign input_table" readonly title="" onmouseover="mouse(this);">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" id="STATUSRA" name="STATUSRA" class="form-control allign input_table" readonly title="" onmouseover="mouse(this);">
+                                                </td>
+                                
+                                                <td>
+                                                    <input type="text" id="CODIGOPRDRA" name="CODIGOPRDRA" class="form-control allign input_table" readonly title="" onmouseover="mouse(this);">
+                                                    <input type="hidden" id="IDPRDRA" name="IDPRDRA" class="form-control" readonly title="" onmouseover="mouse(this);">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" id="DESCRICAORA" name="DESCRICAORA" class="form-control allign input_table" readonly title="" onmouseover="mouse(this);">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" id="QTDERA" name="QTDERA" class="form-control allign input_table" readonly title="" onmouseover="mouse(this);">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" id="UNDRA" name="UNDRA" class="form-control allign input_table" readonly title="" onmouseover="mouse(this);">
+                                                </td>
+
+                                                <td>
+                                                    <input type="text" id="CENTROCUSTORA" name="CENTROCUSTORA" class="form-control allign input_table" readonly title="" onmouseover="mouse(this);">
+                                                </td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </body>
+
+    <script type="text/javascript" src="documentReady.js"></script>
+    <script type="text/javascript" src="beforeSendValidate.js"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="selectZoom.js"></script>
+
+</html>
+
+    
